@@ -37,7 +37,11 @@
         enableBashIntegration = true;
     };
 
-    programs.zen-browser.enable = true;
+    home.sessionVariables = {
+        EDITOR = "nvim";
+        BROWSER = "zen";
+        TERMINAL = "warp-terminal";
+    };
 
     xdg.mimeApps = {
         enable = true;
