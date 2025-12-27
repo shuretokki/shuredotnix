@@ -11,7 +11,7 @@
     aqua = "8ec07c";
     orange = "fe8019";
     gray = "928374";
-    
+
     active_border = "a89984";
     inactive_border = "515151";
   };
