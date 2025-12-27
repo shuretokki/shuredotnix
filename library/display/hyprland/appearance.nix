@@ -91,12 +91,6 @@ in {
         "rgb(${theme.colors.yellow}), 13, , hyprctl dispatch fullscreen 1"
       ];
     };
-
-    overview = {
-      gapsIn = 4;
-      gapsOut = 20;
-      panelHeight = 160;
-    };
   };
 
   misc = {
