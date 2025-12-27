@@ -10,15 +10,15 @@
       package = pkgs.gruvbox-plus-icons;
     };
     cursorTheme = {
-      name = "Bibata-Modern-Ice";
-      package = pkgs.bibata-cursors;
+      name = "macOS-Monterey";
+      package = pkgs.apple-cursor;
       size = 24;
     };
   };
 
   home.pointerCursor = {
-    name = "Bibata-Modern-Ice";
-    package = pkgs.bibata-cursors;
+    name = "macOS-Monterey";
+    package = pkgs.apple-cursor;
     size = 24;
     gtk.enable = true;
     x11.enable = true;
@@ -33,7 +33,7 @@
   dconf.settings = {
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
-      cursor-theme = "Bibata-Modern-Ice";
+      cursor-theme = "macOS-Monterey";
     };
   };
 }
