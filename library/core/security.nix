@@ -17,8 +17,6 @@
   # System-wide environment variables
   # for Fcitx5
   environment.variables = {
-    GTK_IM_MODULE = "fcitx";
-    QT_IM_MODULE = "fcitx";
     XMODIFIERS = "@im=fcitx";
   };
 }
