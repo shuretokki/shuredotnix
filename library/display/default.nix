@@ -21,6 +21,7 @@ in {
         hyprshot
         hyprpaper
         hyprsunset
+        playerctl
         vicinae
         libnotify
         wl-clipboard
