@@ -27,7 +27,11 @@ in {
     ];
 
     home-manager.users.shure = {
-        imports = [ ./waybar.nix ];
+        imports = [ 
+            ./waybar.nix 
+            ./swayosd.nix
+            ./hyprlock.nix
+        ];
         wayland.windowManager.hyprland = {
             enable = true;
 
