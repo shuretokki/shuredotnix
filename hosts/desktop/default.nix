@@ -48,10 +48,10 @@
     };
 
     environment.systemPackages = with pkgs; [
-        (import ../../library/display/sddm-theme.nix { 
-            inherit pkgs; 
+        (import ../../library/display/sddm-theme.nix {
+            inherit pkgs;
             # To use a custom background, copy it into the flake and use a relative path
-            # background = ../../library/display/wp/001.jpg; 
+            # background = ../../library/display/wp/001.jpg;
             background = null;
         })
         libsForQt5.qt5.qtgraphicaleffects
