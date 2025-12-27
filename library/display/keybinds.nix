@@ -93,9 +93,14 @@
         ", XF86MonBrightnessDown, exec, swayosd-client --brightness lower"
 
         # Screenshots (using hyprshot)
-        "${super}, W, exec, hyprshot -m window"
         ", Print, exec, hyprshot -m output"
-        "${super}, Q, exec, hyprshot -m region"
+        "${super} ${shift}, W, exec, hyprshot -m window"
+        "${super} ${shift}, Q, exec, hyprshot -m region"
+
+        "${super}, G, exec, toggle-gaps"
+
+        # Toggle Waybar
+        "${super}, W, exec, pkill -USR1 waybar"
 
         # Lock Screen
         "${super}, L, exec, hyprlock"
