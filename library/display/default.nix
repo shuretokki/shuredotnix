@@ -18,7 +18,7 @@ in {
     };
 
     environment.systemPackages = with pkgs; [
-        swaync
+        swaynotificationcenter
         hyprshot
         hyprpaper
         hyprsunset
