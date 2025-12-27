@@ -2,6 +2,9 @@
 { pkgs, ... }: {
   exec-once = [
     "hyprctl setcursor macOS-Monterey 24"
+    "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
+    "nm-applet --indicator"
+    "fcitx5 -d"
     "${pkgs.vicinae}/bin/vicinae daemon"
     "hyprsunset"
     "swayosd-server"
