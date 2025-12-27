@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   networking.networkmanager.enable = true;
 
-  # Firewall settings (Optional: Open ports for development if needed)
-  # networking.firewall.allowedTCPPorts = [ ... ];
+  # firewall settings for LocalSend
+  networking.firewall.allowedTCPPorts = [ 53317 ];
+  networking.firewall.allowedUDPPorts = [ 53317 ];
 }
