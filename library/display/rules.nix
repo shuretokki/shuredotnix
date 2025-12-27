@@ -1,3 +1,4 @@
+# https://wiki.hypr.land/Configuring/Window-Rules/
 {
   windowrulev2 = [
     "float, class:^(pavucontrol)$"
@@ -29,7 +30,7 @@
     "match:namespace vicinae, blur on"
     "match:namespace vicinae, ignore_alpha 0"
     "match:namespace vicinae, no_anim on"
-    "match:namespace waybar, blur one"
-    "match:namespace waybar, ignorealpha 0.2"
+    "match:namespace waybar, blur on"
+    "match:namespace waybar, ignore_alpha 0.2"
   ];
 }
