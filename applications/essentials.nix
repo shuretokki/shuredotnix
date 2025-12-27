@@ -17,7 +17,6 @@
         ripgrep
         blueman
         wireplumber
-        playerctl
         pamixer
         pavucontrol
         localsend
