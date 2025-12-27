@@ -1,3 +1,4 @@
+# https://wiki.hypr.land/Configuring/Binds/
 { pkgs, ... }:
     let
         super = "SUPER";
