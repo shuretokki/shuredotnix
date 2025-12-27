@@ -50,7 +50,9 @@
     environment.systemPackages = with pkgs; [
         (import ../../library/display/sddm-theme.nix { 
             inherit pkgs; 
-            background = "/home/${vars.username}/shure-wp/001.jpg";
+            # To use a custom background, copy it into the flake and use a relative path
+            # background = ../../library/display/wp/001.jpg; 
+            background = null;
         })
         libsForQt5.qt5.qtgraphicaleffects
         libsForQt5.qt5.qtquickcontrols2
