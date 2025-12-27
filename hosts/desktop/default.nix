@@ -58,9 +58,19 @@
         libsForQt5.qt5.qtquickcontrols2
         libsForQt5.qt5.qtsvg
         libsForQt5.qt5.qtmultimedia
+        apple-cursor
     ];
 
     programs.dconf.enable = true;
+
+    services.gvfs.enable = true; # trash & disk mounting
+    services.udisks2.enable = true; # disk management
+
+    xdg.portal = {
+        enable = true;
+        extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+        config.common.default = "*";
+    };
 
 	services.earlyoom.enable=true;
 	services.earlyoom.freeMemThreshold=5;
