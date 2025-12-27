@@ -1,9 +1,9 @@
 { vars, ... }: {
   programs.git = {
     enable = true;
-    settings.user.name = vars.gitname;
-    settings.user.email = vars.email;
-    extraConfig = {
+    settings = {
+      user.name = vars.gitname;
+      user.email = vars.email;
       init.defaultBranch = "master";
     };
   };
