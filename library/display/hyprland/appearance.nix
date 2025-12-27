@@ -1,5 +1,4 @@
 # https://wiki.hypr.land/Configuring/Variables/
-# https://wiki.hypr.land/Configuring/Animations/
 let
   theme = import ../themes/current.nix;
 in {
@@ -37,6 +36,7 @@ in {
     # single_window_aspect_ratio = "1 1"; # Uncomment if needed
   };
 
+  # https://wiki.hypr.land/Configuring/Animations/
   animations = {
     enabled = true;
 
