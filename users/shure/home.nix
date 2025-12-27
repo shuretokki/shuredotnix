@@ -19,6 +19,9 @@
             rebuild = "sudo nixos-rebuild switch --flake ~/shure-nh";
             eza = "eza --icons";
         };
+        bashrcExtra = ''
+            eval "$(zoxide init bash)"
+        '';
         profileExtra = ''
             if [ -z "$WAYLAND_DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
                 exec uwsm start hyprland-uwsm.desktop
