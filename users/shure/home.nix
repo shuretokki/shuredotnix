@@ -13,17 +13,6 @@
     home.homeDirectory = "/home/shure";
     home.stateVersion = "25.11";
 
-    home.pointerCursor = {
-        gtk.enable = true;
-        package = pkgs.bibata-cursors;
-        name = "Bibata-Modern-Ice";
-        size = 24;
-    };
-
-    home.packages = with pkgs; [
-        bibata-cursors
-    ];
-
     programs.bash = {
         enable = true;
         shellAliases = {
