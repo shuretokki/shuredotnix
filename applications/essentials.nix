@@ -29,5 +29,6 @@
         wtype
         easyeffects
         networkmanagerapplet
+        fcitx5-configtool
     ];
 }
