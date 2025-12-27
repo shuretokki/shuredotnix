@@ -1,9 +1,10 @@
 { config, pkgs, inputs, ... }: {
     imports = [
-        ./wallpaper.nix
         inputs.zen-browser.homeModules.beta
-        # or inputs.zen-browser.homeModules.twilight
-        # or inputs.zen-browser.homeModules.twilight-official
+        ./modules/vicinae.nix
+        ./modules/git.nix
+        ./modules/vscode.nix
+        ./modules/theming.nix
     ];
 
     home.username = "shure";
@@ -32,84 +33,6 @@
                 exec uwsm start hyprland-uwsm.desktop
             fi
         '';
-    };
-
-    services.vicinae = {
-        enable = true;
-
-        systemd = {
-            enable = true;
-            environment = {
-                USE_LAYER_SHELL = 1;
-            };
-        };
-
-        settings = {
-            close_on_focus_loss = true;
-            consider_preedit = true;
-            pop_to_root_on_close = true;
-            favicon_service = "twenty";
-            search_files_in_root = true;
-
-            font = {
-                normal = {
-                size = 10.5;
-                normal = "SF Pro Rounded";
-                };
-            };
-
-            theme = {
-                light = {
-                name = "gruvbox-light";
-                icon_theme = "default";
-                };
-                dark = {
-                name = "gruvbox-dark";
-                icon_theme = "default";
-                };
-            };
-
-            launcher_window = {
-                opacity = 0.88;
-            };
-        };
-    };
-
-    programs.git = {
-        enable = true;
-        extraConfig = {
-            user.name = "Tri R. Utomo";
-            user.email = "tri.r.utomo@gmail.com";
-        };
-    };
-
-    programs.vscode = {
-        enable = true;
-        mutableExtensionsDir = true;
-    };
-
-    gtk = {
-        enable = true;
-        theme = {
-            name = "Gruvbox-Dark";
-            package = pkgs.gruvbox-gtk-theme;
-        };
-        iconTheme = {
-            name = "Gruvbox-Plus-Dark";
-            package = pkgs.gruvbox-plus-icons;
-        };
-    };
-
-    qt = {
-        enable = true;
-        platformTheme.name = "gtk";
-        style.name = "adwaita-dark";
-    };
-
-    dconf.settings = {
-        "org/gnome/desktop/interface" = {
-            color-scheme = "prefer-dark";
-        };
     };
 
     programs.zen-browser.enable = true;
