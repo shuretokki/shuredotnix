@@ -14,8 +14,8 @@
   programs.direnv.nix-direnv.enable = true;
 
   environment.variables = {
-    EDITOR = "nano";
-    VISUAL = "nano";
+    EDITOR = "code --wait";
+    VISUAL = "code --wait";
   };
 
   programs.bash.shellAliases = {

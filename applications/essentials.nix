@@ -26,5 +26,8 @@
         fd
         unzip
         zip
+        wtype
+        easyeffects
+        networkmanagerapplet
     ];
 }
