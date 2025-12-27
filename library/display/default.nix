@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, vars, ... }:
 let
   hyprland-config = import ./hyprland { inherit pkgs; };
 in {
@@ -21,7 +21,7 @@ in {
     wl-clipboard
   ] ++ hyprland-config.scripts;
 
-  home-manager.users.shure = {
+  home-manager.users.${vars.username} = {
     imports = [
       ./wp
       ./waybar
