@@ -41,6 +41,22 @@
     networking.hostName = vars.hostname;
     console.keyMap = "us";
 
+    services.displayManager.sddm = {
+        enable = true;
+        wayland.enable = true;
+        theme = "SilentSDDM";
+    };
+
+    environment.systemPackages = with pkgs; [
+        (import ../../library/display/sddm-theme.nix { 
+            inherit pkgs; 
+            background = "/home/${vars.username}/shure-wp/001.jpg";
+        })
+        libsForQt5.qt5.qtgraphicaleffects
+        libsForQt5.qt5.qtquickcontrols2
+        libsForQt5.qt5.qtsvg
+    ];
+
     programs.dconf.enable = true;
 
 	services.earlyoom.enable=true;
