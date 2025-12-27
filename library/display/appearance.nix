@@ -1,3 +1,5 @@
+# https://wiki.hypr.land/Configuring/Variables/
+# https://wiki.hypr.land/Configuring/Animations/
 let
   theme = import ./themes/current.nix;
 in {
