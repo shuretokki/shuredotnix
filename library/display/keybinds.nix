@@ -1,16 +1,16 @@
 { pkgs, ... }:
-    let 
+    let
         super = "SUPER";
         alt = "ALT";
         shift = "SHIFT";
         ctrl = "CTRL";
-        
-        terminal = "warp-terminal";       
-        browser = "zen";                 
+
+        terminal = "warp-terminal";
+        browser = "zen";
         fileManager = "${pkgs.nautilus}/bin/nautilus";
 
         launch = class: cmd: "exec, hyprctl clients | grep -i 'class: ${class}' && hyprctl dispatch focuswindow 'class:${class}' || ${cmd}";
-        
+
     in [
         "${super}, RETURN, exec, uwsm app -- ${terminal}"
         "${super}, E, exec, uwsm app -- ${fileManager} --new-window"
@@ -33,7 +33,7 @@
 
         # "Pop Out" (Float + Pin)
         "${alt}, O, togglefloating"
-        "${alt}, O, pin" 
+        "${alt}, O, pin"
 
         # Focus Movement (WASD)
         "${alt}, A, movefocus, l"
@@ -93,11 +93,10 @@
         ", XF86MonBrightnessDown, exec, swayosd-client --brightness lower"
 
         # Screenshots (using hyprshot)
-        "${super}, Print, exec, hyprshot -m window"
+        "${super}, W, exec, hyprshot -m window"
         ", Print, exec, hyprshot -m output"
-        "${shift}, Print, exec, hyprshot -m region"
+        "${super}, Q, exec, hyprshot -m region"
 
         # Lock Screen
         "${super}, L, exec, hyprlock"
-    ]
     ]
