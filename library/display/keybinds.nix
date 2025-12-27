@@ -77,4 +77,27 @@
 
         # Vicinae
         "${alt}, SPACE, exec, vicinae toggle"
+
+        # Media Keys (using playerctl)
+        ", XF86AudioPlay, exec, playerctl play-pause"
+        ", XF86AudioNext, exec, playerctl next"
+        ", XF86AudioPrev, exec, playerctl previous"
+
+        # Volume Keys (using swayosd)
+        ", XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise"
+        ", XF86AudioLowerVolume, exec, swayosd-client --output-volume lower"
+        ", XF86AudioMute, exec, swayosd-client --output-volume mute-toggle"
+
+        # Brightness Keys (using swayosd)
+        ", XF86MonBrightnessUp, exec, swayosd-client --brightness raise"
+        ", XF86MonBrightnessDown, exec, swayosd-client --brightness lower"
+
+        # Screenshots (using hyprshot)
+        "${super}, Print, exec, hyprshot -m window"
+        ", Print, exec, hyprshot -m output"
+        "${shift}, Print, exec, hyprshot -m region"
+
+        # Lock Screen
+        "${super}, L, exec, hyprlock"
+    ]
     ]
