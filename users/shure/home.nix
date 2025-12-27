@@ -38,7 +38,7 @@
     };
 
     home.sessionVariables = {
-        EDITOR = "nvim";
+        EDITOR = "code";
         BROWSER = "zen";
         TERMINAL = "warp-terminal";
     };
