@@ -15,6 +15,7 @@ in {
     hyprshot
     hyprpaper
     hyprsunset
+    hyprpicker
     playerctl
     vicinae
     libnotify
