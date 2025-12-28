@@ -21,6 +21,7 @@
         "${super}, N, exec, uwsm app -- ${terminal} -e nvim"
         "${super}, T, exec, uwsm app -- ${terminal} -e btop"
 
+        # Toggle launcher (vicinae)
         "${alt}, SPACE, exec, ${pkgs.vicinae}/bin/vicinae show"
 
         # Closing Windows
@@ -106,6 +107,7 @@
         "${super} ${shift}, W, exec, hyprshot -m window"
         "${super} ${shift}, Q, exec, hyprshot -m region"
 
+        # Toggle Gaps
         "${super}, G, exec, toggle-gaps"
 
         # Toggle Waybar
