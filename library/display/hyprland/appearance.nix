@@ -9,7 +9,7 @@ in {
     "col.inactive_border" = "rgba(${theme.colors.inactive_border}ee)";
     "col.active_border" = "rgba(${theme.colors.active_border}ee)";
 
-    layout = "master";
+    # layout = "master";
   };
 
   decoration = {
@@ -33,7 +33,7 @@ in {
   };
 
   dwindle = {
-    # single_window_aspect_ratio = "1 1"; # Uncomment if needed
+    single_window_aspect_ratio = "1 1"; # Uncomment if needed
   };
 
   # https://wiki.hypr.land/Configuring/Animations/
@@ -104,7 +104,6 @@ in {
     disable_hyprland_logo = true;
     force_default_wallpaper = 0;
     allow_session_lock_restore = true;
-
     initial_workspace_tracking = false;
   };
 
