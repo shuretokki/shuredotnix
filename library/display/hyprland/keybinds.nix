@@ -50,12 +50,12 @@
         "${alt} ${shift}, S, swapwindow, d"
 
         # Universal Clipboard
-        "${super}, C, exec, sleep 0.05 && wtype -M ctrl c -m ctrl"
-        "${super}, V, exec, sleep 0.05 && wtype -M ctrl v -m ctrl"
-        "${super}, X, exec, sleep 0.05 && wtype -M ctrl x -m ctrl"
-        "${super}, A, exec, sleep 0.05 && wtype -M ctrl a -m ctrl"
-        "${super}, Z, exec, sleep 0.05 && wtype -M ctrl z -m ctrl"
-        "${super} ${shift}, Z, exec, sleep 0.05 && wtype -M ctrl -M shift z -m ctrl -m shift"
+        "${super}, C, exec, ydotool key ctrl+c"
+        "${super}, V, exec, ydotool key ctrl+v"
+        "${super}, X, exec, ydotool key ctrl+x"
+        "${super}, A, exec, ydotool key ctrl+a"
+        "${super}, Z, exec, ydotool key ctrl+z"
+        "${super} ${shift}, Z, exec, ydotool key ctrl+shift+z"
 
         # Resizing (Shift + C/V)
         "${alt} ${shift}, C, resizeactive, -100 0"

@@ -68,6 +68,8 @@
     services.gvfs.enable = true; # trash & disk mounting
     services.udisks2.enable = true; # disk management
 
+    programs.ydotool.enable = true;
+
     xdg.portal = {
         enable = true;
         extraPortals = [ pkgs.xdg-desktop-portal-gtk ];

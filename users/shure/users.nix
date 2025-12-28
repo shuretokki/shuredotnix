@@ -2,7 +2,7 @@
   users.users.${vars.username} = {
     isNormalUser = true; 
     description = vars.username;
-    extraGroups = [ "networkmanager" "wheel" "input" "docker" "video" "audio" ];
+    extraGroups = [ "networkmanager" "wheel" "input" "docker" "video" "audio" "ydotool" ];
     shell = pkgs.bash;
   };
 
