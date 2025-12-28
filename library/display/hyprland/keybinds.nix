@@ -9,6 +9,7 @@
         terminal = "warp-terminal";
         browser = "zen";
         fileManager = "${pkgs.nautilus}/bin/nautilus";
+        musicPlayer = "spotify";
 
         launch = class: cmd: "exec, hyprctl clients | grep -i 'class: ${class}' && hyprctl dispatch focuswindow 'class:${class}' || ${cmd}";
 
@@ -17,7 +18,7 @@
         "${super}, E, exec, uwsm app -- ${fileManager} --new-window"
         "${super}, B, exec, uwsm app -- ${browser}"
 
-        "${super}, M, ${launch "Spotify" "uwsm app -- ${pkgs.spotify}/bin/spotify"}"
+        "${super}, M, ${launch "Spotify" "uwsm app -- ${musicPlayer}"}"
         "${super}, N, exec, uwsm app -- ${terminal} -e nvim"
         "${super}, T, exec, uwsm app -- ${terminal} -e btop"
 
