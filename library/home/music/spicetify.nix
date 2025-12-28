@@ -6,8 +6,8 @@ in {
 
   programs.spicetify = {
     enable = true;
-    theme = spicePkgs.themes.gruvbox;
-    colorScheme = "gold";
+    theme = spicePkgs.themes.sleek;
+    colorScheme = "gruvbox";
 
     enabledExtensions = with spicePkgs.extensions; [
       fullAppDisplay
