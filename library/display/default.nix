@@ -1,6 +1,6 @@
 { config, pkgs, inputs, vars, ... }:
 let
-  hyprland-config = import ./hyprland { inherit pkgs; };
+  hyprland-config = import ./hyprland { inherit pkgs vars; };
 in {
   programs.hyprland = {
     enable = true;
