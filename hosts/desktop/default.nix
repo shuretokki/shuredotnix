@@ -45,11 +45,11 @@
         enable = true;
         wayland.enable = true;
         theme = "SilentSDDM";
-        extraPackages = with pkgs.libsForQt5; [
-            qt5.qtgraphicaleffects
-            qt5.qtquickcontrols2
-            qt5.qtsvg
-            qt5.qtmultimedia
+        extraPackages = with pkgs.kdePackages; [
+            qtmultimedia
+            qtsvg
+            qt5compat
+            qtdeclarative
         ];
     };
 
