@@ -5,6 +5,7 @@
         ../../library/home/vscode.nix
         ../../library/home/theming.nix
         ../../library/home/services.nix
+        ../../library/home/music.nix
         ../../library/home/shell.nix
         ../../library/home/apps.nix
         ../../library/home/variables.nix
