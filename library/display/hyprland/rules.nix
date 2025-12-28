@@ -29,9 +29,9 @@
   ];
 
   layerrule = [
-    "noanim, selection"
-    "noanim, hyprpicker"
-    "noanim, slurp"
+    "match:namespace selection, no_anim on"
+    "match:namespace hyprpickerq, no_anim on"
+    "match:namespace slurp, no_anim on"
     "match:namespace vicinae, blur on"
     "match:namespace vicinae, ignore_alpha 0"
     "match:namespace vicinae, no_anim on"
