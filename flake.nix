@@ -3,8 +3,8 @@
 
     inputs = {
         nixpkgs.url = "nixpkgs/nixos-unstable";
-        vicinae.url = "github:vicinaehq/vicinae";
         hyprland.url = "github:hyprwm/Hyprland";
+        vicinae.url = "github:vicinaehq/vicinae";
 
         hyprland-plugins = {
             url = "github:hyprwm/hyprland-plugins";
@@ -13,6 +13,11 @@
 
         vicinae-extensions = {
             url = "github:vicinaehq/extensions";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
+        spicetify-nix = {
+            url = "github:Gerg-L/spicetify-nix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
@@ -38,7 +43,7 @@
 
     };
 
-    outputs = { self, nixpkgs, home-manager, vicinae, apple-fonts, ... }@inputs: 
+    outputs = { self, nixpkgs, home-manager, vicinae, apple-fonts, ... }@inputs:
     let
         vars = import ./vars.nix;
     in {
