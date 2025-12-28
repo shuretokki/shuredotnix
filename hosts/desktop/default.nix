@@ -45,19 +45,21 @@
         enable = true;
         wayland.enable = true;
         theme = "SilentSDDM";
+        extraPackages = with pkgs.libsForQt5; [
+            qt5.qtgraphicaleffects
+            qt5.qtquickcontrols2
+            qt5.qtsvg
+            qt5.qtmultimedia
+        ];
     };
 
     environment.systemPackages = with pkgs; [
-        (import ../../library/display/sddm-theme.nix {
+        (import ../../library/display/sddm.nix {
             inherit pkgs;
             # To use a custom background, copy it into the flake and use a relative path
             # background = ../../library/display/wp/001.jpg;
             background = null;
         })
-        libsForQt5.qt5.qtgraphicaleffects
-        libsForQt5.qt5.qtquickcontrols2
-        libsForQt5.qt5.qtsvg
-        libsForQt5.qt5.qtmultimedia
         apple-cursor
     ];
 
