@@ -24,9 +24,12 @@
     "idleinhibit fullscreen, class:^(zen)$"
 
     "opacity 1.0 override, class:^(xwayland)$"
+
+    "noanim, class:^(hyprshot)$"
   ];
 
   layerrule = [
+    "noanim, selection"
     "match:namespace vicinae, blur on"
     "match:namespace vicinae, ignore_alpha 0"
     "match:namespace vicinae, no_anim on"
