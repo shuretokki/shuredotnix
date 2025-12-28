@@ -104,8 +104,8 @@
 
         # Screenshots (using hyprshot)
         ", Print, exec, hyprshot -m output"
-        "${super} ${shift}, W, exec, hyprshot -m window"
-        "${super} ${shift}, Q, exec, hyprshot -m region"
+        "${super} ${shift}, W, exec, hyprshot -m window --freeze"
+        "${super} ${shift}, Q, exec, hyprshot -m region --freeze"
 
         # Toggle Gaps
         "${super}, G, exec, toggle-gaps"
