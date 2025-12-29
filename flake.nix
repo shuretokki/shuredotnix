@@ -52,6 +52,11 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        ags = {
+            url = "github:Aylur/ags";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
     };
 
     outputs = { self, nixpkgs, home-manager, vicinae, apple-fonts, ... }@inputs:
