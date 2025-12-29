@@ -19,7 +19,7 @@ in {
         }
       ];
 
-      input-field = [
+      input-field = lib.mkForce [
         {
           monitor = "";
           size = "300, 50";
@@ -39,7 +39,7 @@ in {
         }
       ];
 
-      label = [
+      label = lib.mkForce [
         {
           monitor = "";
           text = "$TIME";
