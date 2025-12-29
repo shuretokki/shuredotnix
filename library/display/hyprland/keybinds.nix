@@ -111,8 +111,11 @@
         # Toggle Gaps
         "${super}, G, exec, toggle-gaps"
 
-        # Toggle Waybar
-        "${super}, W, exec, pkill -USR1 waybar"
+        # Toggle Wallpaper Picker
+        "${super}, W, exec, ags -t wallpaper-picker"
+
+        # Toggle AGS Bar
+        "${super} ${shift}, SPACE, exec, ags -t bar-0"
 
         # Lock Screen
         "${super}, L, exec, hyprlock"
