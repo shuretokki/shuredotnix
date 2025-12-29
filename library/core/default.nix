@@ -9,5 +9,7 @@
     ./input.nix
     ./performance.nix
     ./system.nix
+    ./fonts.nix
+    ./sops.nix
   ];
 }
