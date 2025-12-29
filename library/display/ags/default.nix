@@ -3,8 +3,10 @@
 
   programs.ags = {
     enable = true;
+    package = inputs.ags.packages.${pkgs.system}.default;
     configDir = ../ags;
     extraPackages = with pkgs; [
+      inputs.ags.packages.${stdenv.hostPlatform.system}.io
       inputs.ags.packages.${stdenv.hostPlatform.system}.astal3
       inputs.ags.packages.${stdenv.hostPlatform.system}.hyprland
       inputs.ags.packages.${stdenv.hostPlatform.system}.mpris
