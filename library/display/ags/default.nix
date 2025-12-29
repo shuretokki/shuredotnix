@@ -17,6 +17,7 @@
       gtksourceview
       webkitgtk_6_0
       accountsservice
+      dart-sass
     ];
   };
 }
