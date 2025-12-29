@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
   colors = config.lib.stylix.colors;
 in {
@@ -10,7 +10,7 @@ in {
         hide_cursor = true;
       };
 
-      background = [
+      background = lib.mkForce [
         {
           monitor = "";
           path = "screenshot";
