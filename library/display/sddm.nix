@@ -5,7 +5,7 @@ pkgs.stdenv.mkDerivation {
   src = pkgs.fetchFromGitHub {
     owner = "uiriansan";
     repo = "SilentSDDM";
-    rev = "master";
+    rev = "3705a132db1e101a5ec2aa14b0e28e8ccd78866a";
     hash = "sha256-znjp0gAxt+1wkxp/rqc0NPAnQGikbCAylgWGussZj0I=";
   };
 
