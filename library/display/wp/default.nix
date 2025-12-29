@@ -5,8 +5,8 @@
       ipc = "on";
       splash = false;
 
-      preload = ["/home/${vars.username}/shure-wp/001.jpg"];
-      wallpaper = [",/home/${vars.username}/shure-wp/001.jpg"];
+      preload = ["/home/${vars.username}/${vars.wallpaperDir}/001.jpg"];
+      wallpaper = [",/home/${vars.username}/${vars.wallpaperDir}/001.jpg"];
     };
   };
 }

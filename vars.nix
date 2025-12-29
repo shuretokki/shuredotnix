@@ -11,4 +11,5 @@ in
   musicPlayer = "spotify";
   browser = "zen";
   terminal = "warp-terminal";
+  wallpaperDir = "shure-wp";
 }
