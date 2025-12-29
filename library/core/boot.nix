@@ -12,7 +12,7 @@
             src = pkgs.fetchFromGitHub {
                 owner = "vinceliuice";
                 repo = "Wuthering-grub2-themes";
-                rev = "master";
+                rev = "ed3f8bcd292e7a0684f3c30f20939710d263a321";
                 sha256 = "sha256-q9TLZTZI/giwKu8sCTluxvkBG5tyan7nFOqn4iGLnkA=";
             };
             installPhase = ''
