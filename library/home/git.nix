@@ -8,7 +8,6 @@
         name = lib.mkDefault vars.gitname;
         email = lib.mkDefault vars.email;
       };
-      init.defaultBranch = lib.mkDefault "main";
       push.autoSetupRemote = lib.mkDefault true;
       pull.rebase = lib.mkDefault true;
       credential.helper = "!gh auth git-credential";

@@ -1,7 +1,0 @@
-{
-  "name": "ags-config",
-  "type": "module",
-  "dependencies": {
-    "ags": "latest"
-  }
-}
