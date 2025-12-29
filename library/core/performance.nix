@@ -6,6 +6,8 @@
     priority = 100;
   };
 
+  systemd.services."systemd-zram-setup@zram0".stopIfChanged = false;
+
   boot.kernel.sysctl = {
     "vm.swappiness" = 180;
     "vm.watermark_boost_factor" = 0;
