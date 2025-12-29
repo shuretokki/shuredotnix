@@ -15,7 +15,7 @@ in {
           monitor = "";
           path = "screenshot";
           color = "rgba(${colors.base00}ff)";
-          blur_passes = 3;
+          blur_passes = 1;
         }
       ];
 
