@@ -4,7 +4,7 @@
   programs.ags = {
     enable = true;
     package = inputs.ags.packages.${pkgs.system}.default;
-    configDir = ../ags;
+    configDir = ./.;
     extraPackages = with pkgs; [
       inputs.ags.packages.${stdenv.hostPlatform.system}.io
       inputs.ags.packages.${stdenv.hostPlatform.system}.astal3
