@@ -1,10 +1,12 @@
 import { Astal, Gtk, Gdk } from "ags/gtk3"
+import app from "ags/gtk3/app"
 import Hyprland from "gi://AstalHyprland"
 import Mpris from "gi://AstalMpris"
 import Network from "gi://AstalNetwork"
 import Wp from "gi://AstalWp"
 import Battery from "gi://AstalBattery"
-import { createBinding, createPoll, onCleanup } from "ags"
+import { createBinding, onCleanup } from "ags"
+import { createPoll } from "ags/time"
 import GLib from "gi://GLib"
 
 function Workspaces() {
@@ -47,7 +49,7 @@ function Media() {
                     self.visible = true
                     self.children = [
                         <label
-                            label={createBinding(player, "title", (t) => `${t} - ${player.artist}`)}
+                            label={createBinding(player, "title")((t) => `${t} - ${player.artist}`)}
                             maxWidthChars={30}
                             ellipsize={3}
                         />
@@ -127,6 +129,7 @@ export default function Bar(monitor: number) {
         name={`bar-${monitor}`}
         class="Bar"
         monitor={monitor}
+        application={app}
         anchor={Astal.WindowAnchor.TOP | Astal.WindowAnchor.LEFT | Astal.WindowAnchor.RIGHT}
         exclusivity={Astal.Exclusivity.EXCLUSIVE}>
         <centerbox

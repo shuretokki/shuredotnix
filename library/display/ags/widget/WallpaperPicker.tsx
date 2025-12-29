@@ -1,6 +1,7 @@
 import { Astal, Gtk, Gdk } from "ags/gtk3"
+import app from "ags/gtk3/app"
 import { exec, execAsync } from "ags/process"
-import { createState, createBinding, onCleanup } from "ags"
+import { createState } from "ags"
 import GLib from "gi://GLib"
 
 const WP_DIR = `${GLib.get_home_dir()}/shure-wp`
@@ -27,6 +28,7 @@ export default function WallpaperPicker(monitor: number) {
         name={`wallpaper-picker-${monitor}`}
         class="WallpaperPicker"
         monitor={monitor}
+        application={app}
         visible={false}
         keymode={Astal.Keymode.EXCLUSIVE}
         onKeyPressEvent={(self, event: Gdk.Event) => {
