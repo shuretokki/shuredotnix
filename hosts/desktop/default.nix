@@ -2,19 +2,10 @@
     imports = [
         ./hardware-configuration.nix
 
-        ../../library/core/boot.nix
-        ../../library/core/audio.nix
-        ../../library/core/network.nix
-        ../../library/core/bluetooth.nix
-        ../../library/core/security.nix
-        ../../library/core/performance.nix
-        ../../library/core/system.nix
-
-        ../../library/display/fonts.nix
+        ../../library/core
         ../../library/display/sddm-config.nix
         ../../library/display/default.nix
-
-        ../../applications
+        ../../packages
     ];
 
     environment.systemPackages = with pkgs; [
