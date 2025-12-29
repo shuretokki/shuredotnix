@@ -1,13 +1,8 @@
-let
-  secrets = if builtins.pathExists ./secrets.nix then import ./secrets.nix else {
-    gitname = "Your Name";
-    email = "your.email@example.com";
-  };
-in
 {
   username = "shure";
   hostname = "shure";
-  inherit (secrets) gitname email;
+  gitname = "Tri R. Utomo";
+  email = "tri.r.utomo@gmail.com";
   musicPlayer = "spotify";
   browser = "zen";
   terminal = "warp-terminal";
