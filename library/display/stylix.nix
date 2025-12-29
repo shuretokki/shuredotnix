@@ -33,4 +33,6 @@
       size = lib.mkDefault vars.cursorSize;
     };
   };
+
+  home-manager.users.${vars.username}.stylix.targets.zen-browser.profileNames = [ "default" ];
 }
