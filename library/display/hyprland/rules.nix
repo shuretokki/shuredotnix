@@ -35,7 +35,7 @@
     "match:namespace vicinae, blur on"
     "match:namespace vicinae, ignore_alpha 0"
     "match:namespace vicinae, no_anim on"
-    "match:namespace waybar, blur on"
-    "match:namespace waybar, ignore_alpha 0.2"
+    "match:namespace ags, blur on"
+    "match:namespace ags, ignore_alpha 0.2"
   ];
 }
