@@ -57,27 +57,56 @@
     outputs = { self, nixpkgs, home-manager, vicinae, apple-fonts, ... }@inputs:
     let
         vars = import ./vars.nix;
+
+        mkSystem = { hostname, username, hostConfigDir, userConfigDir, system ? "x86_64-linux" }:
+            let
+                hostConfig = hostConfigDir + "/default.nix";
+                hardwareConfig = hostConfigDir + "/hardware-configuration.nix";
+                userHomeConfig = userConfigDir + "/home.nix";
+                userNixosConfig = userConfigDir + "/nixos.nix";
+            in
+            assert (builtins.isString hostname && hostname != "");
+            assert (builtins.isString username && username != "");
+
+            if ! (builtins.pathExists hostConfig) then builtins.abort "host config not found at ${hostConfig}"
+            else if ! (builtins.pathExists hardwareConfig) then builtins.abort "hardware config not found at ${hardwareConfig}"
+            else if ! (builtins.pathExists userHomeConfig) then builtins.abort "user home config not found at ${userHomeConfig}"
+            else if ! (builtins.pathExists userNixosConfig) then builtins.abort "user nixos config not found at ${userNixosConfig}"
+            else
+            nixpkgs.lib.nixosSystem {
+                inherit system;
+                specialArgs = { inherit inputs; vars = vars // { inherit hostname username; }; };
+                modules = [
+                    hostConfig
+                    userNixosConfig
+                    home-manager.nixosModules.home-manager {
+                        home-manager = {
+                            useGlobalPkgs = true;
+                            useUserPackages = true;
+                            extraSpecialArgs = { inherit inputs; vars = vars // { inherit hostname username; }; };
+                            sharedModules = [ vicinae.homeManagerModules.default ];
+                            users.${username} = import userHomeConfig;
+                            backupFileExtension = "backup";
+                        };
+                    }
+                ];
+            };
     in {
-        nixosConfigurations.default= nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
-            specialArgs = { inherit inputs vars; };
-            modules = [
-                ./hosts/desktop/default.nix
+        nixosConfigurations = {
+            # default configuration
+            default = mkSystem {
+                inherit (vars) hostname username;
+                hostConfigDir = ./hosts/desktop;
+                userConfigDir = ./users/shure;
+            };
 
-                home-manager.nixosModules.home-manager {
-                    home-manager = {
-                        useGlobalPkgs = true;
-                        useUserPackages = true;
-
-                        extraSpecialArgs = { inherit inputs vars; };
-                        sharedModules = [ vicinae.homeManagerModules.default ];
-
-                        users.${vars.username} = import ./users/home.nix;
-                        backupFileExtension = "backup";
-                    };
-                }
-
-            ];
+            # template for new users:
+            # user-pc = mkSystem {
+            #     hostname = "user-pc";
+            #     username = "user";
+            #     hostConfigDir = ./hosts/user-pc;
+            #     userConfigDir = ./users/user;
+            # };
         };
     };
 }
