@@ -7,76 +7,19 @@
         ../../library/core/network.nix
         ../../library/core/bluetooth.nix
         ../../library/core/security.nix
+        ../../library/core/performance.nix
+        ../../library/core/system.nix
 
         ../../library/display/fonts.nix
+        ../../library/display/sddm-config.nix
         ../../library/display/default.nix
 
         ../../applications
     ];
 
-    nix.gc = {
-        automatic = true;
-        dates = "weekly";
-        options = "--delete-older-than 7d";
-    };
-
-    nix.settings = {
-        auto-optimise-store = true;
-
-        substituters = [
-            "https://hyprland.cachix.org"
-            "https://vicinae.cachix.org"
-        ];
-
-        trusted-substituters = ["https://hyprland.cachix.org"];
-
-        trusted-public-keys = [
-            "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-            "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
-        ];
-    };
-
-    networking.hostName = vars.hostname;
-    console.keyMap = "us";
-
-    services.displayManager.sddm = {
-        enable = true;
-        wayland.enable = true;
-        theme = "SilentSDDM";
-        extraPackages = with pkgs.kdePackages; [
-            qtmultimedia
-            qtsvg
-            qt5compat
-            qtdeclarative
-        ];
-    };
-
     environment.systemPackages = with pkgs; [
-        (import ../../library/display/sddm.nix {
-            inherit pkgs;
-            # To use a custom background, copy it into the flake and use a relative path
-            # background = ../../library/display/wp/001.jpg;
-            background = null;
-        })
         apple-cursor
     ];
 
-    programs.dconf.enable = true;
-
-    services.gvfs.enable = true; # trash & disk mounting
-    services.udisks2.enable = true; # disk management
-
-    programs.ydotool.enable = true;
-
-    xdg.portal = {
-        enable = true;
-        extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-        config.common.default = "*";
-    };
-
-	services.earlyoom.enable=true;
-	services.earlyoom.freeMemThreshold=5;
-
-    nix.settings.experimental-features = ["nix-command" "flakes"];
     system.stateVersion = "25.11";
 }
