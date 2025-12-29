@@ -4,7 +4,9 @@
     settings = {
       user.name = vars.gitname;
       user.email = vars.email;
-      init.defaultBranch = "master";
+      extraConfig = {
+        credential.helper = "!gh auth git-credential";
+      };
     };
   };
 }
