@@ -47,7 +47,7 @@ function Workspaces() {
 function Media() {
     const mpris = Mpris.get_default()
 
-    return <box class="Media"
+    return <box class="Media" visible={false}
         $={(self) => {
             const update = () => {
                 const player = mpris.get_players()[0]
@@ -64,12 +64,8 @@ function Media() {
                     self.visible = false
                 }
             }
-            const id1 = mpris.connect("player-added", update)
-            const id2 = mpris.connect("player-removed", update)
-            onCleanup(() => {
-                mpris.disconnect(id1)
-                mpris.disconnect(id2)
-            })
+            const id = mpris.connect("player-added", update)
+            onCleanup(() => mpris.disconnect(id))
             update()
         }}
     />
