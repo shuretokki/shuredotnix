@@ -9,3 +9,4 @@ secrets.nix
 
 .vscode/
 *.swp
+.github/instructions/
