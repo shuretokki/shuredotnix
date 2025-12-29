@@ -1,0 +1,13 @@
+{
+  "name": "ags-config",
+  "version": "1.0.0",
+  "main": "app.ts",
+  "dependencies": {
+    "astal": "latest",
+    "astal-hyprland": "latest",
+    "astal-mpris": "latest",
+    "astal-network": "latest",
+    "astal-wp": "latest",
+    "astal-battery": "latest"
+  }
+}
