@@ -2,7 +2,7 @@
     programs.bash = {
         enable = true;
         shellAliases = {
-            rebuild = "sudo nixos-rebuild switch --flake ~/shure-nh";
+            rebuild = "sudo nixos-rebuild switch --flake .";
             optimise = "sudo nix-store --optimise";
             eza = "eza --icons";
         };
