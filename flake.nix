@@ -92,6 +92,11 @@
             desktop = libs.mkHost {
                 hostname = "desktop";
                 username = "shure";
+                # override globals from vars.nix
+                hostVars = {
+                    timezone = "Asia/Jakarta";
+                    locale = "en_US.UTF-8";
+                };
             };
         };
     };
