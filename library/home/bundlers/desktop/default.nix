@@ -7,5 +7,6 @@
     ./files.nix
     ./services.nix
     ./mime.nix
+    ./vicinae.nix
   ];
 }
