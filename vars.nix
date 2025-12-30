@@ -18,7 +18,7 @@
   cursorSize = 24;
 
   # ─── Fonts ──────────────────────────────────────────────────
-  fontMono = "JetBrains Mono";
+  fontMono = "JetBrainsMono Nerd Font";
   fontSans = "SF Pro Rounded";
   fontSize = 12;
 
