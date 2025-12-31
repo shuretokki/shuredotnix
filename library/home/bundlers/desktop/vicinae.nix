@@ -37,10 +37,10 @@
       };
       extensions = {
         awww-switcher = {
-          wallpaper_path = "${config.home.homeDirectory}/${vars.wallpaperDir}";
-          grid_rows = 4;
-          transition_type = "random";
-          transition_duration = 1;
+          wallpaperPath = "${config.home.homeDirectory}/${vars.wallpaperDir}";
+          gridRows = "4";
+          transitionType = "random";
+          transitionDuration = "1";
         };
         pulseaudio = {
           show_volume = true;
