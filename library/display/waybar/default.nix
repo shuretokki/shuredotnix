@@ -1,6 +1,14 @@
 { config, pkgs, vars, ... }:
 let
   colors = config.lib.stylix.colors;
+  themeDir = ../themes + "/${vars.theme}";
+  themeWaybar = if builtins.pathExists (themeDir + "/waybar.nix")
+                then import (themeDir + "/waybar.nix") { inherit colors; }
+                else {};
+
+  borderRadius = themeWaybar.borderRadius or "0px";
+  barHeight = themeWaybar.barHeight or 26;
+  moduleSpacing = themeWaybar.moduleSpacing or 0;
 in {
   programs.waybar = {
     enable = true;
@@ -10,8 +18,8 @@ in {
         "reload_style_on_change" = true;
         "layer" = "top";
         "position" = "top";
-        "spacing" = 0;
-        "height" = 26;
+        "spacing" = moduleSpacing;
+        "height" = barHeight;
         "margin-top" = 4;
         "margin-left" = 0;
         "margin-right" = 0;
@@ -27,22 +35,6 @@ in {
           "persistent-workspaces" = {
             "*" = 5;
           };
-        };
-
-        "custom/omarchy" = {
-          "format" = "<span font='omarchy'>\ue900</span>";
-          "on-click" = "omarchy-menu";
-          "on-click-right" = "${vars.terminal}";
-          "tooltip-format" = "Omarchy Menu\n\nSuper + Alt + Space";
-        };
-
-        "custom/update" = {
-          "format" = "";
-          "exec" = "omarchy-update-available";
-          "on-click" = "omarchy-launch-floating-terminal-with-presentation omarchy-update";
-          "tooltip-format" = "Omarchy update available";
-          "signal" = 7;
-          "interval" = 21600;
         };
 
         "cpu" = {
@@ -108,7 +100,7 @@ in {
     };
     style = ''
       * {
-          font-family: "JetBrainsMono Nerd Font";
+          font-family: "${config.stylix.fonts.monospace.name}";
           font-size: 12px;
           min-height: 0;
       }
@@ -123,13 +115,13 @@ in {
           margin-top: 5px;
           margin-bottom: 5px;
           margin-left: 5px;
-          border-radius: 0px;
+          border-radius: ${borderRadius};
       }
 
       #workspaces button {
           padding: 0px 8px;
           color: #${colors.base05};
-          border-radius: 0px;
+          border-radius: ${borderRadius};
       }
 
       #workspaces button.active {
@@ -149,7 +141,7 @@ in {
       #clock,
       #mpris {
           background-color: #${colors.base00};
-          border-radius: 0px;
+          border-radius: ${borderRadius};
           padding: 0px 4px;
           margin-top: 5px;
           margin-bottom: 5px;
@@ -206,6 +198,9 @@ in {
       #custom-screenrecording-indicator.active {
           color: #${colors.base08};
       }
+
+      /* abillity to override */
+      ${themeWaybar.css or ""}
     '';
   };
 }
