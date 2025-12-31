@@ -11,13 +11,10 @@ in {
     inputs.youtube-music.homeManagerModules.default
   ];
 
-  # ══════════════════════════════════════════════════════════════════════════
-  # YouTube Music (Declarative)
+  # YouTube Music
   # Docs: https://h-banii.github.io/youtube-music-nix/pages/home-manager/
-  # ══════════════════════════════════════════════════════════════════════════
   programs.youtube-music = {
     enable = true;
-    # We use a custom local theme defined below
     options.themes = [ "stylix-custom" ];
 
     # Plugins - Uncomment to enable
