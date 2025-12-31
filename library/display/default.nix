@@ -21,7 +21,14 @@ in {
     vicinae
     libnotify
     wl-clipboard
+
+    # vicinae exts deps
+    imagemagick
+    matugen
+    pulseaudio # pactl
   ] ++ hyprland-config.scripts;
+
+  services.power-profiles-daemon.enable = true;
 
   home-manager.users.${vars.username} = {
     imports = [
