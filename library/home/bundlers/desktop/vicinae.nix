@@ -61,7 +61,7 @@
             # Customization ..
             gridRows = "4";  # 3|4|5|6
             showImageDetails = true;
-            transitionType = "outer";  # none|simple|fade|left|right|top|bottom|wipe|wave|grow|center|any|outer|random
+            transitionType = "none";  # none|simple|fade|left|right|top|bottom|wipe|wave|grow|center|any|outer|random
             transitionDuration = "1";   # 8|5|3|2|1 (seconds)
             transitionStep = "90";      # 1|45|90|120|200|255 (color steps)
             transitionFPS = "60";
@@ -70,6 +70,7 @@
           };
         };
         "@rastsislaux/pulseaudio-0" = {
+          favorite = true;
           preferences = {
             show_volume = true;
           };
