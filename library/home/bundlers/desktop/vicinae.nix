@@ -20,7 +20,6 @@
       process-manager
       fuzzy-files
       nix
-      player-pilot
       ssh
       hypr-keybinds
     ];
