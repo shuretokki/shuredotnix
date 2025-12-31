@@ -38,19 +38,18 @@ in {
 
   home.packages = with pkgs; [
     youtube-music
-    (writeShellScriptBin "spotify-f" ''
-      exec env -u QT_QPA_PLATFORMTHEME spotify --no-zygote "$@"
+    (writeShellScriptBin "spotify-th" ''
+      exec env -u QT_QPA_PLATFORMTHEME ${config.programs.spicetify.spicetifyPackage}/bin/spotify --no-zygote "$@"
     '')
   ];
 
-  xdg.desktopEntries.spotify-f = {
+  xdg.desktopEntries.spotify = {
     name = "Spotify";
     genericName = "Music Player";
-    exec = "spotify-f %U";
+    exec = "spotify-th %U";
     icon = "spotify-client";
     terminal = false;
     categories = [ "Audio" "Music" "Player" "AudioVideo" ];
     mimeType = [ "x-scheme-handler/spotify" ];
   };
 }
-
