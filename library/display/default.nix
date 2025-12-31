@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, vars, ... }:
+{ lib, config, pkgs, inputs, vars, ... }:
 let
   hyprland-config = import ./hyprland { inherit config pkgs vars; };
 in {
