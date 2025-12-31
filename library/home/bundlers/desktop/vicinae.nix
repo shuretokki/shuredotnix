@@ -16,7 +16,6 @@
       power-profile
       wifi-commander
       bluetooth
-      systemd
       process-manager
       fuzzy-files
       nix
@@ -63,7 +62,6 @@
         power-profile = {};
         wifi-commander = {};
         bluetooth = {};
-        systemd = {};
         process-manager = {};
         fuzzy-files = {};
         nix = {};
