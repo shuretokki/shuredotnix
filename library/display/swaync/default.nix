@@ -13,9 +13,12 @@
             notification-body-image-width = 200;
         };
         style = ''
+          .notification-content,
+          .notification,
           .notification-row,
           .control-center {
-            border: none;
+            border: none !important;
+            box-shadow: none !important;
           }
         '';
     };
