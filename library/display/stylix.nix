@@ -39,8 +39,8 @@ in {
 
   # auto-update wallpaper symlink on rebuild
   home.activation.linkWallpapers = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    mkdir -p "${builtins.unsafeDiscardStringContext (toString ~/Wallpapers)}"
-    ln -sfn "${themeDir}/wallpapers" "${builtins.unsafeDiscardStringContext (toString ~/Wallpapers)}/current"
+    mkdir -p "${config.home.homeDirectory}/Wallpapers"
+    ln -sfn "${themeDir}/wallpapers" "${config.home.homeDirectory}/Wallpapers/current"
   '';
 
   home-manager.users.${vars.username}.stylix.targets = {
