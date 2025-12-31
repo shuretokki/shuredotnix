@@ -31,6 +31,23 @@
         # Pulseaudio
         "${super}, U, exec, ${pkgs.vicinae}/bin/vicinae vicinae://extensions/rastsislaux/pulseaudio/pulseaudio"
 
+        # Process Manager
+        "${super}, T, exec, ${pkgs.vicinae}/bin/vicinae vicinae://extensions/leonkohli/process-manager/processes"
+
+        # Nix [ Packages, Options, Home Manager ]
+        "${super} ${shift}, P, exec, ${pkgs.vicinae}/bin/vicinae vicinae://extensions/knoopx/nix/packages"
+        "${super} ${shift}, O, exec, ${pkgs.vicinae}/bin/vicinae vicinae://extensions/knoopx/nix/options"
+        "${super} ${shift}, I, exec, ${pkgs.vicinae}/bin/vicinae vicinae://extensions/knoopx/nix/home-manager"
+
+        # Player Pilot
+        "${super}, Q, exec, ${pkgs.vicinae}/bin/vicinae vicinae://extensions/dagimg-dot/player-pilot/player-pilot"
+
+        # SSH
+        "${super}, Y, exec, ${pkgs.vicinae}/bin/vicinae vicinae://extensions/leiserfg/ssh/ssh"
+
+        # Hypr Keybinds
+        "${super}, K, exec, ${pkgs.vicinae}/bin/vicinae vicinae://extensions/sovereign/hypr-keybinds/hyprland-keybinds"
+
         # Closing Windows
         "${alt} ${ctrl} ${shift}, W, killactive"
 
