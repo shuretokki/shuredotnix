@@ -60,6 +60,14 @@
             transitionDuration = "1";
           };
         };
+        # "@sovereign/store.vicinae.awww-switcher" = {
+        #   preferences = {
+        #     wallpaperPath = "${config.home.homeDirectory}/${vars.wallpaperDir}";
+        #     gridRows = "4";
+        #     transitionType = "random";
+        #     transitionDuration = "1";
+        #   };
+        # };
         "@rastsislaux/pulseaudio-0" = {
           preferences = {
             show_volume = true;
