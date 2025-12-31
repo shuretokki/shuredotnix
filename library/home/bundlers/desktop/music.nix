@@ -1,6 +1,3 @@
-# Music Applications
-# https://github.com/Gerg-L/spicetify-nix
-# https://github.com/h-banii/youtube-music-nix
 { lib, pkgs, config, inputs, ... }:
 let
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
