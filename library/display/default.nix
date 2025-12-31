@@ -26,6 +26,8 @@ in {
     imagemagick
     matugen
     pulseaudio # pactl
+
+    kdePackages.qtwayland
   ] ++ hyprland-config.scripts;
 
   services.power-profiles-daemon.enable = true;
