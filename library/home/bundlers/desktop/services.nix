@@ -7,6 +7,6 @@
 
   home.packages = with pkgs; [
     pavucontrol
-    easyeffects
+    # easyeffects is installed by services.easyeffects
   ];
 }
