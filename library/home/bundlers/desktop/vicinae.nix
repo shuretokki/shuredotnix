@@ -49,9 +49,8 @@ in {
     settings = {};
   };
 
-  home.file.".config/vicinae/settings.json" = {
+  xdg.configFile."vicinae/settings.json" = lib.mkForce {
     text = settingsJson;
-    force = true;
   };
 
   home.packages = with pkgs; [ sqlite ];
