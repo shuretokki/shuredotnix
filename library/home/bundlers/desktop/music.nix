@@ -36,6 +36,21 @@ in {
     ];
   };
 
-  home.packages = with pkgs; [ youtube-music ];
+  home.packages = with pkgs; [
+    youtube-music
+    (writeShellScriptBin "spotify-f" ''
+      exec env -u QT_QPA_PLATFORMTHEME spotify --no-zygote "$@"
+    '')
+  ];
+
+  xdg.desktopEntries.spotify-f = {
+    name = "Spotify";
+    genericName = "Music Player";
+    exec = "spotify-f %U";
+    icon = "spotify-client";
+    terminal = false;
+    categories = [ "Audio" "Music" "Player" "AudioVideo" ];
+    mimeType = [ "x-scheme-handler/spotify" ];
+  };
 }
 
