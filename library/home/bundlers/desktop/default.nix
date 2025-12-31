@@ -8,5 +8,6 @@
     ./services.nix
     ./mime.nix
     ./vicinae.nix
+    ./discord.nix
   ];
 }
