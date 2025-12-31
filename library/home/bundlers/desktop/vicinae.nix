@@ -36,24 +36,24 @@
         opacity = 0.88;
       };
       extensions = {
-        awww-switcher = {
+        "store.vicinae.awww-switcher" = {
           wallpaperPath = "${config.home.homeDirectory}/${vars.wallpaperDir}";
           gridRows = "4";
           transitionType = "random";
           transitionDuration = "1";
         };
-        pulseaudio = {
+        "store.vicinae.pulseaudio" = {
           show_volume = true;
         };
-        power-profile = {};
-        wifi-commander = {};
-        bluetooth = {};
-        process-manager = {};
-        fuzzy-files = {};
-        nix = {};
-        player-pilot = {};
-        ssh = {};
-        hypr-keybinds = {};
+        "store.vicinae.power-profile" = {};
+        "store.vicinae.wifi-commander" = {};
+        "store.vicinae.bluetooth" = {};
+        "store.vicinae.process-manager" = {};
+        "store.vicinae.fuzzy-files" = {};
+        "store.vicinae.nix" = {};
+        "store.vicinae.player-pilot" = {};
+        "store.vicinae.ssh" = {};
+        "store.vicinae.hypr-keybinds" = {};
       };
     };
   };
