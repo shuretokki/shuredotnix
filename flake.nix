@@ -59,6 +59,16 @@
             inputs.home-manager.follows = "home-manager";
         };
 
+        nixcord = {
+            url = "github:kaylorben/nixcord";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
+        youtube-music = {
+            url = "github:h-banii/youtube-music-nix";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
         nixos-hardware.url = "github:NixOS/nixos-hardware";
 
         antigravity = {
