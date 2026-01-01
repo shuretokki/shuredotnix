@@ -2,6 +2,50 @@
 let
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
   colors = config.lib.stylix.colors.withHashtag;
+
+  ytmTheme = pkgs.writeText "stylix-ytm.css" ''
+    :root {
+      --ytmusic-background: ${colors.base00};
+      --ytmusic-background-solid: ${colors.base00};
+      --ytmusic-nav-bar: ${colors.base01};
+      --ytmusic-player-bar-background: ${colors.base01};
+      --ytmusic-color-black1: ${colors.base00};
+      --ytmusic-color-black2: ${colors.base01};
+      --ytmusic-color-black3: ${colors.base02};
+      --ytmusic-color-black4: ${colors.base03};
+      --ytmusic-text-primary: ${colors.base05};
+      --ytmusic-text-secondary: ${colors.base04};
+      --ytmusic-text-disabled: ${colors.base03};
+      --ytmusic-color-white1: ${colors.base05};
+      --ytmusic-general-background-a: ${colors.base00};
+      --ytmusic-selected-button-color: ${colors.base0D};
+      --yt-spec-static-overlay-button-primary: ${colors.base0D};
+      --yt-spec-call-to-action: ${colors.base0D};
+      --paper-toggle-button-checked-button-color: ${colors.base0D};
+      --paper-toggle-button-checked-bar-color: ${colors.base0C};
+    }
+
+    ytmusic-player-bar {
+      background-color: ${colors.base01} !important;
+    }
+
+    ytmusic-nav-bar {
+      background-color: ${colors.base01} !important;
+    }
+
+    tp-yt-paper-listbox {
+      background-color: ${colors.base01} !important;
+    }
+
+    ytmusic-menu-popup-renderer {
+      background-color: ${colors.base01} !important;
+    }
+
+    img.ytmusic-player-bar,
+    .thumbnail-image-wrapper img {
+      border-radius: 8px !important;
+    }
+  '';
 in {
   imports = [
     inputs.spicetify-nix.homeManagerModules.default
@@ -12,7 +56,7 @@ in {
   # Docs: https://h-banii.github.io/youtube-music-nix/pages/home-manager/
   programs.youtube-music = {
     enable = true;
-    options.themes = [ "stylix-custom" ];
+    options.themes = [ ytmTheme ];
 
     # Plugins - Uncomment to enable
     # Full list: https://github.com/th-ch/youtube-music/wiki/Plugins
