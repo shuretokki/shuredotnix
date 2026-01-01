@@ -18,4 +18,3 @@
     "XDG_SESSION_DESKTOP,Hyprland"
   ];
 }
-                          
