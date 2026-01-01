@@ -1,19 +1,11 @@
+/**
+  Forked from:
+  https://github.com/catppuccin/youtubemusic/blob/main/src/mocha.css
+*/
+
 html:not(.style-scope)
 {
-  --ytm-rosewater: #f5e0dc;
-  --ytm-flamingo: #f2cdcd;
-  --ytm-pink: #f5c2e7;
-  --ytm-mauve: #cba6f7;
-  --ytm-red: #f38ba8;
-  --ytm-maroon: #eba0ac;
-  --ytm-peach: #fab387;
-  --ytm-yellow: #f9e2af;
-  --ytm-green: #a6e3a1;
-  --ytm-teal: #94e2d5;
-  --ytm-sky: #89dceb;
-  --ytm-sapphire: #74c7ec;
-  --ytm-blue: #89b4fa;
-  --ytm-lavender: #b4befe;
+  --ytm-accent: #f38ba8;
   --ytm-text: #cdd6f4;
   --ytm-subtext1: #bac2de;
   --ytm-subtext0: #a6adc8;
@@ -26,8 +18,6 @@ html:not(.style-scope)
   --ytm-base: #1e1e2e;
   --ytm-mantle: #181825;
   --ytm-crust: #11111b;
-
-  --ytm-accent: var(--ytm-mauve);
 
   --unthemed-yet: inherit !important;
 
@@ -235,7 +225,7 @@ div.content-wrapper.style-scope.ytmusic-play-button-renderer
 
 ytmusic-subscribe-button-renderer
 {
-  --ytmusic-subscribe-button-color: var(--ytm-red) !important;
+  --ytmusic-subscribe-button-color: var(--ytm-accent) !important;
 }
 
 yt-button-renderer[is-paper-button]
@@ -1131,12 +1121,12 @@ ytmusic-custom-index-column-renderer[icon-color-style=CUSTOM_INDEX_COLUMN_ICON_C
 
 ytmusic-custom-index-column-renderer[icon-color-style=CUSTOM_INDEX_COLUMN_ICON_COLOR_STYLE_GREEN] .icon.ytmusic-custom-index-column-renderer
 {
-  color: var(--ytm-green) !important;
+  color: var(--ytm-accent) !important;
 }
 
 ytmusic-custom-index-column-renderer[icon-color-style=CUSTOM_INDEX_COLUMN_ICON_COLOR_STYLE_RED] .icon.ytmusic-custom-index-column-renderer
 {
-  color: var(--ytm-red) !important;
+  color: var(--ytm-accent) !important;
 }
 
 button#button.style-scope.ytmusic-sort-filter-button-renderer

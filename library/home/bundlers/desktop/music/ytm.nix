@@ -4,23 +4,12 @@ let
 
   colorOverrides = ''
     html:not(.style-scope) {
-      --ytm-rosewater: ${colors.base06};
-      --ytm-flamingo: ${colors.base0F};
-      --ytm-pink: ${colors.base0E};
-      --ytm-mauve: ${colors.base0E};
-      --ytm-red: ${colors.base08};
-      --ytm-maroon: ${colors.base08};
-      --ytm-peach: ${colors.base09};
-      --ytm-yellow: ${colors.base0A};
-      --ytm-green: ${colors.base0B};
-      --ytm-teal: ${colors.base0C};
-      --ytm-sky: ${colors.base0C};
-      --ytm-sapphire: ${colors.base0D};
-      --ytm-blue: ${colors.base0D};
-      --ytm-lavender: ${colors.base07};
+      --ytm-accent: ${colors.base0D};
+
       --ytm-text: ${colors.base05};
       --ytm-subtext1: ${colors.base04};
       --ytm-subtext0: ${colors.base04};
+
       --ytm-overlay2: ${colors.base03};
       --ytm-overlay1: ${colors.base03};
       --ytm-overlay0: ${colors.base02};
