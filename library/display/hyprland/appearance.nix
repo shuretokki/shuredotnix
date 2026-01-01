@@ -1,39 +1,37 @@
 # https://wiki.hypr.land/Configuring/Variables/
-{ config }:
+{ config, ... }:
 let
   colors = config.lib.stylix.colors;
 in {
   general = {
-    gaps_in = 5;
-    gaps_out = 10;
-    # "col.inactive_border" = "rgba(${colors.base03}ee)";
-    # "col.active_border" = "rgba(${colors.base0D}ee)";
-
-    # layout = "master";
+    gaps_in = config.theme.hyprland.gaps-in;
+    gaps_out = config.theme.hyprland.gaps-out;
+    border_size = 2;
+    "col.active_border" = config.theme.hyprland.active-border-col;
+    "col.inactive_border" = config.theme.hyprland.inactive-border-col;
+    # layout = "dwindle";
   };
 
   decoration = {
-    rounding = 10;
-
-    shadow = {
-      enabled = true;
-      range = 40;
-      render_power = 4;
-      # color = "0x66000000";
-      offset = "0 4";
-      scale = 1.0;
-    };
-
+    rounding = config.theme.hyprland.rounding;
     blur = {
-      enabled = true;
-      size = 6;
-      passes = 2;
-      ignore_opacity = true;
+        enabled = config.theme.hyprland.blur;
+        size = 5;
+        passes = 3;
+        new_optimizations = true;
+        ignore_opacity = true;
+        xray = false;
+    };
+    shadow = {
+        enabled = config.theme.hyprland.shadows;
+        range = 15;
+        render_power = 3;
+        color = "0x55000000";
     };
   };
 
   dwindle = {
-    single_window_aspect_ratio = "1 1"; # Uncomment if needed
+    # single_window_aspect_ratio = "1 1"; # Uncomment if needed
   };
 
   # https://wiki.hypr.land/Configuring/Animations/
