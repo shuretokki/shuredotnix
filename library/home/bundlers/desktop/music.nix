@@ -1,7 +1,8 @@
 { lib, pkgs, config, inputs, ... }:
 let
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-  colors = config.lib.stylix.colors.withHashtag;
+  colors = config.lib.stylix.colors.withHashtag;  # for CSS (needs #)
+  colorsRaw = config.lib.stylix.colors;  # for Spicetify (no #)
 
   ytmTheme = pkgs.writeText "stylix-ytm.css" ''
     :root {
@@ -153,39 +154,39 @@ in {
     # Reference: https://spicetify.app/docs/development/customization/#color-scheme
     customColorScheme = {
       # text
-      text = colors.base05;  # main text, playlist names, headings
-      subtext = colors.base04;  # secondary text, artist names
+      text               = colorsRaw.base05;  # main text, playlist names, headings
+      subtext            = colorsRaw.base04;  # secondary text, artist names
 
       # backgrounds
-      main = colors.base00;  # main background
-      sidebar = colors.base00;  # sidebar background
-      player = colors.base00;  # player bar background
-      card = colors.base01;  # popup cards, hover states
-      shadow = colors.base00;  # shadows
-      main-secondary = colors.base01;  # selected song rows, cards
+      main               = colorsRaw.base00;  # main background
+      sidebar            = colorsRaw.base00;  # sidebar background
+      player             = colorsRaw.base00;  # player bar background
+      card               = colorsRaw.base01;  # popup cards, hover states
+      shadow             = colorsRaw.base00;  # shadows
+      main-secondary     = colorsRaw.base01;  # selected song rows, cards
 
       # buttons
-      button = colors.base0D;  # primary buttons, like button
-      button-secondary = colors.base04;  # download/options buttons
-      button-active = colors.base0C;  # button hover state
-      button-disabled = colors.base02;  # seekbar bg, volume bg, scrollbar
+      button             = colorsRaw.base0D;  # primary buttons, like button
+      button-secondary   = colorsRaw.base04;  # download/options buttons
+      button-active      = colorsRaw.base0C;  # button hover state
+      button-disabled    = colorsRaw.base02;  # seekbar bg, volume bg, scrollbar
 
       # navigation
-      nav-active-text = colors.base05;  # active nav item text
-      nav-active = colors.base02;  # sidebar active button bg
-      selected-row = colors.base02;  # selected row highlight
-      tab-active = colors.base02;  # active tab background
+      nav-active-text    = colorsRaw.base05;  # active nav item text
+      nav-active         = colorsRaw.base02;  # sidebar active button bg
+      selected-row       = colorsRaw.base02;  # selected row highlight
+      tab-active         = colorsRaw.base02;  # active tab background
 
       # playback
-      play-button = colors.base0D;  # main play button color
-      playback-bar = colors.base0D;  # seekbar fg, volume fg
+      play-button        = colorsRaw.base0D;  # main play button color
+      playback-bar       = colorsRaw.base0D;  # seekbar fg, volume fg
 
       # notifications
-      notification = colors.base01;  # notification background
-      notification-error = colors.base08;  # error notification
+      notification       = colorsRaw.base01;  # notification background
+      notification-error = colorsRaw.base08;  # error notification
 
       # misc
-      misc = colors.base04;  # miscellaneous elements
+      misc               = colorsRaw.base04;  # miscellaneous elements
     };
 
     # Extensions - Uncomment the ones you want to enable
@@ -261,7 +262,7 @@ in {
     enabledSnippets = [
       # "title": "Dynamic Search Bar",
       # "description": "Make the search bar dynamic, so it only shows when you hover over it.",
-      # "code":
+      # "state": "Config modded",
       ''
         :root {
           margin-top: -16px;
@@ -309,33 +310,9 @@ in {
         }
       ''
 
-      # "title": "Dynamic Left Sidebar",
-      # "description": "Make the left sidebar dynamic, so it only shows when you hover over it and pushes the main content to the right.",
-      # "code":
-      ''
-        #Desktop_LeftSidebar_Id {
-          width: 0px;
-          transition: width 0.5s ease, padding-left 0.5s ease;
-          z-index: 12;
-        }
-        #Desktop_LeftSidebar_Id:hover {
-          padding-left: 8px;
-          width: 280px;
-        }
-        :root {
-          margin-left: -8px;
-        }
-        svg[data-encore-id='icon'] {
-          overflow: visible;
-        }
-        #Desktop_LeftSidebar_Id span {
-          white-space: nowrap;
-        }
-      ''
-
       # "title": "Modern ScrollBar",
       # "description": "Thin rounded modern scrollbar",
-      # "code":
+      # "state": "Original",
       ''
         .os-scrollbar-handle {
           width: 0.25rem !important;
