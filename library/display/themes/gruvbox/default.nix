@@ -14,7 +14,7 @@
       size = 24;
     };
 
-    wallpaper = "";
+    wallpaper = ./wallpapers/gruvbox_scenery.png;
 
     hyprland = {
       rounding = 0;
