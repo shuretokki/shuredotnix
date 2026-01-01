@@ -4,72 +4,51 @@ let
   colors = config.lib.stylix.colors.withHashtag;
 
   ytmTheme = pkgs.writeText "stylix-ytm.css" ''
+    html, body, *, *::before, *::after {
+      background-color: ${colors.base01} !important;
+    }
+
     :root {
-      --ytmusic-background: ${colors.base01};
-      --ytmusic-background-solid: ${colors.base01};
-      --ytmusic-nav-bar: ${colors.base01};
-      --ytmusic-player-bar-background: ${colors.base01};
-      --ytmusic-color-black1: ${colors.base01};
-      --ytmusic-color-black2: ${colors.base01};
-      --ytmusic-color-black3: ${colors.base02};
-      --ytmusic-color-black4: ${colors.base03};
+      --ytmusic-background: ${colors.base01} !important;
+      --ytmusic-background-solid: ${colors.base01} !important;
+      --ytmusic-nav-bar: ${colors.base01} !important;
+      --ytmusic-player-bar-background: ${colors.base01} !important;
+      --ytmusic-color-black1: ${colors.base01} !important;
+      --ytmusic-color-black2: ${colors.base01} !important;
+      --ytmusic-color-black3: ${colors.base01} !important;
+      --ytmusic-color-black4: ${colors.base01} !important;
+      --ytmusic-general-background-a: ${colors.base01} !important;
+      --ytmusic-general-background-b: ${colors.base01} !important;
+      --ytmusic-general-background-c: ${colors.base01} !important;
 
       --ytmusic-text-primary: ${colors.base05};
       --ytmusic-text-secondary: ${colors.base04};
       --ytmusic-text-disabled: ${colors.base03};
       --ytmusic-color-white1: ${colors.base05};
 
-      --ytmusic-general-background-a: ${colors.base01};
       --ytmusic-selected-button-color: ${colors.base0D};
-      --yt-spec-static-overlay-button-primary: ${colors.base0D};
       --yt-spec-call-to-action: ${colors.base0D};
-      --paper-toggle-button-checked-button-color: ${colors.base0D};
-      --paper-toggle-button-checked-bar-color: ${colors.base0C};
     }
 
-    ytmusic-app,
-    ytmusic-browse-response,
-    ytmusic-two-row-item-renderer,
-    ytmusic-responsive-list-item-renderer,
-    ytmusic-player-bar,
-    ytmusic-nav-bar,
-    ytmusic-guide-section-renderer,
-    ytmusic-guide-entry-renderer,
-    tp-yt-paper-listbox,
-    ytmusic-menu-popup-renderer,
-    ytmusic-search-box,
-    ytmusic-multi-select-menu-renderer,
-    ytmusic-player-queue,
-    ytmusic-tab-renderer,
-    #contentContainer {
-      background-color: ${colors.base01} !important;
-    }
-
-    ytmusic-guide-renderer,
-    #guide-wrapper,
-    #layout {
-      background-color: ${colors.base01} !important;
+    ytmusic-responsive-list-item-renderer:hover,
+    ytmusic-two-row-item-renderer:hover {
+      background-color: ${colors.base02} !important;
     }
 
     ytmusic-search-box #input {
       background-color: ${colors.base02} !important;
       color: ${colors.base05} !important;
-    }
-
-    ytmusic-responsive-list-item-renderer:hover {
-      background-color: ${colors.base02} !important;
-    }
-
-    yt-button-renderer {
-      --yt-button-color: ${colors.base0D};
-    }
-
-    img.ytmusic-player-bar,
-    .thumbnail-image-wrapper img,
-    ytmusic-thumbnail-with-lyrics-renderer img,
-    .ytmusic-carousel img {
       border-radius: 8px !important;
     }
+
+    img, .image, ytmusic-thumbnail-renderer {
+      border-radius: 8px !important;
+    }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: ${colors.base01}; }
+    ::-webkit-scrollbar-thumb { background: ${colors.base03}; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: ${colors.base04}; }
   '';
 in {
   imports = [
@@ -164,16 +143,15 @@ in {
           border-radius: 8px !important;
         }
 
-        /* transparent window controls */
-        #main::after {
-          content: "";
-          position: fixed;
-          top: 0;
-          right: 0;
-          z-index: 999;
-          backdrop-filter: brightness(2.12);
-          width: 135px;
-          height: 64px;
+        .Root__top-bar,
+        .Root__main-view,
+        .Root__right-sidebar,
+        .Root__nav-bar,
+        .main-view-container,
+        .main-view-container__scroll-node,
+        .main-view-container__scroll-node-child,
+        .contentSpacing {
+          background-color: ${colors.base01} !important;
         }
 
         h1 { font-weight: 700 !important; }
@@ -188,14 +166,11 @@ in {
           font-size: 15px;
         }
 
-        /* progress bar */
         .progress-bar { --fg-color: ${colors.base0D}; }
         .progress-bar__bg, .progress-bar__fg, .progress-bar__fg_wrapper { height: 5px; }
 
-        /* top bar - use base02 */
-        .main-topBar-background { background-color: ${colors.base02} !important; }
+        .main-topBar-background { background-color: ${colors.base01} !important; }
 
-        /* scrollbars */
         .os-scrollbar-handle {
           background: ${colors.base0D} !important;
           border-radius: 8px;
@@ -230,7 +205,6 @@ in {
         /* home gradient */
         .main-home-homeHeader { background-color: ${colors.base0D} !important; }
 
-        /* volume bar */
         .volume-bar .progress-bar { margin: 0 0.4rem; }
         .volume-bar { flex: 0 150px; }
 
