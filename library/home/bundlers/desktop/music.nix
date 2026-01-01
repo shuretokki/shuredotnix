@@ -256,20 +256,57 @@ in {
       # catJamSynced
       # aiBandBlocker
     ];
+
+    enabledSnippets = [
+      # "title": "Dynamic Search Bar",
+      ''
+        :root {
+          margin-top: -16px;
+        }
+        #global-nav-bar {
+          position: absolute;
+          width: calc(100% + 16px);
+          background: none;
+          opacity: 0;
+          z-index: 12;
+          top: 16px;
+          transition: opacity 0.3s ease-in-out;
+        }
+        #global-nav-bar:hover {
+          z-index: 12;
+          opacity: 1;
+        }
+        .Root__now-playing-bar {
+          transform: translateY(16px);
+        }
+        aside[aria-label="Now playing bar"] {
+          transform: translateY(-8px);
+        }
+        .Root__globalNav .main-globalNav-navLink {
+          background: none;
+        }
+        .e_N7UqrrJQ0fAw9IkNAL {
+          padding-top: 56px;
+        }
+        .marketplace-tabBar, .marketplace-tabBar-nav {
+          padding-top: 48px;
+        }
+        .marketplace-header {
+          padding-top: 16px;
+        }
+        .marketplace-header__left {
+          padding-top: 16px;
+        }
+        .main-topBar-background {
+          background-color: ${colors.base00};
+        }
+        .liw6Y_iPu2DJRwk10x9d .FLyfurPaIDAlwjsF3mLf {
+          display: none;
+        }
+      ''
+      # Add more snippets here as separate strings
+    ];
   };
-
-  # {
-  #   "title": "Dynamic Search Bar",
-  #   "description": "Make the search bar dynamic, so it only shows when you hover over it.",
-  #   "code": ":root {\n  margin-top: -16px;\n}\n#global-nav-bar {\n  position: absolute;\n  width: calc(100% + 16px);\n  background: none;\n  opacity: 0;\n  z-index: 12;\n  top: 16px;\n  transition: opacity 0.3s ease-in-out;\n}\n#global-nav-bar:hover {\n  z-index: 12;\n  opacity: 1;\n}\n.Root__now-playing-bar {\n  transform: translateY(16px);\n}\naside[aria-label=\"Now playing bar\"] {\n  transform: translateY(-8px);\n}\n.Root__globalNav .main-globalNav-navLink {\n  background: none;\n}\n.e_N7UqrrJQ0fAw9IkNAL {\n  padding-top: 56px;\n}\n.marketplace-tabBar, .marketplace-tabBar-nav {\n  padding-top: 48px;\n}\n.marketplace-header {\n  padding-top: 16px;\n}\n.marketplace-header__left {\n  padding-top: 16px;\n}\n.main-topBar-background {\n  background-color: #121212;\n}\n.liw6Y_iPu2DJRwk10x9d .FLyfurPaIDAlwjsF3mLf{\n  display: none;\n}",
-  #   "preview": "resources/assets/snippets/dynamic-search-bar.gif"
-  # },
-
-  # enabledSnippets = [
-  #   ''
-
-  #   ''
-  # ]
 
   home.packages = with pkgs; [
     (writeShellScriptBin "spotify-th" ''
