@@ -33,7 +33,7 @@
       font = {
         normal = {
           size = 10.5;
-          normal = vars.fontSans;
+          normal = config.theme.fonts.sans;
         };
       };
       theme = {
