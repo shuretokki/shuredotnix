@@ -4,11 +4,11 @@ let
   colors = config.lib.stylix.colors;
 in {
   general = {
-    gaps_in = config.theme.hyprland.gaps-in;
-    gaps_out = config.theme.hyprland.gaps-out;
-    border_size = 2;
-    "col.active_border" = config.theme.hyprland.active-border-col;
-    "col.inactive_border" = config.theme.hyprland.inactive-border-col;
+    gaps_in = lib.mkForce config.theme.hyprland.gaps-in;
+    gaps_out = lib.mkForce config.theme.hyprland.gaps-out;
+    border_size = lib.mkForce 2;
+    "col.active_border" = lib.mkForce config.theme.hyprland.active-border-col;
+    "col.inactive_border" = lib.mkForce config.theme.hyprland.inactive-border-col;
     # layout = "dwindle";
   };
 
