@@ -4,22 +4,18 @@ let
   colors = config.lib.stylix.colors.withHashtag;
 
   ytmTheme = pkgs.writeText "stylix-ytm.css" ''
-    html, body, *, *::before, *::after {
-      background-color: ${colors.base01} !important;
-    }
-
     :root {
-      --ytmusic-background: ${colors.base01} !important;
-      --ytmusic-background-solid: ${colors.base01} !important;
-      --ytmusic-nav-bar: ${colors.base01} !important;
-      --ytmusic-player-bar-background: ${colors.base01} !important;
-      --ytmusic-color-black1: ${colors.base01} !important;
-      --ytmusic-color-black2: ${colors.base01} !important;
+      --ytmusic-background: ${colors.base00} !important;
+      --ytmusic-background-solid: ${colors.base00} !important;
+      --ytmusic-nav-bar: ${colors.base00} !important;
+      --ytmusic-player-bar-background: ${colors.base00} !important;
+      --ytmusic-color-black1: ${colors.base00} !important;
+      --ytmusic-color-black2: ${colors.base00} !important;
       --ytmusic-color-black3: ${colors.base01} !important;
       --ytmusic-color-black4: ${colors.base01} !important;
-      --ytmusic-general-background-a: ${colors.base01} !important;
-      --ytmusic-general-background-b: ${colors.base01} !important;
-      --ytmusic-general-background-c: ${colors.base01} !important;
+      --ytmusic-general-background-a: ${colors.base00} !important;
+      --ytmusic-general-background-b: ${colors.base00} !important;
+      --ytmusic-general-background-c: ${colors.base00} !important;
 
       --ytmusic-text-primary: ${colors.base05};
       --ytmusic-text-secondary: ${colors.base04};
@@ -28,27 +24,52 @@ let
 
       --ytmusic-selected-button-color: ${colors.base0D};
       --yt-spec-call-to-action: ${colors.base0D};
+      --yt-spec-static-overlay-button-primary: ${colors.base0D};
+    }
+
+    ytmusic-app-layout,
+    ytmusic-browse-response,
+    ytmusic-detail-header-renderer,
+    ytmusic-player-bar,
+    ytmusic-nav-bar,
+    ytmusic-guide-renderer,
+    ytmusic-pivot-bar-renderer,
+    tp-yt-paper-listbox,
+    ytmusic-menu-popup-renderer,
+    ytmusic-player-queue,
+    #layout,
+    #guide-wrapper,
+    #contentContainer {
+      background-color: ${colors.base00} !important;
+    }
+
+    ytmusic-search-box {
+      background-color: ${colors.base00} !important;
+    }
+    ytmusic-search-box #input {
+      background-color: ${colors.base01} !important;
+      color: ${colors.base05} !important;
+      border-radius: 20px !important;
     }
 
     ytmusic-responsive-list-item-renderer:hover,
     ytmusic-two-row-item-renderer:hover {
-      background-color: ${colors.base02} !important;
+      background-color: ${colors.base01} !important;
     }
 
-    ytmusic-search-box #input {
-      background-color: ${colors.base02} !important;
-      color: ${colors.base05} !important;
-      border-radius: 8px !important;
+    ytmusic-chip-cloud-chip-renderer {
+      background-color: ${colors.base01} !important;
     }
 
-    img, .image, ytmusic-thumbnail-renderer {
+    .ytmusic-thumbnail-overlay-time-status-renderer,
+    ytmusic-thumbnail-renderer img {
       border-radius: 8px !important;
     }
 
     ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: ${colors.base01}; }
-    ::-webkit-scrollbar-thumb { background: ${colors.base03}; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: ${colors.base04}; }
+    ::-webkit-scrollbar-track { background: ${colors.base00}; }
+    ::-webkit-scrollbar-thumb { background: ${colors.base02}; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: ${colors.base03}; }
   '';
 in {
   imports = [
@@ -127,88 +148,207 @@ in {
       sidebarConfig = false;
 
       additionalCss = ''
-        /* round now Playing Bar */
         :root {
-          --border-radius-1: 8px;
-          --margin-bottom-now-playing-bar: 0.5rem;
-          --now-playing-bar-height: 5.625rem;
-          --padding-now-playing-bar: 0.25rem;
-          --border-radius-now-playing-bar: 0.5rem;
+          --scroll: 0 !important;
         }
 
-        .Root__now-playing-bar,
-        .Root__now-playing-bar footer,
-        .Root__right-sidebar,
-        .UrfDp0_mKGL9hkfh9g_R {
-          border-radius: 8px !important;
+        .main-rootlist-rootlistDividerGradient {
+          background: unset;
         }
 
-        .Root__top-bar,
-        .Root__main-view,
-        .Root__right-sidebar,
-        .Root__nav-bar,
-        .main-view-container,
-        .main-view-container__scroll-node,
-        .main-view-container__scroll-node-child,
-        .contentSpacing {
-          background-color: ${colors.base01} !important;
+        .x-searchInput-searchInputSearchIcon,
+        .x-searchInput-searchInputClearButton {
+          color: var(--spice-text) !important;
         }
 
-        h1 { font-weight: 700 !important; }
-
-        /* song/artist in player */
-        .main-nowPlayingWidget-nowPlaying .main-trackInfo-name {
-          overflow: unset;
-          font-size: 20px !important;
-        }
-        .main-nowPlayingWidget-nowPlaying .main-trackInfo-artists {
-          overflow: unset;
-          font-size: 15px;
+        .main-home-homeHeader,
+        .x-entityHeader-overlay,
+        .x-actionBarBackground-background,
+        .main-actionBarBackground-background,
+        .main-entityHeader-overlay,
+        .main-entityHeader-backgroundColor {
+          background-color: unset !important;
+          background-image: unset !important;
         }
 
-        .progress-bar { --fg-color: ${colors.base0D}; }
-        .progress-bar__bg, .progress-bar__fg, .progress-bar__fg_wrapper { height: 5px; }
-
-        .main-topBar-background { background-color: ${colors.base01} !important; }
-
-        .os-scrollbar-handle {
-          background: ${colors.base0D} !important;
-          border-radius: 8px;
-        }
-        .os-theme-spotify.os-host-transition > .os-scrollbar-vertical > .os-scrollbar-track > .os-scrollbar-handle {
-          border-radius: 8px;
-          width: 4px;
+        .main-playButton-PlayButton.main-playButton-primary {
+          color: white;
         }
 
+        .connect-device-list {
+          margin: 0px -5px;
+        }
+
+        .main-topBar-background {
+          background-color: ${colors.base00} !important;
+        }
+        .main-topBar-overlay {
+          background-color: var(--spice-main);
+        }
+
+        .main-entityHeader-shadow,
+        .main-contextMenu-menu,
+        .connect-device-list-container {
+          box-shadow: 0 4px 20px #21212130;
+        }
+
+        .main-trackList-playingIcon {
+          filter: grayscale(1);
+        }
+
+        span.artist-artistVerifiedBadge-badge svg:nth-child(1) {
+          fill: ${colors.base00};
+        }
+
+        .main-rootlist-rootlistItemLink.main-rootlist-rootlistItemLinkActive {
+          background: var(--spice-button) !important;
+          border-radius: 4px;
+          padding: 0 10px;
+          margin: 0 5px 0 -10px;
+        }
+
+        .main-navBar-navBarLinkActive {
+          background: var(--spice-button);
+          color: white;
+        }
+
+        .main-contextMenu-menu {
+          background-color: var(--spice-misc) !important;
+        }
+
+        .main-contextMenu-menuHeading,
+        .main-contextMenu-menuItemButton,
+        .main-contextMenu-menuItemButton:not(.main-contextMenu-disabled):focus,
+        .main-contextMenu-menuItemButton:not(.main-contextMenu-disabled):hover {
+          color: var(--spice-text);
+        }
+
+        .main-playPauseButton-button {
+          background-color: var(--spice-button);
+          color: ${colors.base00};
+        }
+
+        /* queue page header */
+        .queue-queue-title,
+        .queue-playHistory-title {
+          color: var(--spice-text) !important;
+        }
+
+        /* cards */
+        .main-cardImage-imageWrapper {
+          background-color: transparent;
+        }
+
+        .main-rootlist-rootlistDivider {
+          background-color: unset;
+        }
+
+        .main-nowPlayingBar-nowPlayingBar {
+          height: var(--player-bar-height);
+        }
+
+        input {
+          background-color: var(--spice-misc);
+          color: var(--spice-text) !important;
+        }
+
+        /* profile icon */
+        .main-entityHeader-imagePlaceholder {
+          color: unset;
+        }
+
+        /* left menu create playlist, liked songs and episodes button background */
+        a.main-collectionLinkButton-collectionLinkButton.main-collectionLinkButton-selected.active,
+        .main-createPlaylistButton-button:hover {
+          background-color: var(--spice-button) !important;
+        }
+
+        /* experimental features background */
+        .main-trackCreditsModal-container {
+          background-color: var(--spice-misc) !important;
+        }
+
+        /* device showing menu */
+        .main-connectBar-connectBar.mVVxN9ZfIRjiQfDuzPCZ {
+          background-color: var(--spice-button) !important;
+          color: var(--text-base);
+        }
+
+        :root {
+          --lyrics-text-direction: left;
+        }
+
+        .main-lyricsCinema-controls {
+          top: 80px !important;
+        }
+
+        #lyrics-backdrop,
+        #lyrics-backdrop-container {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background-color: ${colors.base00} !important;
+        }
+
+        .lyrics-lyrics-background {
+          visibility: hidden !important;
+        }
+
+        .lyrics-lyricsContent-lyric:hover {
+          color: var(--lyrics-color-active) !important;
+        }
+
+        .lyrics-lyricsContent-active {
+          text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+        }
+
+        /* scrollbar hide */
+        .os-scrollbar.os-scrollbar-handle-interactive .os-scrollbar-handle,
+        .os-scrollbar.os-scrollbar-track-interactive .os-scrollbar-track {
+          width: 0 !important;
+        }
+
+        /* black gradient */
+        .XVz4BMGP5zAEE5p90mYK {
+          --background-base: ${colors.base00} !important;
+          --background-base-min-contrast: ${colors.base00} !important;
+        }
+
+        .Bdcf5g__Rug3TGqSdbiy {
+          --background-base-70: ${colors.base00} !important;
+        }
+
+        /* white text instead of accented color */
+        .encore-internal-color-text-subdued {
+          color: ${colors.base05};
+        }
+
+        /* Rounded images */
         .cover-art-image,
-        .view-homeShortcutsGrid-image { border-radius: 8px; }
-
+        .view-homeShortcutsGrid-image,
         .main-entityHeader-shadow,
         .x-categoryCard-image,
         .main-cardImage-image,
-        .main-cardImage-imageWrapper { border-radius: 8px; }
-
-        .main-trackList-rowImage { border-radius: 4px; }
-
-        /* player bar */
-        .main-nowPlayingBar-container {
-          justify-content: center;
-          height: 5.625rem;
-          width: 100%;
+        .main-cardImage-imageWrapper {
           border-radius: 8px;
-          padding: 0.25rem;
-          bottom: 0.5rem;
-          background-color: ${colors.base01};
-          backdrop-filter: blur(10px) saturate(0.5) brightness(100%);
         }
 
-        /* home gradient */
-        .main-home-homeHeader { background-color: ${colors.base0D} !important; }
+        .main-trackList-rowImage {
+          border-radius: 4px;
+        }
 
-        .volume-bar .progress-bar { margin: 0 0.4rem; }
-        .volume-bar { flex: 0 150px; }
+        /* FullScreen Styles */
+        .npv-background-image__overlay {
+          backdrop-filter: saturate(1.3) brightness(0.5);
+        }
 
-        .playlist-playlist-actionBarBackground-background { visibility: hidden; }
+        .npv-main-container,
+        .npv-background-color,
+        .npv-lyrics__gradient-background {
+          background-color: rgba(var(--spice-rgb-main), 0.75) !important;
+          background-image: none !important;
+          background: none !important;
+        }
       '';
     };
 
@@ -216,19 +356,19 @@ in {
     customColorScheme = {
       text = colors.base05;
       subtext = colors.base04;
-      main = colors.base01;
-      sidebar = colors.base01;
-      player = colors.base01;
-      card = colors.base02;
+      main = colors.base00;
+      sidebar = colors.base00;
+      player = colors.base00;
+      card = colors.base01;
       shadow = colors.base00;
-      selected-row = colors.base03;
+      selected-row = colors.base02;
       button = colors.base0D;
       button-active = colors.base0C;
       button-disabled = colors.base03;
       tab-active = colors.base0D;
       notification = colors.base0B;
       notification-error = colors.base08;
-      misc = colors.base04;
+      misc = colors.base03;
     };
 
     # Extensions - Uncomment the ones you want to enable
