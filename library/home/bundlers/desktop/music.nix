@@ -126,15 +126,6 @@ in {
       misc = colors.base04;
     };
 
-    customCSS = ''
-      .main-nowPlayingWidget-coverArt {
-        border-radius: 8px;
-      }
-      .main-trackList-rowImage {
-        border-radius: 8px;
-      }
-    '';
-
     # Extensions - Uncomment the ones you want to enable
     # Full docs: https://gerg-l.github.io/spicetify-nix/extensions.html
     enabledExtensions = with spicePkgs.extensions; [
