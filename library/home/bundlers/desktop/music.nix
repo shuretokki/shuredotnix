@@ -5,19 +5,21 @@ let
 
   ytmTheme = pkgs.writeText "stylix-ytm.css" ''
     :root {
-      --ytmusic-background: ${colors.base00};
-      --ytmusic-background-solid: ${colors.base00};
+      --ytmusic-background: ${colors.base01};
+      --ytmusic-background-solid: ${colors.base01};
       --ytmusic-nav-bar: ${colors.base01};
       --ytmusic-player-bar-background: ${colors.base01};
-      --ytmusic-color-black1: ${colors.base00};
+      --ytmusic-color-black1: ${colors.base01};
       --ytmusic-color-black2: ${colors.base01};
       --ytmusic-color-black3: ${colors.base02};
       --ytmusic-color-black4: ${colors.base03};
+
       --ytmusic-text-primary: ${colors.base05};
       --ytmusic-text-secondary: ${colors.base04};
       --ytmusic-text-disabled: ${colors.base03};
       --ytmusic-color-white1: ${colors.base05};
-      --ytmusic-general-background-a: ${colors.base00};
+
+      --ytmusic-general-background-a: ${colors.base01};
       --ytmusic-selected-button-color: ${colors.base0D};
       --yt-spec-static-overlay-button-primary: ${colors.base0D};
       --yt-spec-call-to-action: ${colors.base0D};
@@ -25,24 +27,47 @@ let
       --paper-toggle-button-checked-bar-color: ${colors.base0C};
     }
 
-    ytmusic-player-bar {
+    ytmusic-app,
+    ytmusic-browse-response,
+    ytmusic-two-row-item-renderer,
+    ytmusic-responsive-list-item-renderer,
+    ytmusic-player-bar,
+    ytmusic-nav-bar,
+    ytmusic-guide-section-renderer,
+    ytmusic-guide-entry-renderer,
+    tp-yt-paper-listbox,
+    ytmusic-menu-popup-renderer,
+    ytmusic-search-box,
+    ytmusic-multi-select-menu-renderer,
+    ytmusic-player-queue,
+    ytmusic-tab-renderer,
+    #contentContainer {
       background-color: ${colors.base01} !important;
     }
 
-    ytmusic-nav-bar {
+    ytmusic-guide-renderer,
+    #guide-wrapper,
+    #layout {
       background-color: ${colors.base01} !important;
     }
 
-    tp-yt-paper-listbox {
-      background-color: ${colors.base01} !important;
+    ytmusic-search-box #input {
+      background-color: ${colors.base02} !important;
+      color: ${colors.base05} !important;
     }
 
-    ytmusic-menu-popup-renderer {
-      background-color: ${colors.base01} !important;
+    ytmusic-responsive-list-item-renderer:hover {
+      background-color: ${colors.base02} !important;
+    }
+
+    yt-button-renderer {
+      --yt-button-color: ${colors.base0D};
     }
 
     img.ytmusic-player-bar,
-    .thumbnail-image-wrapper img {
+    .thumbnail-image-wrapper img,
+    ytmusic-thumbnail-with-lyrics-renderer img,
+    .ytmusic-carousel img {
       border-radius: 8px !important;
     }
   '';
@@ -108,54 +133,116 @@ in {
     };
   };
 
-  xdg.configFile."youtube-music/themes/stylix-custom.css".text = ''
-    :root {
-      --ytmusic-color-black: ${colors.base00};
-      --ytmusic-color-white: ${colors.base05};
-      --ytmusic-brand-background-solid: ${colors.base00};
-      --ytmusic-general-background-a: ${colors.base00};
-      --ytmusic-general-background-c: ${colors.base01};
-      --ytmusic-text-primary: ${colors.base05};
-      --ytmusic-text-secondary: ${colors.base04};
-      --ytmusic-static-brand-red: ${colors.base08};
-      --ytmusic-overlay-background-brand: ${colors.base08};
-      --ytmusic-menu-item-hover-background-color: ${colors.base02};
-
-      --font-family: "${config.stylix.fonts.sansSerif.name}";
-      --border-radius: 8px;
-    }
-
-    body {
-      background-color: ${colors.base00} !important;
-      font-family: var(--font-family) !important;
-    }
-
-    img, .image, .song-media-controls {
-      border-radius: var(--border-radius) !important;
-    }
-
-    ytmusic-nav-bar { background-color: ${colors.base01} !important; }
-    ytmusic-player-bar { background-color: ${colors.base01} !important; }
-
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: ${colors.base00}; }
-    ::-webkit-scrollbar-thumb { background: ${colors.base03}; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: ${colors.base04}; }
-  '';
-
 
   # Spicetify
   # https://gerg-l.github.io/spicetify-nix
   programs.spicetify = {
     enable = lib.mkDefault true;
 
-    # https://github.com/spicetify/spicetify-themes/tree/master/SharkBlue
-    theme = lib.mkDefault spicePkgs.themes.sharkBlue;
+    theme = {
+      name = "user";
+      src = pkgs.writeTextDir "color.ini" "";
+      injectCss = true;
+      replaceColors = true;
+      overwriteAssets = false;
+      sidebarConfig = false;
+
+      additionalCss = ''
+        /* round now Playing Bar */
+        :root {
+          --border-radius-1: 8px;
+          --margin-bottom-now-playing-bar: 0.5rem;
+          --now-playing-bar-height: 5.625rem;
+          --padding-now-playing-bar: 0.25rem;
+          --border-radius-now-playing-bar: 0.5rem;
+        }
+
+        .Root__now-playing-bar,
+        .Root__now-playing-bar footer,
+        .Root__right-sidebar,
+        .UrfDp0_mKGL9hkfh9g_R {
+          border-radius: 8px !important;
+        }
+
+        /* transparent window controls */
+        #main::after {
+          content: "";
+          position: fixed;
+          top: 0;
+          right: 0;
+          z-index: 999;
+          backdrop-filter: brightness(2.12);
+          width: 135px;
+          height: 64px;
+        }
+
+        h1 { font-weight: 700 !important; }
+
+        /* song/artist in player */
+        .main-nowPlayingWidget-nowPlaying .main-trackInfo-name {
+          overflow: unset;
+          font-size: 20px !important;
+        }
+        .main-nowPlayingWidget-nowPlaying .main-trackInfo-artists {
+          overflow: unset;
+          font-size: 15px;
+        }
+
+        /* progress bar */
+        .progress-bar { --fg-color: ${colors.base0D}; }
+        .progress-bar__bg, .progress-bar__fg, .progress-bar__fg_wrapper { height: 5px; }
+
+        /* top bar - use base02 */
+        .main-topBar-background { background-color: ${colors.base02} !important; }
+
+        /* scrollbars */
+        .os-scrollbar-handle {
+          background: ${colors.base0D} !important;
+          border-radius: 8px;
+        }
+        .os-theme-spotify.os-host-transition > .os-scrollbar-vertical > .os-scrollbar-track > .os-scrollbar-handle {
+          border-radius: 8px;
+          width: 4px;
+        }
+
+        .cover-art-image,
+        .view-homeShortcutsGrid-image { border-radius: 8px; }
+
+        .main-entityHeader-shadow,
+        .x-categoryCard-image,
+        .main-cardImage-image,
+        .main-cardImage-imageWrapper { border-radius: 8px; }
+
+        .main-trackList-rowImage { border-radius: 4px; }
+
+        /* player bar */
+        .main-nowPlayingBar-container {
+          justify-content: center;
+          height: 5.625rem;
+          width: 100%;
+          border-radius: 8px;
+          padding: 0.25rem;
+          bottom: 0.5rem;
+          background-color: ${colors.base01};
+          backdrop-filter: blur(10px) saturate(0.5) brightness(100%);
+        }
+
+        /* home gradient */
+        .main-home-homeHeader { background-color: ${colors.base0D} !important; }
+
+        /* volume bar */
+        .volume-bar .progress-bar { margin: 0 0.4rem; }
+        .volume-bar { flex: 0 150px; }
+
+        .playlist-playlist-actionBarBackground-background { visibility: hidden; }
+      '';
+    };
+
     colorScheme = lib.mkForce "custom";
     customColorScheme = {
       text = colors.base05;
       subtext = colors.base04;
-      main = colors.base00;
+      main = colors.base01;
       sidebar = colors.base01;
       player = colors.base01;
       card = colors.base02;
