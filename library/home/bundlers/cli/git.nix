@@ -1,14 +1,25 @@
-{ lib, vars, ... }: {
+    includes = [
+      { path = config.sops.templates."git-identity".path; }
+    ];
+  };
+
+  sops.secrets.git_name = { owner = vars.username; };
+  sops.secrets.git_email = { owner = vars.username; };
+
+  sops.templates."git-identity" = {
+    owner = vars.username;
+    content = ''
+      [user]
+        name = ${config.sops.placeholder.git_name}
+        email = ${config.sops.placeholder.git_email}
+    '';
+  };
+in {
   programs.git = {
     enable = lib.mkDefault true;
     lfs.enable = lib.mkDefault true;
 
     settings = {
-      user = {
-        name = lib.mkDefault vars.gitname;
-        email = lib.mkDefault vars.email;
-      };
-      init.defaultBranch = lib.mkDefault "main";
       push.autoSetupRemote = lib.mkDefault true;
       pull.rebase = lib.mkDefault true;
       credential.helper = "!gh auth git-credential";
