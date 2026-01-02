@@ -102,6 +102,8 @@
         # and generate a nixos configuration for it
         nixosConfigurations = let
             hosts = ./hosts;
+            vars = import ./vars.nix;
+            lib = nixpkgs.lib;
 
             dir = builtins.attrNames
                 (lib.filterAttrs (n: v: v == "directory") (builtins.readDir hosts));
