@@ -8,9 +8,5 @@
         ../../packages
     ];
 
-    environment.systemPackages = with pkgs; [
-        apple-cursor
-    ];
-
     system.stateVersion = "25.11";
 }
