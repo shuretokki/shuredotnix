@@ -23,7 +23,7 @@ in {
     ];
     settings = {
       General = {
-        InputMethod = "qtvirtualkeyboard";
+        # InputMethod = "qtvirtualkeyboard";
         GreeterEnvironment = "QT_IM_MODULE=qtvirtualkeyboard${pkgs.lib.optionalString config.hardware.nvidia.modesetting.enable ",LIBVA_DRIVER_NAME=nvidia,QT_MULTIMEDIA_PREFERRED_PLUGINS=ffmpeg,GBM_BACKEND=nvidia-drm,__GLX_VENDOR_LIBRARY_NAME=nvidia"}";
       };
       Theme = {
