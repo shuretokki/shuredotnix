@@ -1,12 +1,9 @@
 { config, pkgs, vars, ... }:
 let
   themeDir = ./themes + "/${vars.theme}";
-  themeSddm = if builtins.pathExists (themeDir + "/sddm.nix")
-              then import (themeDir + "/sddm.nix") { inherit pkgs; }
-              else {};
 
-  font = themeSddm.font or "SF Pro Rounded";
-  background = themeSddm.background or null;
+  font = config.theme.fonts.sans or "SF Pro Rounded";
+  background = config.theme.wallpaper or null;
 in {
   services.displayManager.sddm = {
     enable = true;
@@ -34,10 +31,4 @@ in {
       };
     };
   };
-
-  environment.systemPackages = with pkgs; [
-    (import ./sddm.nix {
-      inherit pkgs font background;
-    })
-  ];
 }
