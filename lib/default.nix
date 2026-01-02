@@ -21,11 +21,11 @@ in
   assert username != "" || throw "username cannot be empty";
 
   let
-    mergedVars = vars // hostVars // { inherit hostname username; };
+    merge = vars // hostVars // { inherit hostname username; };
   in
   lib.nixosSystem {
     inherit system;
-    specialArgs = { inherit inputs; vars = mergedVars; };
+    specialArgs = { inherit inputs; vars = merge; };
     modules = [
       ../hosts/${hostname}
       ../users/${username}/nixos.nix
@@ -67,10 +67,10 @@ in
         home-manager = {
           useGlobalPkgs = true;
           useUserPackages = true;
-          extraSpecialArgs = { inherit inputs; vars = mergedVars; };
+          extraSpecialArgs = { inherit inputs; vars = merge; };
           sharedModules = [
             ../library/display/themes/default.nix
-            (../library/display/themes + "/${mergedVars.theme}/default.nix")
+            (../library/display/themes + "/${merge.theme}/default.nix")
           ];
           users.${username} = import ../users/${username}/home.nix;
           backupFileExtension = "backup";
