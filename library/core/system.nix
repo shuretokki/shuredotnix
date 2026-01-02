@@ -8,7 +8,6 @@
   };
 
   networking.hostName = vars.hostname;
-  console.keyMap = "us";
 
   programs.dconf.enable = true;
   services.gvfs.enable = true;
