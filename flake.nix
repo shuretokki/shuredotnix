@@ -110,7 +110,6 @@
 
             config = hostname: libs.mkHost {
                 inherit hostname;
-                username = vars.username;
             };
         in
             lib.genAttrs dir config;
