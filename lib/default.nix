@@ -69,10 +69,8 @@ in
           useUserPackages = true;
           extraSpecialArgs = { inherit inputs; vars = mergedVars; };
           sharedModules = [
-            inputs.vicinae.homeManagerModules.default
             ../library/display/themes/default.nix
             (../library/display/themes + "/${mergedVars.theme}/default.nix")
-            inputs.nh.nixosModules.default
           ];
           users.${username} = import ../users/${username}/home.nix;
           backupFileExtension = "backup";
