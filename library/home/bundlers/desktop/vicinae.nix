@@ -1,14 +1,11 @@
 # https://github.com/vicinaehq/vicinae
 # https://docs.vicinae.com/nixos
 { config, lib, pkgs, vars, inputs, ... }: {
-  services.vicinae = {
+  programs.vicinae = {
     enable = true;
     systemd = {
       enable = true;
       autoStart = true;
-      environment = {
-        USE_LAYER_SHELL = 1;
-      };
     };
 
     extensions = with inputs.vicinae-extensions.packages.${pkgs.stdenv.hostPlatform.system}; [
@@ -30,6 +27,7 @@
       pop_to_root_on_close = true;
       favicon_service = "twenty";
       search_files_in_root = true;
+      use_layer_shell = true;
       font = {
         normal = {
           size = 10.5;
