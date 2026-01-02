@@ -11,8 +11,6 @@ in
     hostname,
     username,
     system ? "x86_64-linux",
-    hostVars ? {},
-    extraModules ? []
   }:
 
   assert builtins.isString hostname || throw "hostname must be a string";
