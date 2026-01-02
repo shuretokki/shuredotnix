@@ -1,15 +1,17 @@
+# uncomment locale import in default.nix to configure
 { lib, vars, ... }: {
-  time.timeZone = lib.mkDefault (vars.timezone or "Asia/Jakarta");
-  i18n.defaultLocale = lib.mkDefault (vars.locale or "en_US.UTF-8");
+  console.keyMap = "us";
+  time.timeZone = "Asia/Jakarta";
+  i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = lib.mkDefault (vars.locale or "en_US.UTF-8");
-    LC_IDENTIFICATION = lib.mkDefault (vars.locale or "en_US.UTF-8");
-    LC_MEASUREMENT = lib.mkDefault (vars.locale or "en_US.UTF-8");
-    LC_MONETARY = lib.mkDefault (vars.locale or "en_US.UTF-8");
-    LC_NAME = lib.mkDefault (vars.locale or "en_US.UTF-8");
-    LC_NUMERIC = lib.mkDefault (vars.locale or "en_US.UTF-8");
-    LC_PAPER = lib.mkDefault (vars.locale or "en_US.UTF-8");
-    LC_TELEPHONE = lib.mkDefault (vars.locale or "en_US.UTF-8");
-    LC_TIME = lib.mkDefault (vars.locale or "en_US.UTF-8");
+    LC_ADDRESS = "en_US.UTF-8";
+    LC_IDENTIFICATION = "en_US.UTF-8";
+    LC_MEASUREMENT = "en_US.UTF-8";
+    LC_MONETARY = "en_US.UTF-8";
+    LC_NAME = "en_US.UTF-8";
+    LC_NUMERIC = "en_US.UTF-8";
+    LC_PAPER = "en_US.UTF-8";
+    LC_TELEPHONE = "en_US.UTF-8";
+    LC_TIME = "en_US.UTF-8";
   };
 }
