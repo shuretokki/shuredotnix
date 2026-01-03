@@ -10,8 +10,8 @@
   networking.hostName = vars.hostname;
 
   programs.dconf.enable = true;
-  services.gvfs.enable = true;
-  services.udisks2.enable = true;
+  services.gvfs.enable = vars.features.desktop;
+  services.udisks2.enable = vars.features.desktop;
   programs.nh = {
     enable = true;
     clean.enable = true;
@@ -20,7 +20,7 @@
   };
 
   xdg.portal = {
-    enable = true;
+    enable = vars.features.desktop;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     config.common.default = "*";
   };

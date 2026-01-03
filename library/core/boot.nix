@@ -30,11 +30,11 @@
     # "nodev" = EFI-only, skip MBR install
     # "/dev/sda" = install to MBR for BIOS systems
     device = "nodev";
-    
+
     efiSupport = true;
 
     # Detect other operating systems (Windows, other Linux distros)
-    useOSProber = true;
+    useOSProber = vars.features.desktop;
 
     theme = lib.mkIf config.theme.grub.enable config.theme.grub.theme;
 
