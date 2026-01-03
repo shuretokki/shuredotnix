@@ -1,10 +1,11 @@
-{ pkgs, ... }: {
-    nixpkgs.config.allowUnfree = true;
+{ pkgs, ... }:
+{
+  nixpkgs.config.allowUnfree = true;
 
-    environment.systemPackages = with pkgs; [
-        chromium
-        typora
-        nautilus
-        localsend
-    ];
+  environment.systemPackages = with pkgs; [
+    chromium
+    typora
+    nautilus
+    localsend
+  ];
 }
