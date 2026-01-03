@@ -1,15 +1,19 @@
-{ ... }: {
+{ lib, vars, ... }:
+{
   imports = [
-    ./boot.nix
     ./locale.nix
-    ./audio.nix
+    ./boot.nix
     ./network.nix
-    ./bluetooth.nix
     ./security.nix
-    ./input.nix
     ./performance.nix
     ./system.nix
-    ./fonts.nix
     ./sops.nix
+  ]
+  ++ lib.optionals vars.features.desktop [
+    ./audio.nix
+    ./bluetooth.nix
+    ./fonts.nix
+    ./input.nix
+    ./files.nix
   ];
 }
