@@ -28,4 +28,6 @@ in {
     package = pkgs.kdePackages.sddm;
     extraPackages = [ sugarDark ];
   };
+
+  environment.systemPackages = [ sugarDark ];
 }
