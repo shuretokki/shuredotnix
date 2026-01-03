@@ -3,14 +3,14 @@
     enable = lib.mkDefault true;
 
     shellAliases = {
-      rebuild = lib.mkDefault "sudo nixos-rebuild switch --flake .";
-      rebuild-test = lib.mkDefault "sudo nixos-rebuild test --flake .";
-      rebuild-boot = lib.mkDefault "sudo nixos-rebuild boot --flake .";
-      rebuild-dry = lib.mkDefault "nixos-rebuild dry-build --flake .";
+      rebuild = lib.mkDefault "nh os switch ~/shuredotnix";
+      rebuild-test = lib.mkDefault "nh os test ~/shuredotnix";
+      rebuild-boot = lib.mkDefault "nh os boot ~/shuredotnix";
+      rebuild-vm = lib.mkDefault "nh os build-vm ~/shuredotnix";
 
-      update = lib.mkDefault "nix flake update";
-      check = lib.mkDefault "nix flake check";
-      fmt = lib.mkDefault "nix fmt";
+      update = lib.mkDefault "cd ~/shuredotnix && nix flake update";
+      check = lib.mkDefault "cd ~/shuredotnix && nix flake check";
+      fmt = lib.mkDefault "cd ~/shuredotnix && nix fmt";
 
       gc = lib.mkDefault "sudo nix-collect-garbage -d";
       gc-week = lib.mkDefault "sudo nix-collect-garbage --delete-older-than 7d";
@@ -24,6 +24,15 @@
 
       cdnix = lib.mkDefault "cd ~/shuredotnix";
       dev = lib.mkDefault "nix develop";
+
+      gs = "git status";
+      gd = "git diff";
+      ga = "git add";
+      gc = "git commit -m";
+      gp = "git push";
+      gl = "git log --oneline --graph --decorate";
+      gla = "git log -1 HEAD";
+      gco = "git checkout";
     };
 
     profileExtra = lib.mkDefault ''
