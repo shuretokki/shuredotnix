@@ -25,7 +25,6 @@ in {
     #   relogin = false;
     # };
 
-    package = pkgs.kdePackages.sddm;
     extraPackages = [ sugarDark ];
   };
 
