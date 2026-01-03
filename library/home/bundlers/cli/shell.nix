@@ -1,4 +1,10 @@
-{ lib, pkgs, vars, ... }: {
+{
+  lib,
+  pkgs,
+  vars,
+  ...
+}:
+{
   programs.bash = {
     enable = lib.mkDefault true;
 
