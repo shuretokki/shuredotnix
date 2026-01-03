@@ -67,6 +67,7 @@ in {
               cp -a $src/assets/assets-other/other-1080p/*.png $out/
           '';
         };
+      };
     };
 
     waybar = {
