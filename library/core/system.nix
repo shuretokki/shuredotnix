@@ -1,11 +1,4 @@
 # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/config/nix-flakes.nix
-# https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/config/nix-channel.nix
-# https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/tasks/network-interfaces.nix
-# https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/programs/dconf.nix
-# https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/desktops/gvfs.nix
-# https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/hardware/udisks2.nix
-# https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/programs/nh.nix
-# https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/config/xdg/portal.nix
 
 { config, pkgs, vars, inputs, ... }: {
   nix = {
@@ -13,6 +6,7 @@
     # every time commands like `nix shell` are run.
     registry.nixpkgs.flake = inputs.nixpkgs;
 
+    # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/config/nix-channel.nix
     # Ensures legacy commands (nix-channel) still work consistent with the flake
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
@@ -35,28 +29,37 @@
     };
   };
 
+
+  # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/tasks/network-interfaces.nix
   networking.hostName = vars.hostname;
 
   # (optional)
   # networking.networkmanager.enable = true;
   # networking.firewall.enable = true;
 
+
+  # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/programs/dconf.nix
   # Configuration storage system for GNOME/GTK apps
   # Required for saving theme settings, terminal preferences, etc.
   programs.dconf.enable = true;
 
+
+  # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/desktops/gvfs.nix
   # Allows mounting phones (MTP), cameras (PTP), network shares (SMB/FTP) in file manager.
   services.gvfs = {
     enable = vars.features.desktop;
     # package = pkgs.gvfs;
   };
 
+
+  # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/hardware/udisks2.nix
   # Allows non-root users to mount removable drives (USB, etc.) via polkit.
   services.udisks2 = {
     enable = vars.features.desktop;
     # mountOnMedia = false; # Mount to /media instead of /run/media/$USER
   };
 
+  # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/programs/nh.nix
   programs.nh = {
     enable = true;
 
@@ -77,6 +80,7 @@
     flake = "/home/${vars.username}/shuredotnix";
   };
 
+  # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/config/xdg/portal.nix
   # Portals provide secure access to system resources (file picker, screenshare, etc.)
   # for sandboxed apps (Flatpak) and standard apps outside the DE.
   xdg.portal = {
