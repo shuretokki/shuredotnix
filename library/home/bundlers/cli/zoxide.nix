@@ -1,3 +1,5 @@
+# https://github.com/nix-community/home-manager/blob/master/modules/programs/zoxide.nix
+
 {
   lib,
   pkgs,
