@@ -24,7 +24,7 @@ in
         live_config_reload = true;
       };
 
-      window = {
+      window = lib.mkDefault {
         padding = {
           x = 10;
           y = 10;
