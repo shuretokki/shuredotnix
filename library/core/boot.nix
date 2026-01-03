@@ -2,7 +2,7 @@
 # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/system/boot/loader/efi.nix
 # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/system/boot/loader/grub/grub.nix
 
-{ lib, config, ... }:
+{ lib, config, vars, ... }:
 {
   boot.loader.efi = {
     # Allow installer to modify EFI boot variables (required for UEFI systems)
