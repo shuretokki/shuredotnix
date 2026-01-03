@@ -3,7 +3,7 @@
         ./hardware-configuration.nix
 
         ../../library/core
-        ../../library/display/sddm-config.nix
+        ../../library/display/sddm.nix
         ../../library/display/default.nix
         ../../packages
     ];
