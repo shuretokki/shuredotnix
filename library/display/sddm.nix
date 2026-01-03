@@ -24,7 +24,7 @@ in {
     # autoLogin = {
     #   relogin = false;
     # };
-
+    package = pkgs.libsForQt5.sddm;
     extraPackages = [ sugarDark ];
   };
 
