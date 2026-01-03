@@ -48,18 +48,16 @@ in {
       zen-browser.profileNames = [ "default" ];
     };
 
-    # auto-update wallpaper symlink on rebuild
-    home.activation.linkWallpapers = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      DIR="${config.home.homeDirectory}/Wallpapers"
-      mkdir -p "$DIR/primary"
+    # bootstrap awww wallpapers directory with base wallpapers
+    home.activation.bootstrapWallpapers = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      DIR="${config.home.homeDirectory}/.local/share/awww"
+      mkdir -p "$DIR"
 
+      # copy base wallpapers (if they don't exist)
       for f in ${wpBase}/*; do
         name=$(basename "$f")
-        # only create symlink if file doesn't exist
-        [ ! -e "$DIR/primary/$name" ] && ln -sf "$f" "$DIR/primary/$name"
+        [ ! -e "$DIR/$name" ] && cp "$f" "$DIR/$name"
       done
-
-      ln -sfn "$DIR/primary" "$DIR/current"
     '';
   };
 }
