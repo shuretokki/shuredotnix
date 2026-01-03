@@ -36,7 +36,7 @@ in
       "--exact"
     ];
 
-    colors = {
+    colors = lib.mkDefault {
       "bg" = c.base00;
       "bg+" = c.base01;
       "fg" = c.base05;
