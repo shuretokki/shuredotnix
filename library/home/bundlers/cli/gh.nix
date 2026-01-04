@@ -3,14 +3,6 @@
 { lib, ... }: {
   programs.gh = {
     enable = lib.mkDefault true;
-    gitCredentialHelper = {
-      enable = true;
-      hosts = [
-        "https://github.com"
-        "https://gist.github.com"
-      ];
-    };
-
     extensions = [
       # https://cli.github.com/manual/gh_extension
     ];
