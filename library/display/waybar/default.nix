@@ -13,7 +13,7 @@ let
         "margin-top" = 4;
         "modules-left" = [ "hyprland/workspaces" ];
         "modules-center" = [ "mpris" ];
-        "modules-right" = [ "network" "pulseaudio" "battery" "clock" ];
+        "modules-right" = [ "network" "pulseaudio" "desktop/battery" "clock" ];
 
         "hyprland/workspaces" = {
           "on-click" = "activate";
@@ -22,19 +22,16 @@ let
           "format" = "{name}";
           "persistent-workspaces" = { "*" = 5; };
         };
-
         "cpu" = {
           "interval" = 5;
           "format" = "󰍛";
           "on-click" = "${vars.terminal} -e btop";
         };
-
         "memory" = {
           "interval" = 5;
           "format" = "󰘚";
           "on-click" = "${vars.terminal} -e btop";
         };
-
         "network" = {
           "format-wifi" = "";
           "format-ethernet" = "󰈀";
@@ -48,6 +45,10 @@ let
           "format-icons" = { "default" = [ "󰕿" "󰖀" "󰕾" ]; };
           "on-click" = "pavucontrol";
           "tooltip-format" = "{volume}%";
+        };
+        "desktop/battery" = {
+          "format" = "100%   ";
+          "tooltip" = false;
         };
         "battery" = {
           "states" = {
@@ -87,42 +88,51 @@ in {
           min-height: 0;
       }
 
-      window#waybar {
-          background-color: transparent;
+      #waybar {
+          background: transparent;
           color: #${colors.base05};
       }
 
       #workspaces {
-          background-color: #${colors.base00};
+          background: #${colors.base00};
+          border-radius: 0px;
+          padding: 0px 4px;
           margin-top: 5px;
           margin-bottom: 5px;
-          margin-left: 5px;
-          border-radius: 0px;
+          margin-right: 10px;
       }
 
       #workspaces button {
-          padding: 0px 8px;
+          background: #${colors.base00};
           color: #${colors.base05};
+          border: 1px solid #${colors.base01};
+          box-shadow: 0 1 0 2 #${colors.base01};
           border-radius: 0px;
+          padding: 0px 4px;
+          margin: 0 4px;
+          transition: all 0.2s ease;
       }
 
       #workspaces button.active {
-          background-color: #${colors.base0D};
-          color: #${colors.base00};
+          background: #${colors.base0D};
+          border-radius: 0px;
+          margin: 0 4px;
+          min-width: 40px;
       }
 
       #workspaces button.urgent {
-          background-color: #${colors.base08};
+          background: #${colors.base08};
           color: #${colors.base00};
       }
 
       #network,
       #pulseaudio,
-      #custom-battery,
+      #desktop-battery,
       #battery,
       #clock,
       #mpris {
-          background-color: #${colors.base00};
+          background: #${colors.base00};
+          border-radius: 0px;
           padding: 0px 4px;
           margin-top: 5px;
           margin-bottom: 5px;
@@ -137,8 +147,9 @@ in {
 
       tooltip {
           padding: 2px;
-          background-color: #${colors.base00};
+          background: #${colors.base00};
           border: 1px solid #${colors.base0D};
+          border-radius: 0px;
       }
       tooltip label { color: #${colors.base05}; }
 
