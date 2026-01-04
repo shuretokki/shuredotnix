@@ -7,7 +7,7 @@ This folder stores decisions, domain knowledge, and patterns so that readers und
 ## Folder Structure
 
 ```
-.sym_context/
+docs/.sym_context/
 ├── ADR/              # Architecture Decision Records
 ├── domain_knowledge/ # System logic & how things work
 ├── conventions/      # Code style & patterns
@@ -44,7 +44,7 @@ You can search by tags using grep:
 
 ```bash
 # Find docs about "vars"
-grep -r "tags:.*vars" .sym_context/
+grep -r "tags:.*vars" docs/.sym_context/
 ```
 
 ---
