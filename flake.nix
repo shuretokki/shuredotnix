@@ -63,7 +63,7 @@
 
     devShells.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.mkShell {
       packages = with nixpkgs.legacyPackages.x86_64-linux; [
-        sops age
+        sops age cachix
         gcc gnumake
         nodejs python3
       ];
@@ -75,5 +75,9 @@
     in lib.genAttrs (builtins.attrNames hostDirs) (hostname:
       libs.mkHost { inherit hostname; username = vars.username; }
     );
+
+    packages.x86_64-linux = nixpkgs.lib.mapAttrs
+      (hostname: config: config.config.system.build.toplevel)
+      self.nixosConfigurations;
   };
 }
