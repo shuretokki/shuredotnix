@@ -17,9 +17,9 @@ val() {
     done
 }
 
-val ".sym_context/domain_knowledge/000.md" ".sym_context/domain_knowledge"
-val ".sym_context/ADR/000.md" ".sym_context/ADR"
-val ".sym_context/troubleshooting/000.md" ".sym_context/troubleshooting"
+val "docs/.sym_context/domain_knowledge/000.md" "docs/.sym_context/domain_knowledge"
+val "docs/.sym_context/ADR/000.md" "docs/.sym_context/ADR"
+val "docs/.sym_context/troubleshooting/000.md" "docs/.sym_context/troubleshooting"
 
 if [ $ERRORS -eq 0 ]; then
     exit 0
