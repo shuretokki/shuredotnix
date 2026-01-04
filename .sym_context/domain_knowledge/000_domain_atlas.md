@@ -14,6 +14,7 @@ This folder contains **Domain Knowledge** files — documentation of business lo
 |----|---------|--------------|
 | 001 | vars.nix system | `vars.nix` |
 | 002 | Context system analysis | `.sym_context/`, `.agent/rules/` |
+| 003 | GitHub Automation Analysis | `.github/workflows/` |
 
 ## How to Add a New DK File
 

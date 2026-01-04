@@ -8,11 +8,11 @@ This folder stores decisions, domain knowledge, and patterns so that readers und
 
 ```
 .sym_context/
-├── ADR/ # Architecture Decision Records
+├── ADR/              # Architecture Decision Records
 ├── domain_knowledge/ # System logic & how things work
-├── conventions/ # Code style & patterns
-├── troubleshooting/ # Runbooks for common issues
-└── findings/ # Active research (scratch pad)
+├── conventions/      # Code style & patterns
+├── troubleshooting/  # Runbooks for common issues
+└── findings/         # Active research (scratch pad)
 ```
 
 ---

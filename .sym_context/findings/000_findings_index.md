@@ -10,9 +10,9 @@ This folder is a **scratchpad** for active research and investigations.
 ## Workflow
 1. Create a file here when investigating something complex
 2. Once resolved:
-   - If it's a **technical decision** → Move to `ADR/`
-   - If it's **domain knowledge** → Move to `domain_knowledge/`
-   - If it's **trivial** → Delete
+   - If it's a **technical decision** -> Move to `ADR/`
+   - If it's **domain knowledge** -> Move to `domain_knowledge/`
+   - If it's **trivial** -> Delete
 
 ## Current Investigations
 

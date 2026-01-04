@@ -56,7 +56,7 @@ Show what's possible without cluttering the active config:
 
 ## Examples
 
-### ✅ Good
+### Good Example
 
 ```nix
 # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/hardware/bluetooth.nix
@@ -83,7 +83,7 @@ Show what's possible without cluttering the active config:
 }
 ```
 
-### ❌ Bad
+### Bad Example
 
 ```nix
 # Enable Bluetooth

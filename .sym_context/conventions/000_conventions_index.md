@@ -11,7 +11,7 @@ This folder contains **coding conventions and patterns** used throughout this Ni
 
 | ID | Convention | Scope |
 |----|------------|-------|
-| *001* | *Nix File Documentation Style* | All `.nix` files |
+| 001 | Nix File Documentation Style | All `.nix` files |
 
 ---
 
@@ -27,12 +27,12 @@ This folder contains **coding conventions and patterns** used throughout this Ni
 
 ## Examples
 
-### ✅ Good
+### Good Example
 ```nix
 // good example
 ```
 
-### ❌ Bad
+### Bad Example
 ```nix
 // bad example
 ```
