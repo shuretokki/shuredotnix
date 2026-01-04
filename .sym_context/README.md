@@ -53,10 +53,10 @@ grep -r "tags:.*vars" .sym_context/
 
 | I want to... | Start here |
 |--------------|------------|
-| Understand the config structure | `domain_knowledge/DK_001_vars_system.md` |
-| Know the Nix documentation style | `conventions/CON_001_nix_file_style.md` |
-| Fix a rebuild error | `troubleshooting/TS_001_common_rebuild_errors.md` |
-| Understand this context system | `domain_knowledge/DK_002_context_system_analysis.md` |
+| Understand the config structure | `domain_knowledge/DK001.md` |
+| Know the Nix documentation style | `conventions/CON001.md` |
+| Fix a rebuild error | `troubleshooting/TS001.md` |
+| Understand this context system | `domain_knowledge/DK002.md` |
 
 ---
 
@@ -69,4 +69,4 @@ grep -r "tags:.*vars" .sym_context/
 - **Troubleshooting:** You solved a cryptic error
 - **Finding:** You're actively researching (move to ADR/DK when done)
 
-**Always update the index (`000_*.md`) when adding files!**
+**Always update the index (`000.md`) when adding files!**

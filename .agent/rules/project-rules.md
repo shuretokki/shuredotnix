@@ -28,8 +28,8 @@ You must strictly follow this order of operations. You are currently in the **AR
 3. **NEVER revert user code to older patterns** - e.g., don't change `settings.user.name` back to `userName`.
 4. **When unsure**: Use web search or ask the user, don't assume my training data is correct.
 **Examples of outdated patterns I might wrongly suggest**:
-- `programs.git.userName` → WRONG, use `programs.git.settings.user.name`
-- `programs.git.extraConfig` → WRONG, use `programs.git.settings`
+- `programs.git.userName` -> WRONG, use `programs.git.settings.user.name`
+- `programs.git.extraConfig` -> WRONG, use `programs.git.settings`
 **Rule**: If the user's code builds without errors, assume it's correct even if I don't recognize it.
 
 ---
@@ -151,7 +151,14 @@ This project uses a **Context Repository** at `.sym_context/` to store architect
 
 ### C. File Templates
 
-**ADR Template** (`.sym_context/ADR/ADR_XXX_title.md`):
+**NAMING CONVENTION:**
+Files must use strict ID-based naming without titles. Index files are always `000.md`.
+- `ADR/ADR001.md`
+- `domain_knowledge/DK001.md`
+- `conventions/CON001.md`
+- `troubleshooting/TS001.md`
+
+**ADR Template** (`.sym_context/ADR/ADRXXX.md`):
 ```markdown
 # ADR-XXX: [Title]
 
@@ -169,7 +176,7 @@ This project uses a **Context Repository** at `.sym_context/` to store architect
 **Negative:** ...
 ```
 
-**DK Template** (`.sym_context/domain_knowledge/DK_XXX_title.md`):
+**DK Template** (`.sym_context/domain_knowledge/DKXXX.md`):
 ```markdown
 # DK-XXX: [Concept Name]
 
@@ -187,7 +194,7 @@ This project uses a **Context Repository** at `.sym_context/` to store architect
 
 ### D. Documentation Restriction: COMPLEXITY THRESHOLD
 
-**⚠️ DO NOT over-document.** Only add comments when necessary.
+**DO NOT over-document.** Only add comments when necessary.
 
 **Document ONLY when:**
 1. The value is **non-default** and the reason isn't obvious
@@ -201,13 +208,13 @@ This project uses a **Context Repository** at `.sym_context/` to store architect
 - Self-descriptive attribute names like `powerOnBoot = true`
 - Anything where the comment merely restates the code
 
-**❌ BAD:**
+**BAD:**
 ```nix
 # Enable Bluetooth
 hardware.bluetooth.enable = true;
 ```
 
-**✅ GOOD:**
+**GOOD:**
 ```nix
 hardware.bluetooth.enable = true;
 
@@ -253,7 +260,7 @@ Every `.nix` module file should follow this pattern:
 If code contradicts a `.sym_context/` file, fixing the doc is **part of the task** — not optional.
 
 **Checklist before completing any task:**
-- [ ] Does this change affect `vars.nix`? → Update `DK_001_vars_system.md`
-- [ ] Does this change a documented convention? → Update relevant `CON_XXX` file
-- [ ] Did I encounter a new error and solve it? → Add to `troubleshooting/`
-- [ ] Did I make an architectural choice? → Create an ADR
+- [ ] Does this change affect `vars.nix`? -> Update `DK001.md`
+- [ ] Does this change a documented convention? -> Update relevant `CONXXX.md` file
+- [ ] Did I encounter a new error and solve it? -> Add to `troubleshooting/`
+- [ ] Did I make an architectural choice? -> Create an ADR
