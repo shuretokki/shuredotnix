@@ -14,4 +14,3 @@ secrets.nix
 secrets.nix
 
 vars.local.nix
-git.local.nix
