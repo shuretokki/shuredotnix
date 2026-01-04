@@ -17,4 +17,4 @@ jobs:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
       - run: nix flake check
-      - run: nix build .#nixosConfigurations.shuredotnix.config.system.build.toplevel
+      - run: nix build .#nixosConfigurations.desktop.config.system.build.toplevel
