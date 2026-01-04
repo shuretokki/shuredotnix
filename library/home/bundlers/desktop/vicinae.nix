@@ -23,7 +23,6 @@
       wifi-commander
       bluetooth
       process-manager
-      fuzzy-files
       nix
       ssh
       hypr-keybinds
@@ -118,6 +117,20 @@
           favorite = true;
           preferences = {
             show_volume = true;
+          };
+        };
+        "@leonkohli/process-manager-0" = {
+          preferences = {
+            refresh-interval = "7000";
+            sort-by-memory = true;
+            show-system-processes = true;
+            show-pid = true;
+            show-path = false;
+            search-in-paths = true;
+            search-in-pid = true;
+            close-window-after-kill = false;
+            clear-search-after-kill = false;
+            process-limit = "200";
           };
         };
       };
