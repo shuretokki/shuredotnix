@@ -1,3 +1,7 @@
+---
+tags: [troubleshooting, errors, rebuild]
+---
+
 # TS-001: Common NixOS Rebuild Errors
 
 **Last Updated:** 2026-01-04

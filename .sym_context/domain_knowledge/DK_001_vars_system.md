@@ -1,3 +1,7 @@
+---
+tags: [vars, configuration, core]
+---
+
 # DK-001: The vars.nix System
 
 **Related Code:** `vars.nix`, all files in `library/`

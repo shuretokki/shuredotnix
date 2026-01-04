@@ -38,6 +38,15 @@ This folder stores decisions, domain knowledge, and patterns so that readers und
                       └─► findings/000_In_Progress/
 ```
 
+## Discovery
+
+You can search by tags using grep:
+
+```bash
+# Find docs about "vars"
+grep -r "tags:.*vars" .sym_context/
+```
+
 ---
 
 ## Quick Start

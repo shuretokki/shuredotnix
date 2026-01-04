@@ -1,3 +1,7 @@
+---
+tags: [meta, documentation, analysis]
+---
+
 # DK-002: Context System Flow Analysis
 
 **Related Code:** `.sym_context/`, `.agent/rules/project-rules.md`

@@ -1,3 +1,7 @@
+---
+tags: [conventions, style, nix]
+---
+
 # CON-001: NixOS Module Documentation Style
 
 **Applies To:** All `.nix` module files in `library/`
