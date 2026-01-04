@@ -1,4 +1,4 @@
-name: "Test"
+name: "Check"
 
 on:
   pull_request:
@@ -8,7 +8,7 @@ on:
       - master
 
 jobs:
-  nix-matrix:
+  check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
