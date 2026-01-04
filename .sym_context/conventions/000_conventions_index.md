@@ -1,0 +1,42 @@
+# Conventions
+
+This folder contains **coding conventions and patterns** used throughout this NixOS configuration.
+
+## Purpose
+- Prevent style debates in reviews
+- Ensure consistency across modules
+- Document patterns that might not be obvious
+
+## Index
+
+| ID | Convention | Scope |
+|----|------------|-------|
+| *001* | *Nix File Documentation Style* | All `.nix` files |
+
+---
+
+## Template
+
+```markdown
+# CON-XXX: [Convention Name]
+
+**Applies To:** All `.nix` files | Specific folder | etc.
+
+## The Rule
+[Clear statement of the convention]
+
+## Examples
+
+### ✅ Good
+```nix
+// good example
+```
+
+### ❌ Bad
+```nix
+// bad example
+```
+
+## Rationale
+[Why we use this convention]
+```

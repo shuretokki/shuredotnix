@@ -1,0 +1,51 @@
+# Architecture Decision Records (ADR)
+
+This folder contains **Architecture Decision Records** — snapshots of significant technical choices made in this project.
+
+## Purpose
+- Prevent circular debates by documenting past decisions
+- Provide context for future maintainers and readers
+- Answer "why did we do it this way?" without re-debating
+
+## Index
+
+| ID | Title | Status | Date |
+|----|-------|--------|------|
+| *001* | *Example: Why GRUB over systemd-boot* | *Template* | *YYYY-MM-DD* |
+
+## How to Add a New ADR
+
+1. Copy the template below
+2. Create `ADR_XXX_title_snake_case.md`
+3. Fill in the sections
+4. Update this index
+
+---
+
+## Template
+
+```markdown
+# ADR-XXX: [Short Title]
+
+**Status:** Proposed | Accepted | Deprecated
+**Date:** YYYY-MM-DD
+
+## Context
+[Why do we need to make this decision? What constraints exist?]
+
+## Decision
+[The choice we made. Be specific.]
+
+## Consequences
+**Positive:**
+- [Benefit 1]
+- [Benefit 2]
+
+**Negative:**
+- [Drawback 1]
+- [Drawback 2]
+
+## Alternatives Considered
+- **Option A:** Rejected because...
+- **Option B:** Rejected because...
+```
