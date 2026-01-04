@@ -45,6 +45,7 @@ in {
       vscode.enable = lib.mkDefault false;
       hyprpaper.enable = lib.mkDefault false;
       spicetify.enable = false;
+      waybar.enable = false;
       zen-browser.profileNames = [ "default" ];
     };
 

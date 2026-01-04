@@ -11,6 +11,9 @@ let
         "position" = "top";
         "height" = 26;
         "margin-top" = 4;
+        "margin-left" = 0;
+        "margin-right" = 0;
+        "spacing" = 0;
         "modules-left" = [ "hyprland/workspaces" ];
         "modules-center" = [ "mpris" ];
         "modules-right" = [ "network" "pulseaudio" "desktop/battery" "clock" ];
@@ -33,44 +36,48 @@ let
           "on-click" = "${vars.terminal} -e btop";
         };
         "network" = {
-          "format-wifi" = "";
-          "format-ethernet" = "󰈀";
-          "format-disconnected" = "󰖪";
-          "tooltip-format" = "{essid} ({signalStrength}%)";
-          "on-click" = "nm-connection-editor";
+          "format-wifi" = "{essid} ({signalStrength}%)  ";
+          "format-ethernet" = "5G   ";
+          "format-disconnected" = "Disconnected ⚠";
         };
         "pulseaudio" = {
-          "format" = "{icon}";
-          "format-muted" = "󰝟";
-          "format-icons" = { "default" = [ "󰕿" "󰖀" "󰕾" ]; };
-          "on-click" = "pavucontrol";
-          "tooltip-format" = "{volume}%";
+          "format" = "{volume}% {icon} ";
+          "on-click" = "xdg-terminal-exec --app-id=com.omarchy.Wiremix -e wiremix";
+          "on-click-right" = "pamixer -t";
+          "tooltip-format" = "Playing at {volume}%";
+          "scroll-step" = 5;
+          "format-muted" = "";
+          "format-icons" = { "default" = [ "" "" "" ]; };
         };
         "desktop/battery" = {
-          "format" = "100%   ";
+          "format" = "100%  ";
           "tooltip" = false;
         };
         "battery" = {
-          "states" = {
-            "warning" = 30;
-            "critical" = 15;
-          };
-          "format" = "{icon}";
-          "format-charging" = "󰂄";
-          "format-plugged" = "󰂄";
-          "format-icons" = [ "󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰁿" "󰂁" "󰂂" "󰁹" ];
-          "tooltip-format" = "{capacity}%";
+          "format" = "{capacity}% {icon} ";
+          "format-icons" = [ "" "" "" "" "" ];
         };
         "clock" = {
           "format" = "{:%H:%M}";
-          "tooltip-format" = "{:%A, %B %d, %Y}";
+          "format-alt" = "{:%a, %d %b %H:%M}";
+          "tooltip" = false;
         };
         "mpris" = {
-          "format" = "{player_icon} {title} - {artist}";
-          "format-paused" = "{status_icon} <i>{title} - {artist}</i>";
-          "player-icons" = { "default" = "󰐊"; "spotify" = ""; };
-          "status-icons" = { "paused" = "󰏤"; };
-          "max-length" = 40;
+          "format" = "{player_icon}  {artist} / {title}";
+          "format-paused" = "{player_icon}   Paused";
+          "player-icons" = {
+            "default" = "▶";
+            "mpv" = "🎵";
+            "spotify" = "";
+            "firefox" = "";
+          };
+          "status-icons" = { "paused" = "■"; };
+          "ignored-players" = [ "firefox" ];
+          "max-length" = 35;
+          "interval" = 1;
+          "on-click" = "playerctl play-pause";
+          "on-click-right" = "playerctl next";
+          "on-click-middle" = "playerctl previous";
         };
       };
   };
@@ -84,17 +91,27 @@ in {
     style = ''
       * {
           font-family: "${config.stylix.fonts.monospace.name}";
-          font-size: 12px;
+          font-size: 15px;
+          font-weight: 700;
+          border: none;
           min-height: 0;
+          margin: 0;
+          padding: 0;
       }
 
-      #waybar {
+      window#waybar {
           background: transparent;
-          color: #${colors.base05};
+      }
+
+      .modules-left {
+          margin-left: 0px;
+      }
+
+      .modules-right {
+          margin-right: 0px;
       }
 
       #workspaces {
-          background: #${colors.base00};
           border-radius: 0px;
           padding: 0px 4px;
           margin-top: 5px;
@@ -114,7 +131,7 @@ in {
       }
 
       #workspaces button.active {
-          background: #${colors.base0D};
+          background: #${colors.base01};
           border-radius: 0px;
           margin: 0 4px;
           min-width: 40px;
@@ -123,6 +140,10 @@ in {
       #workspaces button.urgent {
           background: #${colors.base08};
           color: #${colors.base00};
+      }
+
+      #workspaces button.empty {
+          opacity: 0.5;
       }
 
       #network,
