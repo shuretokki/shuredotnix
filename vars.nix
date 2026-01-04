@@ -1,5 +1,4 @@
 # require updating the values below to match your setup.
-
 {
   username = "shure";
 
@@ -7,11 +6,11 @@
   email = "tri.r.utomo@gmail.com";
 
   # default applications
-  browser = "zen";           # zen, chromium
+  browser = "zen"; # zen, chromium
   terminal = "warp-terminal"; # warp-terminal, alacritty, ghostty
-  editor = "code";           # code, nvim, zed
-  fileManager = "nautilus";  # nautilus
-  musicPlayer = "spotify";   # spotify, youtube-music
+  editor = "code"; # code, nvim, zed
+  fileManager = "nautilus"; # nautilus
+  musicPlayer = "spotify"; # spotify, youtube-music
 
   locale = "en_US.UTF-8";
   timezone = "Asia/Jakarta";
