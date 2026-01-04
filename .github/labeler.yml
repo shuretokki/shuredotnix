@@ -1,0 +1,17 @@
+# .github/labeler.yml
+
+area/systems:
+  - changed-files:
+    - any-glob-to-any-file: 'hosts/**'
+
+area/modules:
+  - changed-files:
+    - any-glob-to-any-file: 'library/**'
+
+area/documentation:
+  - changed-files:
+    - any-glob-to-any-file: 'docs/.sym_context/**'
+
+area/automation:
+  - changed-files:
+    - any-glob-to-any-file: '.github/**'
