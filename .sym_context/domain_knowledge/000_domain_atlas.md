@@ -13,13 +13,14 @@ This folder contains **Domain Knowledge** files — documentation of business lo
 | ID | Concept | Related Code |
 |----|---------|--------------|
 | 001 | vars.nix system | `vars.nix` |
+| 002 | Context system analysis | `.sym_context/`, `.agent/rules/` |
 
 ## How to Add a New DK File
 
 1. Copy the template below
 2. Create `DK_XXX_concept_name.md`
 3. Fill in the sections
-4. Update this index
+4. **Update this index**
 
 ---
 
