@@ -10,5 +10,6 @@
     ./zoxide.nix
     ./direnv.nix
     ./tools.nix
+    ./fastfetch.nix
   ];
 }

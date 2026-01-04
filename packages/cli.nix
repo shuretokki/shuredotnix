@@ -1,11 +1,10 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    wget
+    wget2
     curl
     git
     unzip
     zip
-    fastfetch
   ];
 }
