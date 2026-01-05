@@ -66,7 +66,16 @@
         sops age cachix
         gcc gnumake
         nodejs python3
+        flake-checker
       ];
+      shellHook = ''
+        if [ ! -f .git/hooks/pre-commit ]; then
+          echo "Installing git hooks..."
+          mkdir -p .git/hooks
+          cp .git-hooks/pre-commit .git/hooks/pre-commit
+          chmod +x .git/hooks/pre-commit
+        fi
+      '';
     };
 
     nixosConfigurations = let

@@ -1,0 +1,19 @@
+repos:
+  - repo: https://github.com/nix-community/nixpkgs-fmt
+    rev: v1.3.0
+    hooks:
+      - id: nixpkgs-fmt
+
+  - repo: local
+    hooks:
+      - id: nix-flake-check
+        entry: bash -c 'timeout 300 nix flake check || exit 1'
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      - id: flake-checker
+        entry: bash -c 'command -v flake-checker && flake-checker --no-telemetry || true'
+        language: system
+        pass_filenames: false
+        always_run: true
