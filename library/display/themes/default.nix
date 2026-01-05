@@ -73,13 +73,13 @@ in {
     waybar = {
       styleFile = mkOption {
         type = types.nullOr types.path;
-        default = null;
+        default = ./default/waybar/style.css;
         description = "Path to style.css file";
       };
 
       configFile = mkOption {
         type = types.nullOr types.path;
-        default = null;
+        default = ./default/waybar/config.jsonc;
         description = "Path to config.jsonc file";
       };
     };
