@@ -14,6 +14,7 @@
     library.core.files.enable = true;
     library.core.virtualisation.docker.enable = true;
     library.core.gpu.nvidia.enable = true;
+    library.core.gpu.nvidia.open = false;
 
     library.display.sddm.enable = true;
     library.display.hyprland.enable = true;
