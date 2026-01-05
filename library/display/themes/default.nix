@@ -6,7 +6,7 @@ in {
     scheme = mkOption {
       type = types.path;
       description = "Path to base16 scheme yaml file";
-      default = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
+      default = ./default/schemes/sh-dark.yaml;
     };
 
     polarity = mkOption {
@@ -71,16 +71,16 @@ in {
     };
 
     waybar = {
-      style = mkOption {
-        type = types.lines;
-        default = "";
-        description = "CSS content for Waybar";
+      styleFile = mkOption {
+        type = types.nullOr types.path;
+        default = null;
+        description = "Path to style.css file";
       };
 
-      config = mkOption {
-        type = types.attrs;
-        default = {};
-        description = "Configuration attributes for Waybar";
+      configFile = mkOption {
+        type = types.nullOr types.path;
+        default = null;
+        description = "Path to config.jsonc file";
       };
     };
 
