@@ -1,18 +1,26 @@
 # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/desktops/gnome/sushi.nix
 # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/programs/nautilus-open-any-terminal.nix
 
-{ pkgs, vars, ... }:
-{
-  # Preview files by pressing Spacebar in the file manager
-  services.gnome.sushi = {
-    enable = true;
+{ config, lib, pkgs, vars, ... }:
+let
+  cfg = config.library.core.files;
+in {
+  options.library.core.files = {
+    enable = lib.mkEnableOption "File manager integrations";
   };
 
-  programs.nautilus-open-any-terminal = {
-    enable = true;
+  config = lib.mkIf cfg.enable {
+    # Preview files by pressing Spacebar in the file manager
+    services.gnome.sushi = {
+      enable = true;
+    };
 
-    # Terminal emulator to launch
-    # See: https://github.com/Stunkymonkey/nautilus-open-any-terminal#supported-terminal-emulators
-    terminal = vars.terminal;
+    programs.nautilus-open-any-terminal = {
+      enable = true;
+
+      # Terminal emulator to launch
+      # See: https://github.com/Stunkymonkey/nautilus-open-any-terminal#supported-terminal-emulators
+      terminal = vars.terminal;
+    };
   };
 }

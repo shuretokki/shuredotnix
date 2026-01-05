@@ -7,6 +7,12 @@
         ../../packages
     ];
 
+    library.core.audio.enable = true;
+    library.core.bluetooth.enable = true;
+    library.core.fonts.enable = true;
+    library.core.input.enable = true;
+    library.core.files.enable = true;
+
     library.display.sddm.enable = true;
     library.display.hyprland.enable = true;
 
