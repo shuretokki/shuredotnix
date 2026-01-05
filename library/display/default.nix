@@ -2,7 +2,7 @@
 let
   hyprland-config = import ./hyprland { inherit config pkgs lib vars; };
 in {
-  imports = [ ./stylix.nix ];
+  imports = [ ./stylix.nix ./sddm.nix ];
 
   programs.hyprland = {
     enable = true;

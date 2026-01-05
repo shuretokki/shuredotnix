@@ -3,10 +3,11 @@
         ./hardware-configuration.nix
 
         ../../library/core
-        ../../library/display/sddm.nix
         ../../library/display/default.nix
         ../../packages
     ];
+
+    shure.display.sddm.enable = true;
 
     system.stateVersion = "25.11";
 }
