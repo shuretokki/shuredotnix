@@ -1,7 +1,5 @@
 # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/hardware/video/nvidia.nix
-#
-# nvidia gpu configuration for desktop/laptop systems.
-# enables proprietary drivers, modesetting, and wayland compatibility.
+# https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/hardware/graphics.nix
 
 { config, lib, pkgs, ... }:
 let
@@ -43,33 +41,36 @@ in
 
       # optimus prime configuration for laptops with hybrid graphics
       # prime = {
-      #   # sync mode: nvidia gpu always active (best performance, more power)
+      #   sync mode: nvidia gpu always active (best performance, more power)
       #   sync.enable = true;
       #
-      #   # offload mode: nvidia gpu only when needed (better battery)
-      #   # offload = {
-      #   #   enable = true;
-      #   #   enableOffloadCmd = true;  # adds `nvidia-offload` command
-      #   # };
+      #   offload mode: nvidia gpu only when needed (better battery)
+      #   offload = {
+      #     enable = true;
+      #     enableOffloadCmd = true;  # adds `nvidia-offload` command
+      #   };
       #
-      #   # bus ids from: lspci | grep -E 'VGA|3D'
-      #   # format: "PCI:X:Y:Z"
-      #   # nvidiaBusId = "PCI:1:0:0";
-      #   # intelBusId = "PCI:0:2:0";  # or amdgpuBusId for AMD igpu
+      #   bus ids from: lspci | grep -E 'VGA|3D'
+      #   format: "PCI:X:Y:Z"
+      #   nvidiaBusId = "PCI:1:0:0";
+      #   intelBusId = "PCI:0:2:0";  # or amdgpuBusId for AMD igpu
       # };
 
-      # driver channel (production, latest, beta, vulkan_beta)
-      # package = config.boot.kernelPackages.nvidiaPackages.stable;
+      # driver package selection
+      # stable, beta, production, vulkan_beta, legacy_470, legacy_390
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
 
-    # environment variables for wayland/hyprland compatibility
     environment.sessionVariables = {
       # force gbm backend for nvidia
       GBM_BACKEND = "nvidia-drm";
+
       # hardware cursors can be buggy on nvidia
       WLR_NO_HARDWARE_CURSORS = "1";
+
       # required for wayland
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+
       # enable wayland for electron apps
       NIXOS_OZONE_WL = "1";
     };

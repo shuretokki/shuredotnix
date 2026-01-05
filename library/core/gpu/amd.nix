@@ -1,7 +1,5 @@
-# https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/hardware/video/amdgpu.nix
-#
-# amd gpu configuration for desktop/laptop systems.
-# uses open source mesa drivers (amdgpu kernel module).
+# https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/hardware/amdgpu.nix
+# https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/hardware/graphics.nix
 
 { config, lib, pkgs, ... }:
 let
@@ -20,40 +18,44 @@ in
       enable = true;
       enable32Bit = true;
 
-      # vulkan drivers for amd
       extraPackages = with pkgs; [
-        amdvlk
+        # amdvlk (official AMD vulkan) - optional, mesa radv is default
+        # amdvlk
+
+        # opencl support
+        rocmPackages.clr.icd
       ];
 
       extraPackages32 = with pkgs.pkgsi686Linux; [
-        amdvlk
+        # amdvlk  # 32-bit vulkan if needed
       ];
     };
 
-    # amdgpu kernel module options
-    # boot.kernelParams = [
-    #   # enable display core (dc) - usually default on
-    #   "amdgpu.dc=1"
-    #   # enable freesync/vrr
-    #   "amdgpu.freesync_video=1"
-    # ];
+    # amdgpu-specific options (from services/hardware/amdgpu.nix)
+    hardware.amdgpu = {
+      # load amdgpu in initrd for early KMS
+      # fixes resolution during boot
+      initrd.enable = true;
 
-    # environment variables for amd
+      # enable amdgpu for older cards (HD 7000/8000 series)
+      # forces amdgpu instead of radeon driver
+      legacySupport.enable = false;
+
+      # enable overdrive mode for overclocking
+      # overdrive.enable = false;
+    };
+
     environment.sessionVariables = {
       # enable wayland for electron apps
       NIXOS_OZONE_WL = "1";
 
-      # vulkan driver selection (radv is usually better for gaming)
-      # "radv" = mesa radv (recommended)
-      # "amdvlk" = amd's official vulkan driver
+      # vulkan driver selection
+      # "RADV" = mesa radv (recommended for gaming)
+      # "AMDVLK" = amd's official vulkan driver
       AMD_VULKAN_ICD = "RADV";
     };
 
-    # rocm support for compute (uncomment if needed for ml/compute)
-    # hardware.opengl.extraPackages = with pkgs; [
-    #   rocmPackages.clr.icd
-    # ];
-    #
+    # rocm hip symlink for ml/compute workloads
     # systemd.tmpfiles.rules = [
     #   "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
     # ];
