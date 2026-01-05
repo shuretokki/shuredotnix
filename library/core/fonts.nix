@@ -11,11 +11,11 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    # Create a directory with links to all fonts
+    # create a directory with links to all fonts
     # at /run/current-system/sw/share/X11/fonts
     fonts.fontDir.enable = true;
 
-    # Enable a basic set of default fonts
+    # enable a basic set of default fonts
     # Dejavu, FreeFont, Gyre, Liberation, Unifont, Noto Color Emoji.
     fonts.enableDefaultPackages = true;
 
@@ -38,23 +38,23 @@ in {
     fonts.fontconfig = {
       enable = true;
 
-      # Enable font antialiasing (smoothing)
-      # Default: true
+      # enable font antialiasing (smoothing)
+      # default: true
       antialias = true;
 
-      # Enable font hinting (aligning glyphs to pixel boundaries)
-      # Improves rendering at low resolutions
+      # enable font hinting (aligning glyphs to pixel boundaries)
+      # improves rendering at low resolutions
       hinting = {
         enable = true;
         autohint = false;
-        # Hinting style: "none", "slight", "medium", "full"
+        # hinting style: "none", "slight", "medium", "full"
         style = "slight";
       };
 
       subpixel = {
         # LCD filter: "none", "default", "light", "legacy"
         lcdfilter = "default";
-        # Subpixel layout: "none", "rgb", "bgr", "vrgb", "vbgr"
+        # subpixel layout: "none", "rgb", "bgr", "vrgb", "vbgr"
         rgba = "rgb";
       };
 

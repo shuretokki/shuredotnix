@@ -10,48 +10,48 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    # Disable PulseAudio in favor of PipeWire
+    # disable PulseAudio in favor of PipeWire
     # PipeWire provides PulseAudio compatibility via pipewire-pulse
     services.pulseaudio.enable = false;
 
-    # Required by PipeWire and PulseAudio for low-latency audio
+    # required by PipeWire and PulseAudio for low-latency audio
     security.rtkit = {
       enable = true;
-      # Optional: Customize rtkit-daemon priority settings
+      # optional: customize rtkit-daemon priority settings
       # args = [ "--our-realtime-priority=29" "--max-realtime-priority=28" ];
     };
 
     services.pipewire = {
       enable = true;
 
-      # Use PipeWire as the primary sound server
-      # Automatically set when alsa, jack, or pulse is enabled
+      # use PipeWire as the primary sound server
+      # automatically set when alsa, jack, or pulse is enabled
       audio.enable = true;
 
-      # Start PipeWire when apps connect
+      # start PipeWire when apps connect
       socketActivation = true;
 
       # ALSA support - required for most Linux applications
       alsa = {
         enable = true;
-        # Enable 32-bit ALSA support on 64-bit systems
-        # Required for 32-bit applications (games, wine, etc.)
+        # enable 32-bit ALSA support on 64-bit systems
+        # required for 32-bit applications (games, wine, etc.)
         support32Bit = true;
       };
 
-      # PulseAudio server emulation
-      # Allows PulseAudio applications to work with PipeWire
+      # pulseAudio server emulation
+      # allows PulseAudio applications to work with PipeWire
       pulse.enable = true;
 
       # JACK audio emulation for professional audio applications
-      # Enables low-latency audio for DAWs like Ardour, Bitwig, etc.
+      # enables low-latency audio for DAWs like Ardour, Bitwig, etc.
       jack.enable = false;
 
-      # Opens UDP/6001-6002 for RAOP/AirPlay timing and control data
+      # opens UDP/6001-6002 for RAOP/AirPlay timing and control data
       raopOpenFirewall = false;
 
-      # Additional PipeWire configuration drop-ins
-      # Each item becomes a file in /etc/pipewire/*.conf.d/
+      # additional PipeWire configuration drop-ins
+      # each item becomes a file in /etc/pipewire/*.conf.d/
       extraConfig = {
         # Main PipeWire server configuration
         # See: https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/Config-PipeWire
@@ -69,18 +69,18 @@ in {
         client = { };
 
         # JACK server/client configuration
-        # See: https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/Config-JACK
+        # see: https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/Config-JACK
         jack = { };
 
-        # PulseAudio server emulation configuration
-        # See: https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/Config-PulseAudio
+        # pulseAudio server emulation configuration
+        # see: https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/Config-PulseAudio
         pipewire-pulse = { };
       };
 
-      # Wireplumber session manager (enabled by default)
+      # wireplumber session manager (enabled by default)
       wireplumber = {
         enable = true;
-        # Additional wireplumber configuration packages
+        # additional wireplumber configuration packages
         # configPackages = [ ];
       };
     };

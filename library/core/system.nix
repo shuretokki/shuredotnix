@@ -14,28 +14,28 @@ in {
 
   config = {
     nix = {
-      # Pin the registry to the flake input to prevent downloading the registry
+      # pin the registry to the flake input to prevent downloading the registry
       # every time commands like `nix shell` are run.
       registry.nixpkgs.flake = inputs.nixpkgs;
 
       # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/config/nix-channel.nix
-      # Ensures legacy commands (nix-channel) still work consistent with the flake
+      # ensures legacy commands (nix-channel) still work consistent with the flake
       nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
       settings = {
-        # Automatically deduplicate the Nix store
-        # Saves disk space by hardlinking identical files
+        # automatically deduplicate the Nix store
+        # saves disk space by hardlinking identical files
         auto-optimise-store = true;
 
         experimental-features = [ "nix-command" "flakes" ];
 
-        # Trusted users who can configure binary caches
+        # trusted users who can configure binary caches
         # trusted-users = [ "root" "@wheel" ];
 
-        # Users allowed to interact with the Nix daemon
+        # users allowed to interact with the Nix daemon
         # allowed-users = [ "@wheel" ];
 
-        # Parallelism settings, tho defaults are usually fine
+        # parallelism settings, tho defaults are usually fine
         # max-jobs = "auto";
         # cores = 0;
       };
@@ -43,7 +43,7 @@ in {
 
 
     # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/tasks/network-interfaces.nix
-    networking.hostName = vars.hostname;
+    networking.hostName = lib.mkDefault vars.hostname;
 
     # (optional)
     # networking.networkmanager.enable = true;
@@ -51,8 +51,8 @@ in {
 
 
     # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/programs/dconf.nix
-    # Configuration storage system for GNOME/GTK apps
-    # Required for saving theme settings, terminal preferences, etc.
+    # configuration storage system for GNOME/GTK apps
+    # required for saving theme settings, terminal preferences, etc.
     programs.dconf.enable = true;
 
 
@@ -65,44 +65,44 @@ in {
 
 
     # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/hardware/udisks2.nix
-    # Allows non-root users to mount removable drives (USB, etc.) via polkit.
+    # allows non-root users to mount removable drives (USB, etc.) via polkit.
     services.udisks2 = {
       enable = config.library.display.hyprland.enable;
-      # mountOnMedia = false; # Mount to /media instead of /run/media/$USER
+      # mountOnMedia = false; # mount to /media instead of /run/media/$USER
     };
 
     # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/programs/nh.nix
     programs.nh = {
       enable = true;
 
-      # an Automatic Garbage Collection
+      # an automatic garbage collection
       clean = {
         enable = true;
-        # Removing old generations:
-        # --keep-since 4d: Keep generations from the last 4 days
-        # --keep 3: Keep at least the last 3 generations (failsafe)
+        # removing old generations:
+        # --keep-since 4d: keep generations from the last 4 days
+        # --keep 3: keep at least the last 3 generations (failsafe)
         extraArgs = "--keep-since 4d --keep 3";
 
-        # Frequency (systemd time format)
+        # frequency (systemd time format)
         # dates = "weekly";
       };
 
-      # The path to your flake configuration
-      # Required for `nh os switch` to work without specifying path
+      # the path to your flake configuration
+      # required for `nh os switch` to work without specifying path
       flake = cfg.flakePath;
     };
 
     # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/config/xdg/portal.nix
-    # Portals provide secure access to system resources (file picker, screenshare, etc.)
+    # portals provide secure access to system resources (file picker, screenshare, etc.)
     # for sandboxed apps (Flatpak) and standard apps outside the DE.
     xdg.portal = {
       enable = config.library.display.hyprland.enable;
 
-      # Using the GTK portal (works well for GNOME/Wayland/Hyprland)
-      # Provides the actual dialog windows for file picking, etc.
+      # using the GTK portal (works well for GNOME/Wayland/Hyprland)
+      # provides the actual dialog windows for file picking, etc.
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
-      # Common portals:
+      # common portals:
       # - pkgs.xdg-desktop-portal-gtk (GNOME/GTK-based)
       # - pkgs.xdg-desktop-portal-kde (Plasma)
       # - pkgs.xdg-desktop-portal-hyprland (Hyprland specifics: screencast, global shortcuts)
@@ -111,7 +111,7 @@ in {
       # use the first available portal for all interfaces
       config.common.default = "*";
 
-      # Force use of portal for xdg-open
+      # force use of portal for xdg-open
       # xdgOpenUsePortal = false;
     };
   };

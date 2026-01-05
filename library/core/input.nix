@@ -17,11 +17,11 @@ in {
       type = "fcitx5";
 
       fcitx5 = {
-        # Use the Wayland input method frontend
-        # Recommended for Wayland compositors (Hyprland, Gnome, KDE Wayland)
+        # use the Wayland input method frontend
+        # recommended for Wayland compositors (Hyprland, Gnome, KDE Wayland)
         waylandFrontend = true;
 
-        # Fcitx5 relies on addons for specific input methods and features
+        # fcitx5 relies on addons for specific input methods and features
         addons = with pkgs; [
           # GTK+ 2/3/4 IM module for fcitx5
           # required for GTK apps
@@ -40,7 +40,7 @@ in {
           # Chinese Addons (Pinyin, Table, etc.)
           # fcitx5-chinese-addons
 
-          # Themes
+          # themes
           # fcitx5-nord
           # fcitx5-material-color
         ];
@@ -54,10 +54,10 @@ in {
       };
     };
 
-    # Environment variables configuration
-    # Note: When i18n.inputMethod.enable is true, NixOS automatically sets:
+    # environment variables configuration
+    # note: when i18n.inputMethod.enable is true, NixOS automatically sets:
     # GTK_IM_MODULE, QT_IM_MODULE, XMODIFIERS
-    # So we generally don't need to manually set them unless overriding.
+    # so we generally don't need to manually set them unless overriding.
     environment.variables = {
       # Force XIM to use fcitx
       # often needed for older non-GTK/Qt apps

@@ -10,7 +10,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    # Preview files by pressing Spacebar in the file manager
+    # preview files by pressing Spacebar in the file manager
     services.gnome.sushi = {
       enable = true;
     };
@@ -18,8 +18,8 @@ in {
     programs.nautilus-open-any-terminal = {
       enable = true;
 
-      # Terminal emulator to launch
-      # See: https://github.com/Stunkymonkey/nautilus-open-any-terminal#supported-terminal-emulators
+      # terminal emulator to launch
+      # see: https://github.com/Stunkymonkey/nautilus-open-any-terminal#supported-terminal-emulators
       terminal = vars.terminal;
     };
   };

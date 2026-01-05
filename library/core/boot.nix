@@ -5,7 +5,7 @@
 { lib, config, vars, ... }:
 {
   boot.loader.efi = {
-    # Allow installer to modify EFI boot variables (required for UEFI systems)
+    # allow installer to modify EFI boot variables (required for UEFI systems)
     canTouchEfiVariables = true;
   };
 
@@ -13,14 +13,14 @@
   boot.loader.systemd-boot = {
     enable = false;
 
-    # Disable boot menu editor (pressing 'e') for security
-    # Editor allows bypassing root via init=/bin/sh
+    # disable boot menu editor (pressing 'e') for security
+    # editor allows bypassing root via init=/bin/sh
     # editor = false;
 
-    # Maximum generations to keep in boot menu
+    # maximum generations to keep in boot menu
     # configurationLimit = 10;
 
-    # Console resolution: "0" (80x25), "1" (80x50), "auto", "max", "keep"
+    # console resolution: "0" (80x25), "1" (80x50), "auto", "max", "keep"
     # consoleMode = "auto";
   };
 
@@ -33,22 +33,22 @@
 
     efiSupport = true;
 
-    # Detect other operating systems (Windows, other Linux distros)
+    # detect other operating systems (Windows, other Linux distros)
     useOSProber = config.library.display.hyprland.enable;
 
     theme = lib.mkIf config.theme.grub.enable config.theme.grub.theme;
 
-    # Maximum generations in boot menu
+    # maximum generations in boot menu
     # configurationLimit = 10;
 
-    # Serial console for headless servers
+    # serial console for headless servers
     # extraConfig = ''
     #   serial --unit=0 --speed=115200 --word=8 --parity=no --stop=1
     #   terminal_input --append serial
     #   terminal_output --append serial
     # '';
 
-    # Custom menu entries
+    # custom menu entries
     # extraEntries = ''
     #   menuentry "Reboot" { reboot }
     #   menuentry "Poweroff" { halt }

@@ -1,10 +1,10 @@
 # https://github.com/Mic92/sops-nix
 #
-# Usage:
-# 1. Generate your own age key: age-keygen -o ~/.config/sops/age/keys.txt
-# 2. Get your public key: age-keygen -y ~/.config/sops/age/keys.txt
-# 3. Update .sops.yaml with your public key
-# 4. Create secrets/secrets.yaml: sops secrets/secrets.yaml
+# usage:
+# 1. generate your own age key: age-keygen -o ~/.config/sops/age/keys.txt
+# 2. get your public key: age-keygen -y ~/.config/sops/age/keys.txt
+# 3. update .sops.yaml with your public key
+# 4. create secrets/secrets.yaml: sops secrets/secrets.yaml
 
 { inputs, config, lib, vars, ... }:
 let

@@ -17,9 +17,10 @@ in
     (lib.mkIf cfg.podman.enable {
       virtualisation.podman = {
         enable = true;
-        dockerCompat = !cfg.docker.enable; # Use podman as docker if docker is disabled
+        dockerCompat = !cfg.docker.enable; # use podman as docker if docker is disabled
       };
-      # Podman typically works rootless or via subuid/subgid, but adding to group doesn't hurt for socket access if needed
+      # podman typically works rootless or via subuid/subgid,
+      # but adding to group doesn't hurt for socket access if needed
     })
   ];
 }
