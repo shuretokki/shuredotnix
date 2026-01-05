@@ -67,14 +67,10 @@
         gcc gnumake
         nodejs python3
         flake-checker
+        pre-commit
       ];
       shellHook = ''
-        if [ ! -f .git/hooks/pre-commit ]; then
-          echo "Installing git hooks..."
-          mkdir -p .git/hooks
-          cp .git-hooks/pre-commit .git/hooks/pre-commit
-          chmod +x .git/hooks/pre-commit
-        fi
+        pre-commit install --install-hooks -t pre-commit 2>/dev/null || true
       '';
     };
 
