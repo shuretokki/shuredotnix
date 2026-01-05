@@ -12,5 +12,6 @@
     ./fonts.nix
     ./input.nix
     ./files.nix
+    ./virtualisation.nix
   ];
 }
