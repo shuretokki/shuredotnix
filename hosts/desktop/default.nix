@@ -12,6 +12,7 @@
     library.core.fonts.enable = true;
     library.core.input.enable = true;
     library.core.files.enable = true;
+  library.core.virtualisation.docker.enable = true;
 
     library.display.sddm.enable = true;
     library.display.hyprland.enable = true;
