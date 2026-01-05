@@ -7,7 +7,8 @@
         ../../packages
     ];
 
-    shure.display.sddm.enable = true;
+    library.display.sddm.enable = true;
+    library.display.hyprland.enable = true;
 
     system.stateVersion = "25.11";
 }

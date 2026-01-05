@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  cfg = config.shure.display.sddm;
+  cfg = config.library.display.sddm;
   theme = pkgs.where-is-my-sddm-theme.override {
     themeConfig.General = {
       background = builtins.toString config.theme.wallpaper;
@@ -9,7 +9,7 @@ let
   };
 in
 {
-  options.shure.display.sddm = {
+  options.library.display.sddm = {
     enable = lib.mkEnableOption "SDDM display manager with Wayland";
   };
 
