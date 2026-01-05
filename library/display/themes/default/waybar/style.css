@@ -29,7 +29,7 @@ window#waybar {
     background: @base00;
     color: @base05;
     border: 1px solid @base01;
-    box-shadow: 0 1 0 2 @base01;
+    box-shadow: 0 1px 0 2px @base01;
     border-radius: 0px;
     padding: 0px 4px;
     margin: 0 4px;
