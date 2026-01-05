@@ -15,7 +15,7 @@
   locale = "en_US.UTF-8";
   timezone = "Asia/Jakarta";
 
-  theme = "default"; # default
+  theme = "sh"; # default, sh
 
   features = {
     cli = true;
