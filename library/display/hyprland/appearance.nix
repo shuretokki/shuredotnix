@@ -76,7 +76,7 @@ in {
     hyprbars = {
       bar_height = 24;
       bar_part_of_window = true;
-      bar_title_enabled = true;
+      bar_title_enabled = false;
       bar_precedence_over_border = true;
       bar_buttons_alignment = "left";
       bar_color = "rgba(${colors.base00}ff)";

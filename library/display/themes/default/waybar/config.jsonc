@@ -16,7 +16,6 @@
   "modules-right": [
     "network",
     "pulseaudio",
-    "group/hardware",
     "clock"
   ],
   "hyprland/workspaces": {
@@ -48,7 +47,7 @@
   },
   "network": {
     "format-wifi": "{essid} ({signalStrength}%)  ",
-    "format-ethernet": "5G   ",
+    "format-ethernet": "5G  ",
     "format-disconnected": "Disconnected ⚠"
   },
   "pulseaudio": {
