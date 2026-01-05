@@ -47,7 +47,7 @@
   # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/desktops/gvfs.nix
   # Allows mounting phones (MTP), cameras (PTP), network shares (SMB/FTP) in file manager.
   services.gvfs = {
-    enable = vars.features.desktop;
+    enable = config.library.display.hyprland.enable;
     # package = pkgs.gvfs;
   };
 
@@ -55,7 +55,7 @@
   # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/hardware/udisks2.nix
   # Allows non-root users to mount removable drives (USB, etc.) via polkit.
   services.udisks2 = {
-    enable = vars.features.desktop;
+    enable = config.library.display.hyprland.enable;
     # mountOnMedia = false; # Mount to /media instead of /run/media/$USER
   };
 
@@ -84,7 +84,7 @@
   # Portals provide secure access to system resources (file picker, screenshare, etc.)
   # for sandboxed apps (Flatpak) and standard apps outside the DE.
   xdg.portal = {
-    enable = vars.features.desktop;
+    enable = config.library.display.hyprland.enable;
 
     # Using the GTK portal (works well for GNOME/Wayland/Hyprland)
     # Provides the actual dialog windows for file picking, etc.

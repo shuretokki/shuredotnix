@@ -3,7 +3,7 @@
 # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/desktops/gnome/gnome-keyring.nix
 # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/security/pam.nix
 
-{ pkgs, vars, ... }: {
+{ config, pkgs, vars, ... }: {
   # Polkit toolkit assists unprivileged processes to speak to privileged processes.
   # Essential for GUI operations like mounting drives, rebooting, or managing networks.
   security.polkit = {
@@ -55,10 +55,9 @@
 
   # GNOME Keyring daemon manages user's security credentials (passwords, keys).
   # Used by: NetworkManager (WiFi), VSCode (Sync), Chrome, etc.
-  # NOTE: Only needed for Desktop environments.
-  services.gnome.gnome-keyring.enable = vars.features.desktop;
+  services.gnome.gnome-keyring.enable = config.library.display.hyprland.enable;
 
   # Integate GNOME Keyring with login structure.
   # This unlocks the 'login' keyring automatically when you log in to the system.
-  security.pam.services.login.enableGnomeKeyring = vars.features.desktop;
+  security.pam.services.login.enableGnomeKeyring = config.library.display.hyprland.enable;
 }

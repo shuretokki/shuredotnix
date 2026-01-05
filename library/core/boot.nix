@@ -34,7 +34,7 @@
     efiSupport = true;
 
     # Detect other operating systems (Windows, other Linux distros)
-    useOSProber = vars.features.desktop;
+    useOSProber = config.library.display.hyprland.enable;
 
     theme = lib.mkIf config.theme.grub.enable config.theme.grub.theme;
 
