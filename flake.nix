@@ -56,7 +56,7 @@
 
   outputs = { self, nixpkgs, ... }@inputs:
   let
-    libs = import ./lib { inherit inputs; };
+    utils = import ./utils { inherit inputs; };
     vars = import ./vars.nix;
   in {
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
@@ -73,7 +73,7 @@
       lib = nixpkgs.lib;
       hostDirs = lib.filterAttrs (n: v: v == "directory") (builtins.readDir ./hosts);
     in lib.genAttrs (builtins.attrNames hostDirs) (hostname:
-      libs.mkHost { inherit hostname; username = vars.username; }
+      utils.mkHost { inherit hostname; username = vars.username; }
     );
 
     packages.x86_64-linux = nixpkgs.lib.mapAttrs
