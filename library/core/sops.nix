@@ -7,19 +7,26 @@
 # 4. Create secrets/secrets.yaml: sops secrets/secrets.yaml
 
 { inputs, config, lib, vars, ... }:
-
 let
-  username = vars.username;
+  cfg = config.library.core.sops;
 in
 {
+  options.library.core.sops = {
+    keyFile = lib.mkOption {
+      type = lib.types.str;
+      default = "/home/${vars.username}/.config/sops/age/keys.txt";
+      description = "Path to SOPS age key file";
+    };
+  };
+
   imports = [ inputs.sops-nix.nixosModules.sops ];
 
-  sops = {
+  config.sops = {
     defaultSopsFile = lib.mkDefault ../../secrets/secrets.yaml;
     defaultSopsFormat = "yaml";
 
     age = {
-      keyFile = lib.mkDefault "/home/${username}/.config/sops/age/keys.txt";
+      keyFile = lib.mkDefault cfg.keyFile;
       # sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
       # generateKey = true;
     };
@@ -34,3 +41,4 @@ in
     # '';
   };
 }
+
