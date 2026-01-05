@@ -13,6 +13,7 @@
     library.core.input.enable = true;
     library.core.files.enable = true;
     library.core.virtualisation.docker.enable = true;
+    library.core.gpu.nvidia.enable = true;
 
     library.display.sddm.enable = true;
     library.display.hyprland.enable = true;

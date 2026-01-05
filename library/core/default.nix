@@ -14,5 +14,6 @@
     ./files.nix
     ./virtualisation.nix
     ./validations.nix
+    ./gpu
   ];
 }
