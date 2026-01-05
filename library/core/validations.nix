@@ -10,7 +10,7 @@ let
     "shutdown" "halt" "uucp" "operator"
   ];
 
-  themePath = ../../display/themes + "/${vars.theme}/default.nix";
+  themePath = ../display/themes + "/${vars.theme}/default.nix";
 in
 {
   config.assertions = [
