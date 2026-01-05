@@ -13,5 +13,6 @@
     ./input.nix
     ./files.nix
     ./virtualisation.nix
+    ./validations.nix
   ];
 }
