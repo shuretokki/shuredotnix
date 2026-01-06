@@ -3,7 +3,8 @@
 { config, pkgs, lib, vars, inputs, ... }:
 let
   cfg = config.library.core.system;
-in {
+in
+{
   options.library.core.system = {
     flakePath = lib.mkOption {
       type = lib.types.str;

@@ -1,7 +1,8 @@
 { config, pkgs, lib, vars, ... }:
 let
   colors = config.lib.stylix.colors;
-in {
+in
+{
   programs.hyprlock = {
     enable = true;
     settings = {

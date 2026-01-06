@@ -2,7 +2,8 @@
 { config, lib, ... }:
 let
   colors = config.lib.stylix.colors;
-in {
+in
+{
   general = {
     gaps_in = lib.mkForce config.theme.hyprland.gaps-in;
     gaps_out = lib.mkForce config.theme.hyprland.gaps-out;
@@ -15,18 +16,18 @@ in {
   decoration = {
     rounding = config.theme.hyprland.rounding;
     blur = {
-        enabled = config.theme.hyprland.blur;
-        size = 5;
-        passes = 3;
-        new_optimizations = true;
-        ignore_opacity = true;
-        xray = false;
+      enabled = config.theme.hyprland.blur;
+      size = 5;
+      passes = 3;
+      new_optimizations = true;
+      ignore_opacity = true;
+      xray = false;
     };
     shadow = {
-        enabled = config.theme.hyprland.shadows;
-        range = lib.mkForce 15;
-        render_power = lib.mkForce 3;
-        color = lib.mkForce "0x55000000";
+      enabled = config.theme.hyprland.shadows;
+      range = lib.mkForce 15;
+      render_power = lib.mkForce 3;
+      color = lib.mkForce "0x55000000";
     };
   };
 

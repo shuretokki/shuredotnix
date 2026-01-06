@@ -1,12 +1,11 @@
 # https://github.com/nix-community/home-manager/blob/master/modules/programs/alacritty.nix
 # https://github.com/nix-community/home-manager/blob/master/modules/programs/ghostty.nix
 
-{
-  lib,
-  pkgs,
-  config,
-  vars,
-  ...
+{ lib
+, pkgs
+, config
+, vars
+, ...
 }:
 let
   c = config.lib.stylix.colors;

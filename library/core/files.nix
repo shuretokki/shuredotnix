@@ -4,7 +4,8 @@
 { config, lib, pkgs, vars, ... }:
 let
   cfg = config.library.core.files;
-in {
+in
+{
   options.library.core.files = {
     enable = lib.mkEnableOption "File manager integrations";
   };

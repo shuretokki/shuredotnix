@@ -1,12 +1,11 @@
 # https://github.com/vicinaehq/vicinae
 # https://docs.vicinae.com/nixos
-{
-  config,
-  lib,
-  pkgs,
-  vars,
-  inputs,
-  ...
+{ config
+, lib
+, pkgs
+, vars
+, inputs
+, ...
 }:
 {
   programs.vicinae = {
@@ -38,27 +37,29 @@
           inherits = if config.theme.polarity == "dark" then "vicinae-dark" else "vicinae-light";
         };
 
-        colors = let
-          c = config.lib.stylix.colors.withHashtag;
-        in {
-          core = {
-            background = c.base00;
-            foreground = c.base05;
-            secondary_background = c.base01;
-            border = c.base02;
-            accent = c.base0D;
+        colors =
+          let
+            c = config.lib.stylix.colors.withHashtag;
+          in
+          {
+            core = {
+              background = c.base00;
+              foreground = c.base05;
+              secondary_background = c.base01;
+              border = c.base02;
+              accent = c.base0D;
+            };
+            accents = {
+              blue = c.base0D;
+              green = c.base0B;
+              magenta = c.base0F;
+              orange = c.base09;
+              purple = c.base0E;
+              red = c.base08;
+              yellow = c.base0A;
+              cyan = c.base0C;
+            };
           };
-          accents = {
-            blue = c.base0D;
-            green = c.base0B;
-            magenta = c.base0F;
-            orange = c.base09;
-            purple = c.base0E;
-            red = c.base08;
-            yellow = c.base0A;
-            cyan = c.base0C;
-          };
-        };
       };
     };
 

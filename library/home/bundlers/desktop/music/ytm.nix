@@ -23,7 +23,8 @@ let
   '';
 
   ytmTheme = pkgs.writeText "ytm-stylix.css" (colorOverrides + builtins.readFile ./ytm.css);
-in {
+in
+{
   imports = [ inputs.youtube-music.homeManagerModules.default ];
 
   # YouTube Music
@@ -35,13 +36,13 @@ in {
     # Plugins
     # See more: https://github.com/th-ch/youtube-music/wiki/Plugins
     plugins = {
-        # adblocker = { enable = true; };
-        # album-actions = { enable = true; };
-        # notifications = { enable = true; };
-        # shortcuts = { enable = true; };
-        # sponsorblock = { enable = true; };
-        # touchbar = { enable = true; };
-        # t-visualizer = { enable = true; };
+      # adblocker = { enable = true; };
+      # album-actions = { enable = true; };
+      # notifications = { enable = true; };
+      # shortcuts = { enable = true; };
+      # sponsorblock = { enable = true; };
+      # touchbar = { enable = true; };
+      # t-visualizer = { enable = true; };
     };
   };
 }

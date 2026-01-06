@@ -4,7 +4,8 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.library.core.audio;
-in {
+in
+{
   options.library.core.audio = {
     enable = lib.mkEnableOption "PipeWire audio stack";
   };

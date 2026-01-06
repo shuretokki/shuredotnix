@@ -1,8 +1,7 @@
 # https://github.com/nix-community/home-manager/blob/master/modules/programs/direnv.nix
 
-{
-  lib,
-  ...
+{ lib
+, ...
 }:
 {
   programs.direnv = {

@@ -13,6 +13,7 @@ in
   config.assertions = [
     {
       # allow both if prime is enabled (AMD iGPU + NVIDIA dGPU laptop)
+      # what about intel tho?
       assertion = !(nvidia && amd && !prime);
       message = ''
         Cannot enable both nvidia and amd gpu modules simultaneously.

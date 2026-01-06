@@ -2,7 +2,8 @@
 let
   cfg = config.library.display.hyprland;
   hyprland-config = import ./hyprland { inherit config pkgs lib vars; };
-in {
+in
+{
   options.library.display.hyprland = {
     enable = lib.mkEnableOption "Hyprland Compositor";
   };

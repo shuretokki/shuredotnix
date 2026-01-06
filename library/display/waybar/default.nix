@@ -1,11 +1,12 @@
 { config, pkgs, lib, vars, ... }:
 let
   cfg = config.theme.waybar;
-in {
+in
+{
   programs.waybar = {
     enable = true;
     systemd.enable = true;
-    settings = {};
+    settings = { };
   };
 
   xdg.configFile = {

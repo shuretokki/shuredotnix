@@ -2,7 +2,8 @@
 { lib, pkgs, vars, config, ... }:
 let
   wpBase = config.theme.wallpaperDir;
-in {
+in
+{
   stylix = {
     enable = true;
     autoEnable = true;
@@ -46,6 +47,7 @@ in {
       hyprpaper.enable = lib.mkDefault false;
       spicetify.enable = false;
       waybar.enable = false;
+      swaync.enable = false;
       zen-browser.profileNames = [ "default" ];
     };
 

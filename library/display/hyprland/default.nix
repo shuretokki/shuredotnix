@@ -8,7 +8,8 @@ let
   keybinds = import ./keybinds.nix { inherit pkgs vars; };
   mouse-keybinds = import ./mouse-keybinds.nix { inherit pkgs; };
   scripts = import ./scripts.nix { inherit pkgs; };
-in {
+in
+{
   inherit scripts;
   settings = appearance // rules // input // env // autostart // {
     monitor = ",preferred,auto,1";

@@ -18,8 +18,9 @@ in
       enable = true;
       enable32Bit = true;
 
+      # amdvlk (official AMD vulkan)
+      # optional, mesa radv is default
       extraPackages = with pkgs; [
-        # amdvlk (official AMD vulkan) - optional, mesa radv is default
         # amdvlk
 
         # opencl support
@@ -31,7 +32,6 @@ in
       ];
     };
 
-    # amdgpu-specific options (from services/hardware/amdgpu.nix)
     hardware.amdgpu = {
       # load amdgpu in initrd for early KMS
       # fixes resolution during boot

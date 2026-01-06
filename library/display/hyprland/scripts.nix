@@ -9,6 +9,7 @@ let
       hyprctl keyword "workspace $workspace_id, gapsout:0, gapsin:0, bordersize:0"
     fi
   '';
-in [
+in
+[
   toggle-gaps
 ]

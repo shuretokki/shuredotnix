@@ -1,9 +1,8 @@
 # https://github.com/nix-community/home-manager/blob/master/modules/programs/bat.nix
 
-{
-  lib,
-  pkgs,
-  ...
+{ lib
+, pkgs
+, ...
 }:
 {
   programs.bat = {

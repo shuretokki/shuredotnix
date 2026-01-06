@@ -1,9 +1,8 @@
 # https://github.com/nix-community/home-manager/blob/master/modules/programs/btop.nix
 
-{
-  lib,
-  config,
-  ...
+{ lib
+, config
+, ...
 }:
 let
   c = config.lib.stylix.colors;

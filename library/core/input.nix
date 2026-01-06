@@ -4,7 +4,8 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.library.core.input;
-in {
+in
+{
   options.library.core.input = {
     enable = lib.mkEnableOption "Input method (fcitx5)";
   };

@@ -1,8 +1,7 @@
 # https://github.com/nix-community/home-manager/blob/master/modules/programs/eza.nix
 
-{
-  lib,
-  ...
+{ lib
+, ...
 }:
 {
   programs.eza = {

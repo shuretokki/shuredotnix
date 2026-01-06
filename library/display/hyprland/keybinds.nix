@@ -1,136 +1,137 @@
 # https://wiki.hypr.land/Configuring/Binds/
 { pkgs, vars, ... }:
-    let
-        super = "SUPER";
-        alt = "ALT";
-        shift = "SHIFT";
-        ctrl = "CTRL";
+let
+  super = "SUPER";
+  alt = "ALT";
+  shift = "SHIFT";
+  ctrl = "CTRL";
 
-        terminal = "warp-terminal";
-        browser = "zen";
-        fileManager = "${pkgs.nautilus}/bin/nautilus";
-        musicPlayer = vars.musicPlayer;
+  terminal = "warp-terminal";
+  browser = "zen";
+  fileManager = "${pkgs.nautilus}/bin/nautilus";
+  musicPlayer = vars.musicPlayer;
 
-        launch = class: cmd: "exec, hyprctl clients | grep -i 'class: ${class}' && hyprctl dispatch focuswindow 'class:${class}' || ${cmd}";
+  launch = class: cmd: "exec, hyprctl clients | grep -i 'class: ${class}' && hyprctl dispatch focuswindow 'class:${class}' || ${cmd}";
 
-    in [
-        "${super}, RETURN, exec, uwsm app -- ${terminal}"
-        "${super}, E, exec, uwsm app -- ${fileManager} --new-window"
-        "${super}, B, exec, uwsm app -- ${browser}"
+in
+[
+  "${super}, RETURN, exec, uwsm app -- ${terminal}"
+  "${super}, E, exec, uwsm app -- ${fileManager} --new-window"
+  "${super}, B, exec, uwsm app -- ${browser}"
 
-        "${super}, M, ${launch "Spotify" "uwsm app -- ${musicPlayer}"}"
-        "${super}, N, exec, uwsm app -- ${terminal} -e nvim"
-        "${super}, T, exec, uwsm app -- ${terminal} -e btop"
+  "${super}, M, ${launch "Spotify" "uwsm app -- ${musicPlayer}"}"
+  "${super}, N, exec, uwsm app -- ${terminal} -e nvim"
+  "${super}, T, exec, uwsm app -- ${terminal} -e btop"
 
-        # Toggle launcher (vicinae)
-        "${alt}, SPACE, exec, ${pkgs.vicinae}/bin/vicinae show"
+  # Toggle launcher (vicinae)
+  "${alt}, SPACE, exec, ${pkgs.vicinae}/bin/vicinae show"
 
-        # Wallpaper Grid (AWWW Switcher)
-        "${super}, W, exec, ${pkgs.vicinae}/bin/vicinae vicinae://extensions/sovereign/awww-switcher/wpgrid"
+  # Wallpaper Grid (AWWW Switcher)
+  "${super}, W, exec, ${pkgs.vicinae}/bin/vicinae vicinae://extensions/sovereign/awww-switcher/wpgrid"
 
-        # Pulseaudio
-        "${super}, U, exec, ${pkgs.vicinae}/bin/vicinae vicinae://extensions/rastsislaux/pulseaudio/pulseaudio"
+  # Pulseaudio
+  "${super}, U, exec, ${pkgs.vicinae}/bin/vicinae vicinae://extensions/rastsislaux/pulseaudio/pulseaudio"
 
-        # Process Manager
-        "${super}, T, exec, ${pkgs.vicinae}/bin/vicinae vicinae://extensions/leonkohli/process-manager/processes"
+  # Process Manager
+  "${super}, T, exec, ${pkgs.vicinae}/bin/vicinae vicinae://extensions/leonkohli/process-manager/processes"
 
-        # Nix [ Packages, Options, Home Manager ]
-        "${super} ${shift}, P, exec, ${pkgs.vicinae}/bin/vicinae vicinae://extensions/knoopx/nix/packages"
-        "${super} ${shift}, O, exec, ${pkgs.vicinae}/bin/vicinae vicinae://extensions/knoopx/nix/options"
-        "${super} ${shift}, I, exec, ${pkgs.vicinae}/bin/vicinae vicinae://extensions/knoopx/nix/home-manager-options"
+  # Nix [ Packages, Options, Home Manager ]
+  "${super} ${shift}, P, exec, ${pkgs.vicinae}/bin/vicinae vicinae://extensions/knoopx/nix/packages"
+  "${super} ${shift}, O, exec, ${pkgs.vicinae}/bin/vicinae vicinae://extensions/knoopx/nix/options"
+  "${super} ${shift}, I, exec, ${pkgs.vicinae}/bin/vicinae vicinae://extensions/knoopx/nix/home-manager-options"
 
-        # SSH
-        "${super}, Y, exec, ${pkgs.vicinae}/bin/vicinae vicinae://extensions/leiserfg/ssh/ssh"
+  # SSH
+  "${super}, Y, exec, ${pkgs.vicinae}/bin/vicinae vicinae://extensions/leiserfg/ssh/ssh"
 
-        # Hypr Keybinds
-        "${super}, K, exec, ${pkgs.vicinae}/bin/vicinae vicinae://extensions/sovereign/hypr-keybinds/hyprland-keybinds"
+  # Hypr Keybinds
+  "${super}, K, exec, ${pkgs.vicinae}/bin/vicinae vicinae://extensions/sovereign/hypr-keybinds/hyprland-keybinds"
 
-        # Closing Windows
-        "${alt} ${ctrl} ${shift}, W, killactive"
+  # Closing Windows
+  "${alt} ${ctrl} ${shift}, W, killactive"
 
-        # Toggle Floating/Tiling
-        "${alt}, Q, togglefloating"
+  # Toggle Floating/Tiling
+  "${alt}, Q, togglefloating"
 
-        # Fullscreen
-        "${alt}, F, fullscreen, 1" # 1 = Keep gaps (Maximize)
+  # Fullscreen
+  "${alt}, F, fullscreen, 1" # 1 = Keep gaps (Maximize)
 
-        # "Pop Out" (Float + Pin)
-        "${alt}, O, togglefloating"
-        "${alt}, O, pin"
+  # "Pop Out" (Float + Pin)
+  "${alt}, O, togglefloating"
+  "${alt}, O, pin"
 
-        # Focus Movement (WASD)
-        "${alt}, A, movefocus, l"
-        "${alt}, D, movefocus, r"
-        "${alt}, W, movefocus, u"
-        "${alt}, S, movefocus, d"
+  # Focus Movement (WASD)
+  "${alt}, A, movefocus, l"
+  "${alt}, D, movefocus, r"
+  "${alt}, W, movefocus, u"
+  "${alt}, S, movefocus, d"
 
-        # Window Swapping (WASD + SHIFT)
-        "${alt} ${shift}, A, swapwindow, l"
-        "${alt} ${shift}, D, swapwindow, r"
-        "${alt} ${shift}, W, swapwindow, u"
-        "${alt} ${shift}, S, swapwindow, d"
+  # Window Swapping (WASD + SHIFT)
+  "${alt} ${shift}, A, swapwindow, l"
+  "${alt} ${shift}, D, swapwindow, r"
+  "${alt} ${shift}, W, swapwindow, u"
+  "${alt} ${shift}, S, swapwindow, d"
 
-        # Universal Clipboard
-        "${super}, C, exec, ydotool key ctrl+c"
-        "${super}, V, exec, ydotool key ctrl+v"
-        "${super}, X, exec, ydotool key ctrl+x"
-        "${super}, A, exec, ydotool key ctrl+a"
-        "${super}, Z, exec, ydotool key ctrl+z"
-        "${super} ${shift}, Z, exec, ydotool key ctrl+shift+z"
+  # Universal Clipboard
+  "${super}, C, exec, ydotool key ctrl+c"
+  "${super}, V, exec, ydotool key ctrl+v"
+  "${super}, X, exec, ydotool key ctrl+x"
+  "${super}, A, exec, ydotool key ctrl+a"
+  "${super}, Z, exec, ydotool key ctrl+z"
+  "${super} ${shift}, Z, exec, ydotool key ctrl+shift+z"
 
-        # Resizing (Shift + C/V)
-        "${alt} ${shift}, C, resizeactive, -100 0"
-        "${alt} ${shift}, V, resizeactive, 100 0"
+  # Resizing (Shift + C/V)
+  "${alt} ${shift}, C, resizeactive, -100 0"
+  "${alt} ${shift}, V, resizeactive, 100 0"
 
-        # Switch
-        "${alt}, 1, workspace, 1"
-        "${alt}, 2, workspace, 2"
-        "${alt}, 3, workspace, 3"
-        "${alt}, 4, workspace, 4"
-        "${alt}, 5, workspace, 5"
-        "${alt}, 6, workspace, 6"
-        "${alt}, 7, workspace, 7"
-        "${alt}, 8, workspace, 8"
-        "${alt}, 9, workspace, 9"
-        "${alt}, 0, workspace, 10"
+  # Switch
+  "${alt}, 1, workspace, 1"
+  "${alt}, 2, workspace, 2"
+  "${alt}, 3, workspace, 3"
+  "${alt}, 4, workspace, 4"
+  "${alt}, 5, workspace, 5"
+  "${alt}, 6, workspace, 6"
+  "${alt}, 7, workspace, 7"
+  "${alt}, 8, workspace, 8"
+  "${alt}, 9, workspace, 9"
+  "${alt}, 0, workspace, 10"
 
-        # Move Window to Workspace
-        "${alt} ${shift}, 1, movetoworkspace, 1"
-        "${alt} ${shift}, 2, movetoworkspace, 2"
-        "${alt} ${shift}, 3, movetoworkspace, 3"
-        "${alt} ${shift}, 4, movetoworkspace, 4"
-        "${alt} ${shift}, 5, movetoworkspace, 5"
-        "${alt} ${shift}, 6, movetoworkspace, 6"
-        "${alt} ${shift}, 7, movetoworkspace, 7"
-        "${alt} ${shift}, 8, movetoworkspace, 8"
-        "${alt} ${shift}, 9, movetoworkspace, 9"
-        "${alt} ${shift}, 0, movetoworkspace, 10"
+  # Move Window to Workspace
+  "${alt} ${shift}, 1, movetoworkspace, 1"
+  "${alt} ${shift}, 2, movetoworkspace, 2"
+  "${alt} ${shift}, 3, movetoworkspace, 3"
+  "${alt} ${shift}, 4, movetoworkspace, 4"
+  "${alt} ${shift}, 5, movetoworkspace, 5"
+  "${alt} ${shift}, 6, movetoworkspace, 6"
+  "${alt} ${shift}, 7, movetoworkspace, 7"
+  "${alt} ${shift}, 8, movetoworkspace, 8"
+  "${alt} ${shift}, 9, movetoworkspace, 9"
+  "${alt} ${shift}, 0, movetoworkspace, 10"
 
-        # Vicinae
-        "${alt}, SPACE, exec, vicinae toggle"
+  # Vicinae
+  "${alt}, SPACE, exec, vicinae toggle"
 
-        # Media Keys (using playerctl)
-        ", XF86AudioPlay, exec, playerctl play-pause"
-        ", XF86AudioNext, exec, playerctl next"
-        ", XF86AudioPrev, exec, playerctl previous"
+  # Media Keys (using playerctl)
+  ", XF86AudioPlay, exec, playerctl play-pause"
+  ", XF86AudioNext, exec, playerctl next"
+  ", XF86AudioPrev, exec, playerctl previous"
 
-        # Volume Keys (using swayosd)
-        ", XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise"
-        ", XF86AudioLowerVolume, exec, swayosd-client --output-volume lower"
-        ", XF86AudioMute, exec, swayosd-client --output-volume mute-toggle"
+  # Volume Keys (using swayosd)
+  ", XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise"
+  ", XF86AudioLowerVolume, exec, swayosd-client --output-volume lower"
+  ", XF86AudioMute, exec, swayosd-client --output-volume mute-toggle"
 
-        # Brightness Keys (using swayosd)
-        ", XF86MonBrightnessUp, exec, swayosd-client --brightness raise"
-        ", XF86MonBrightnessDown, exec, swayosd-client --brightness lower"
+  # Brightness Keys (using swayosd)
+  ", XF86MonBrightnessUp, exec, swayosd-client --brightness raise"
+  ", XF86MonBrightnessDown, exec, swayosd-client --brightness lower"
 
-        # Screenshots (using hyprshot)
-        ", Print, exec, hyprshot -m output"
-        "${super} ${shift}, W, exec, hyprshot -m window --freeze"
-        "${super} ${shift}, Q, exec, hyprshot -m region --freeze"
+  # Screenshots (using hyprshot)
+  ", Print, exec, hyprshot -m output"
+  "${super} ${shift}, W, exec, hyprshot -m window --freeze"
+  "${super} ${shift}, Q, exec, hyprshot -m region --freeze"
 
-        # Toggle Gaps
-        "${super}, G, exec, toggle-gaps"
+  # Toggle Gaps
+  "${super}, G, exec, toggle-gaps"
 
-        # Lock Screen
-        "${super}, L, exec, hyprlock"
-    ]
+  # Lock Screen
+  "${super}, L, exec, hyprlock"
+]

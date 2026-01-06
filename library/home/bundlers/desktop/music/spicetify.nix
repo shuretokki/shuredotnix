@@ -2,7 +2,8 @@
 let
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
   colorsRaw = config.lib.stylix.colors;
-in {
+in
+{
   imports = [ inputs.spicetify-nix.homeManagerModules.default ];
 
   # Spicetify
@@ -12,7 +13,7 @@ in {
 
     theme = {
       name = "stylix";
-      src = pkgs.writeTextDir "color.ini" "";  # write empty color.ini since spicetify expects it
+      src = pkgs.writeTextDir "color.ini" ""; # write empty color.ini since spicetify expects it
       injectCss = true;
       replaceColors = true;
       overwriteAssets = false;
@@ -27,27 +28,27 @@ in {
       text = colorsRaw.base05;
       subtext = colorsRaw.base04;
 
-      main = colorsRaw.base00;  # main background
-      sidebar = colorsRaw.base00;  # sidebar background
-      player = colorsRaw.base00;  # player bar background
-      card = colorsRaw.base01;  # popup cards
+      main = colorsRaw.base00; # main background
+      sidebar = colorsRaw.base00; # sidebar background
+      player = colorsRaw.base00; # player bar background
+      card = colorsRaw.base01; # popup cards
       shadow = colorsRaw.base00;
-      main-secondary = colorsRaw.base01;  # selected song rows
+      main-secondary = colorsRaw.base01; # selected song rows
 
       button = colorsRaw.base0D;
-      button-secondary = colorsRaw.base04;  # download/options buttons
-      button-active = colorsRaw.base0C;  # button hover state
+      button-secondary = colorsRaw.base04; # download/options buttons
+      button-active = colorsRaw.base0C; # button hover state
       button-disabled = colorsRaw.base02;
 
       nav-active-text = colorsRaw.base05;
-      nav-active = colorsRaw.base02;  # sidebar active button bg
-      selected-row = colorsRaw.base02;  # selected row highlight
-      tab-active = colorsRaw.base02;  # active tab background
+      nav-active = colorsRaw.base02; # sidebar active button bg
+      selected-row = colorsRaw.base02; # selected row highlight
+      tab-active = colorsRaw.base02; # active tab background
 
       play-button = colorsRaw.base0D;
-      playback-bar = colorsRaw.base0D;  # seekbar fg, volume fg
+      playback-bar = colorsRaw.base0D; # seekbar fg, volume fg
 
-      notification = colorsRaw.base01;  # notification background
+      notification = colorsRaw.base01; # notification background
       notification-error = colorsRaw.base08;
 
       # small icons, separators, dividers, hover highlights, and other

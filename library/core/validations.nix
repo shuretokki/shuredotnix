@@ -5,9 +5,20 @@
 let
   # usernames that should not be used as primary user
   reservedUsernames = [
-    "root" "bin" "daemon" "sys" "nobody"
-    "www-data" "lp" "games" "mail" "sync"
-    "shutdown" "halt" "uucp" "operator"
+    "root"
+    "bin"
+    "daemon"
+    "sys"
+    "nobody"
+    "www-data"
+    "lp"
+    "games"
+    "mail"
+    "sync"
+    "shutdown"
+    "halt"
+    "uucp"
+    "operator"
   ];
 
   themePath = ../display/themes + "/${vars.theme}/default.nix";

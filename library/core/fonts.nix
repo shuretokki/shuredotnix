@@ -5,7 +5,8 @@
 { config, lib, pkgs, inputs, ... }:
 let
   cfg = config.library.core.fonts;
-in {
+in
+{
   options.library.core.fonts = {
     enable = lib.mkEnableOption "Font configuration and packages";
   };

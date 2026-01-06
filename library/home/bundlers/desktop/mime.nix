@@ -1,7 +1,8 @@
 { lib, vars, ... }:
 let
   browser = if vars.browser == "zen" then "zen-beta" else vars.browser;
-in {
+in
+{
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {

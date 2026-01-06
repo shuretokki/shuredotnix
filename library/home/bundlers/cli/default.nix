@@ -11,5 +11,6 @@
     ./direnv.nix
     ./tools.nix
     ./fastfetch.nix
+    ../../programs/gpg
   ];
 }
