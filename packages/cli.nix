@@ -6,5 +6,6 @@
     git
     unzip
     zip
+    sd
   ];
 }
