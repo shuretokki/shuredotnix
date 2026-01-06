@@ -1,0 +1,5 @@
+# https://github.com/AGWA/git-crypt
+docs/.local/** filter=git-crypt diff=git-crypt
+
+.gitattributes !filter !diff
+.gitignore !filter !diff
