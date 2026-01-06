@@ -189,11 +189,18 @@ Files must use strict ID-based naming without titles. Index files are always `00
    - Do NOT wait for user to remind you
    - Do NOT batch documentation for "later"
 
-3. **Commit** context changes:
+3. **Stage but HOLD commit** until user verifies code works:
    ```bash
    git add docs/.sym_context/
+   # DO NOT COMMIT YET - wait for user confirmation
+   ```
+
+4. **Commit ONLY after** user confirms the code change works correctly:
+   ```bash
    git commit -m "update context docs"
    ```
+   
+   **Rationale:** Don't document something that might break. If the code fails, you may need to revise both code AND documentation.
 
 ### F. Documentation Decision Matrix
 | Change Type | Action Required |
