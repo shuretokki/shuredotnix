@@ -30,4 +30,12 @@ jobs:
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
       - run: nix flake check
-      - run: nix build .#desktop
+      - run: nix build .#desktop --fallback
+        continue-on-error: true
+        id: build
+
+      - if: steps.build.outcome == 'failure'
+        run: |
+          echo "build failed, retrying..."
+          sleep 30
+          nix build .#desktop --fallback
