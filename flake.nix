@@ -55,34 +55,43 @@
   };
 
   outputs = { self, nixpkgs, ... }@inputs:
-  let
-    utils = import ./utils { inherit inputs; };
-    vars = import ./vars.nix;
-  in {
-    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
+    let
+      utils = import ./utils { inherit inputs; };
+      vars = import ./vars.nix;
+    in
+    {
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
 
-    devShells.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.mkShell {
-      packages = with nixpkgs.legacyPackages.x86_64-linux; [
-        sops age cachix
-        gcc gnumake
-        nodejs python3
-        flake-checker
-        pre-commit
-      ];
-      shellHook = ''
-        pre-commit install --install-hooks -t pre-commit 2>/dev/null || true
-      '';
+      devShells.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.mkShell {
+        packages = with nixpkgs.legacyPackages.x86_64-linux; [
+          sops
+          age
+          cachix
+          git-crypt
+          gnupg
+          gcc
+          gnumake
+          nodejs
+          python3
+          flake-checker
+          pre-commit
+        ];
+        shellHook = ''
+          pre-commit install --install-hooks -t pre-commit 2>/dev/null || true
+        '';
+      };
+
+      nixosConfigurations =
+        let
+          lib = nixpkgs.lib;
+          hostDirs = lib.filterAttrs (n: v: v == "directory") (builtins.readDir ./hosts);
+        in
+        lib.genAttrs (builtins.attrNames hostDirs) (hostname:
+          utils.mkHost { inherit hostname; username = vars.username; }
+        );
+
+      packages.x86_64-linux = nixpkgs.lib.mapAttrs
+        (hostname: config: config.config.system.build.toplevel)
+        self.nixosConfigurations;
     };
-
-    nixosConfigurations = let
-      lib = nixpkgs.lib;
-      hostDirs = lib.filterAttrs (n: v: v == "directory") (builtins.readDir ./hosts);
-    in lib.genAttrs (builtins.attrNames hostDirs) (hostname:
-      utils.mkHost { inherit hostname; username = vars.username; }
-    );
-
-    packages.x86_64-linux = nixpkgs.lib.mapAttrs
-      (hostname: config: config.config.system.build.toplevel)
-      self.nixosConfigurations;
-  };
 }
