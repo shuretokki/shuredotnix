@@ -1,7 +1,7 @@
 # https://wiki.hyprland.org/
 # https://search.nixos.org/options?query=programs.hyprland
 
-{ config, pkgs, lib, inputs, vars, ... }:
+{ config, pkgs, lib, inputs, identity, ... }:
 let
   cfg = config.library.display.hyprland;
   hyprland-base = import ./hyprland/base.nix { inherit config pkgs lib; };
@@ -48,7 +48,7 @@ in
 
     services.power-profiles-daemon.enable = true;
 
-    home-manager.users.${vars.username} = { prefs, ... }: {
+    home-manager.users.${identity.username} = { prefs, ... }: {
       imports = [
         ./waybar
         ./swayosd

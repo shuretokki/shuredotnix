@@ -9,7 +9,7 @@
 # to customize which features are enabled, override in host config:
 # library.core.bluetooth.enable = false;
 
-{ config, lib, pkgs, vars, ... }: {
+{ config, lib, pkgs, identity, ... }: {
   imports = [ ../../display ];
 
   # all enabled by default for desktop use.
@@ -36,7 +36,7 @@
   ];
 
   # bundlers configure apps based on _prefs from users/<name>/home.nix.
-  home-manager.users.${vars.username} = {
+  home-manager.users.${identity.username} = {
     imports = [
       ../../home/bundlers/cli
       ../../home/bundlers/desktop

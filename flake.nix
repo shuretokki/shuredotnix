@@ -64,7 +64,7 @@
     { self, nixpkgs, ... }@inputs:
     let
       utils = import ./utils { inherit inputs; };
-      vars = import ./identity.nix;
+      identity = import ./identity.nix;
     in
     {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
@@ -101,7 +101,7 @@
           hostname:
           utils.mkHost {
             inherit hostname;
-            username = vars.username;
+            username = identity.username;
             overlays = [
               self.overlays.additions
               self.overlays.modifications

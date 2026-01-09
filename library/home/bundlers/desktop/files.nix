@@ -1,7 +1,7 @@
 # https://home-manager-options.extranix.com/?query=xdg.mimeApps
 # https://github.com/Stunkymonkey/nautilus-open-any-terminal#configuration
 
-{ lib, pkgs, vars, prefs, ... }: {
+{ lib, pkgs, identity, prefs, ... }: {
   home.packages = with pkgs; [
     nautilus
   ];

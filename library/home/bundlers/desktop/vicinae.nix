@@ -6,7 +6,7 @@
   config,
   lib,
   pkgs,
-  vars,
+  identity,
   inputs,
   ...
 }:

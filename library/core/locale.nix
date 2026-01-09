@@ -1,27 +1,27 @@
 # https://wiki.nixos.org/wiki/Locales
 # https://search.nixos.org/options?query=i18n.defaultLocale
 
-{ lib, pkgs, vars, ... }:
+{ lib, pkgs, identity, ... }:
 {
-  time.timeZone = vars.timezone;
+  time.timeZone = identity.timezone;
 
   i18n = {
     # the default locale for the system
     # controls language, date format, numbering, etc.
-    defaultLocale = vars.locale;
+    defaultLocale = identity.locale;
 
     # extra locale settings to override specific aspects of the default locale
     # useful for mixing languages (e.g. English system with German formats)
     extraLocaleSettings = {
-      LC_ADDRESS = vars.locale;
-      LC_IDENTIFICATION = vars.locale;
-      LC_MEASUREMENT = vars.locale;
-      LC_MONETARY = vars.locale;
-      LC_NAME = vars.locale;
-      LC_NUMERIC = vars.locale;
-      LC_PAPER = vars.locale;
-      LC_TELEPHONE = vars.locale;
-      LC_TIME = vars.locale;
+      LC_ADDRESS = identity.locale;
+      LC_IDENTIFICATION = identity.locale;
+      LC_MEASUREMENT = identity.locale;
+      LC_MONETARY = identity.locale;
+      LC_NAME = identity.locale;
+      LC_NUMERIC = identity.locale;
+      LC_PAPER = identity.locale;
+      LC_TELEPHONE = identity.locale;
+      LC_TIME = identity.locale;
     };
 
     # supported locales (deprecated in favor of extraLocales, but still useful to know)

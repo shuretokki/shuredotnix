@@ -1,4 +1,4 @@
-{ lib, config, vars, ... }:
+{ lib, config, identity, ... }:
 let
   # The expected state version for this system configuration
   # should only be updated when intentionally upgrading NixOS state
@@ -22,11 +22,11 @@ in {
   }];
 
   warnings =
-    lib.optional (vars.timezone == "UTC") ''
+    lib.optional (identity.timezone == "UTC") ''
       Using default timezone "UTC"
       Set your timezone in identity.nix: timezone = "Asia/Jakarta";
     ''
-    ++ lib.optional (vars.theme == "default") ''
+    ++ lib.optional (identity.theme == "default") ''
       Using default theme;
     '';
 }

@@ -6,7 +6,7 @@
 # 3. update .sops.yaml with your public key
 # 4. create secrets/secrets.yaml: sops secrets/secrets.yaml
 
-{ inputs, config, lib, vars, ... }:
+{ inputs, config, lib, identity, ... }:
 let
   cfg = config.library.core.sops;
 in
@@ -14,7 +14,7 @@ in
   options.library.core.sops = {
     keyFile = lib.mkOption {
       type = lib.types.str;
-      default = "/home/${vars.username}/.config/sops/age/keys.txt";
+      default = "/home/${identity.username}/.config/sops/age/keys.txt";
       description = "Path to SOPS age key file";
     };
   };

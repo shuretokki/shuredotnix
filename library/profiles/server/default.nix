@@ -4,7 +4,7 @@
 # explicitly disables display to prevent accidental gui activation.
 # only cli bundler is imported for home-manager.
 
-{ config, lib, pkgs, vars, ... }: {
+{ config, lib, pkgs, identity, ... }: {
   library.display.sddm.enable = false;
   library.display.hyprland.enable = false;
 
@@ -13,7 +13,7 @@
     nil nixfmt-rfc-style direnv
   ];
 
-  home-manager.users.${vars.username} = {
+  home-manager.users.${identity.username} = {
     imports = [ ../../home/bundlers/cli ];
   };
 }

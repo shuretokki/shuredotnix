@@ -4,7 +4,7 @@
 # config and style sourced from theme options (theme.waybar.*).
 # colors.css generated from stylix for @import in custom styles.
 
-{ config, pkgs, lib, vars, ... }:
+{ config, pkgs, lib, identity, ... }:
 let
   cfg = config.theme.waybar;
 in

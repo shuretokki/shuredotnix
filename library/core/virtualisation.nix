@@ -7,7 +7,7 @@
   config,
   lib,
   pkgs,
-  vars,
+  identity,
   ...
 }:
 let
@@ -23,7 +23,7 @@ in
     (lib.mkIf cfg.docker.enable {
       virtualisation.docker.enable = true;
       # socket access requires group membership
-      users.users.${vars.username}.extraGroups = [ "docker" ];
+      users.users.${identity.username}.extraGroups = [ "docker" ];
     })
 
     (lib.mkIf cfg.podman.enable {

@@ -1,7 +1,7 @@
 { inputs }:
 let
   lib = inputs.nixpkgs.lib;
-  vars = import ../identity.nix;
+  identity = import ../identity.nix;
 in
 {
   mkHost =
@@ -19,11 +19,11 @@ in
       assert username != "" || throw "username cannot be empty";
 
       let
-        var = vars // { inherit hostname; };
+        identity' = identity // { inherit hostname; };
       in
       lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit inputs; vars = var; };
+        specialArgs = { inherit inputs; identity = identity'; };
         modules = [
           ../hosts/${hostname}
           ../users/${username}/nixos.nix
@@ -68,10 +68,10 @@ in
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              extraSpecialArgs = { inherit inputs; vars = var; };
+              extraSpecialArgs = { inherit inputs; identity = identity'; };
               sharedModules = [
                 ../library/display/themes/default.nix
-                (../library/display/themes + "/${var.theme}/default.nix")
+                (../library/display/themes + "/${identity'.theme}/default.nix")
               ];
               users.${username} = import ../users/${username}/home.nix;
               backupFileExtension = "backup";

@@ -3,7 +3,7 @@
 
 # mkForce used: stylix sets defaults that conflict with theme options.
 
-{ config, pkgs, lib, vars, ... }:
+{ config, pkgs, lib, identity, ... }:
 let
   colors = config.lib.stylix.colors;
 in

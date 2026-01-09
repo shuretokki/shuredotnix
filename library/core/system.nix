@@ -1,7 +1,7 @@
 # https://wiki.nixos.org/wiki/Flakes
 # https://search.nixos.org/options?query=nix.settings
 
-{ config, pkgs, lib, vars, inputs, ... }:
+{ config, pkgs, lib, identity, inputs, ... }:
 let
   cfg = config.library.core.system;
 in
@@ -9,7 +9,7 @@ in
   options.library.core.system = {
     flakePath = lib.mkOption {
       type = lib.types.str;
-      default = "/home/${vars.username}/shuredotnix";
+      default = "/home/${identity.username}/shuredotnix";
       description = "Path to the NixOS flake for nh";
     };
   };
@@ -45,7 +45,7 @@ in
 
 
     # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/tasks/network-interfaces.nix
-    networking.hostName = lib.mkDefault vars.hostname;
+    networking.hostName = lib.mkDefault identity.hostname;
 
     # (optional)
     # networking.networkmanager.enable = true;

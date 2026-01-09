@@ -1,7 +1,7 @@
 # validation assertions for early misconfiguration detection
 # these run at nix evaluation time, before any build starts.
 
-{ lib, config, vars, ... }:
+{ lib, config, identity, ... }:
 let
   # usernames that should not be used as primary user
   reservedUsernames = [
@@ -21,33 +21,33 @@ let
     "operator"
   ];
 
-  themePath = ../display/themes + "/${vars.theme}/default.nix";
+  themePath = ../display/themes + "/${identity.theme}/default.nix";
 in
 {
   config.assertions = [
     {
-      assertion = vars.username != "";
-      message = "vars.username must not be empty";
+      assertion = identity.username != "";
+      message = "identity.username must not be empty";
     }
 
     {
-      assertion = builtins.match "^[a-z_][a-z0-9_-]{0,31}$" vars.username != null;
-      message = "vars.username '${vars.username}' is not a valid UNIX username (lowercase, start with letter/underscore, max 32 chars)";
+      assertion = builtins.match "^[a-z_][a-z0-9_-]{0,31}$" identity.username != null;
+      message = "identity.username '${identity.username}' is not a valid UNIX username (lowercase, start with letter/underscore, max 32 chars)";
     }
 
     {
-      assertion = !builtins.elem vars.username reservedUsernames;
-      message = "vars.username '${vars.username}' is a reserved system username. Choose a different name.";
+      assertion = !builtins.elem identity.username reservedUsernames;
+      message = "identity.username '${identity.username}' is a reserved system username. Choose a different name.";
     }
 
     {
-      assertion = vars.theme != "";
-      message = "vars.theme must be set";
+      assertion = identity.theme != "";
+      message = "identity.theme must be set";
     }
 
     {
       assertion = builtins.pathExists themePath;
-      message = "Theme '${vars.theme}' does not exist. Expected path: ${toString themePath}";
+      message = "Theme '${identity.theme}' does not exist. Expected path: ${toString themePath}";
     }
 
     {

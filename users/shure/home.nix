@@ -4,7 +4,7 @@
 # this file is imported when building for the "shure" user.
 # _prefs are passed down to bundlers to customize app behavior.
 
-{ config, pkgs, inputs, vars, ... }: {
+{ config, pkgs, inputs, identity, ... }: {
   imports = [
     ../../library/home/global # base home config shared by all users
   ];
@@ -22,8 +22,8 @@
     musicPlayer = "spotify";
   };
 
-  home.username = vars.username;
-  home.homeDirectory = "/home/${vars.username}";
+  home.username = identity.username;
+  home.homeDirectory = "/home/${identity.username}";
 
   # do not change after initial install.
   # see: https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

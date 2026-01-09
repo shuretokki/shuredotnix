@@ -1,7 +1,7 @@
 # https://wiki.nixos.org/wiki/Bootloader
 # https://search.nixos.org/options?query=boot.loader
 
-{ lib, config, vars, ... }:
+{ lib, config, identity, ... }:
 {
   boot.loader.efi = {
     # allow installer to modify EFI boot variables (required for UEFI systems)

@@ -2,7 +2,7 @@
 # imports core modules and desktop profile.
 # hardware-specific toggles (nvidia, docker) set here.
 
-{ config, pkgs, vars, ... }: {
+{ config, pkgs, identity, ... }: {
   imports = [
     ./hardware-configuration.nix
     ../../library/core

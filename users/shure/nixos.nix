@@ -4,11 +4,11 @@
 # defines the system user account, groups, and default shell.
 # companion to home.nix which handles user environment.
 
-{ pkgs, vars, ... }: {
-  users.users.${vars.username} = {
+{ pkgs, identity, ... }: {
+  users.users.${identity.username} = {
     uid = 1000; # keep consistent across reinstalls for file ownership
     isNormalUser = true;
-    description = vars.username;
+    description = identity.username;
 
     # groups grant permissions without sudo:
     # - wheel: sudo access

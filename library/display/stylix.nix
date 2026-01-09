@@ -2,7 +2,7 @@
 # TODO: consider matugen for dynamic color scheme from wallpaper
 #       requires research on current stylix integration and matugen setup
 
-{ lib, pkgs, vars, config, ... }:
+{ lib, pkgs, identity, config, ... }:
 let
   wpBase = config.theme.wallpaperDir;
 in
@@ -46,10 +46,10 @@ in
   # user-selected theme from identity.nix
   imports = [
     ./themes/default.nix
-    (./themes + "/${vars.theme}/default.nix")
+    (./themes + "/${identity.theme}/default.nix")
   ];
 
-  home-manager.users.${vars.username} = { config, lib, ... }: {
+  home-manager.users.${identity.username} = { config, lib, ... }: {
     # these apps have custom theming or stylix breaks them
     stylix.targets = {
       vscode.enable = lib.mkDefault false;
