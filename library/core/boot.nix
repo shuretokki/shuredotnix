@@ -8,34 +8,27 @@
     canTouchEfiVariables = true;
   };
 
-  # disabled in favor of limine
-  boot.loader.systemd-boot = {
-    enable = false;
-
-    # disable boot menu editor (pressing 'e') for security
-    # editor allows bypassing root via init=/bin/sh
-    # editor = false;
-
-    # maximum generations to keep in boot menu
-    # configurationLimit = 10;
-
-    # console resolution: "0" (80x25), "1" (80x50), "auto", "max", "keep"
-    # consoleMode = "auto";
-  };
-
-
   # https://search.nixos.org/options?query=boot.loader.limine
   boot.loader.limine = {
     enable = true;
 
-    # This requires you to already have generated the keys and enrolled them with sbctl.
-    # To create keys use 'sbctl create-keys'.
-    # To enroll them first reset secure boot to “Setup Mode”.
-    # This is device specific. Then enroll them using 'sbctl enroll-keys -m -f'.
+    # this requires you to already have generated the keys and enrolled them with sbctl.
+    # to create keys use 'sbctl create-keys'.
+    # to enroll them first reset secure boot to “Setup Mode”.
+    # this is device specific. then enroll them using 'sbctl enroll-keys -m -f'.
     secureBoot.enable = false;
 
-    # limine configuration (limine.conf)
-    # https://github.com/limine-bootloader/limine/blob/v8.x/CONFIG.md
+    # maximum number of system generations to display in the boot menu.
+    # a limit prevents the boot partition from running out of space.
+    maxGenerations = lib.mkDefault 10;
+
+    # determines if the limine configuration editor is enabled at boot.
+    # disabling it prevents temporary modification of boot parameters (security).
+    enableEditor = false;
+
+    # limine on NixOS does not have 'osProber' (unlike GRUB).
+    # you must manually add entries for other OSs (Dual Boot).
+    # default windows path: boot():/EFI/Microsoft/Boot/bootmgfw.efi
     extraEntries = ''
       /Windows
         protocol: efi_chainload
