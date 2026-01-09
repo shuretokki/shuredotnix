@@ -10,7 +10,9 @@
 # library.core.bluetooth.enable = false;
 
 { config, lib, pkgs, identity, ... }: {
-  imports = [ ../../display ];
+  imports = [
+    ../../display
+  ];
 
   # all enabled by default for desktop use.
   # mkDefault allows hosts to override if needed.
@@ -32,8 +34,13 @@
     blueman wireplumber pamixer
     pavucontrol networkmanagerapplet
     qt6Packages.fcitx5-configtool
-    typora localsend
+    typora
   ];
+
+  programs.localsend = {
+    enable = true;
+    openFirewall = true;
+  };
 
   # bundlers configure apps based on _prefs from users/<name>/home.nix.
   home-manager.users.${identity.username} = {
