@@ -6,7 +6,9 @@
 
   programs.nixcord = {
     enable = true;
-    equibop.enable = true;
+    discord = {
+      vencord.enable = true;
+    };
 
     # https://stylix.danth.me/options/hm/targets/nixcord/
     # stylix.targets.nixcord.enable = true; # Enabled by default when Stylix is enabled
