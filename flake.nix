@@ -58,6 +58,9 @@
 
     antigravity.url = "github:jacopone/antigravity-nix";
     antigravity.inputs.nixpkgs.follows = "nixpkgs";
+
+    firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+    firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -79,7 +82,10 @@
       # TODO: research nix-fast-build or devour-flake
       packages.x86_64-linux =
         let
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+          };
           custompkgs = import ./pkgs { inherit pkgs; };
           syspkgs = nixpkgs.lib.mapAttrs (
             hostname: config: config.config.system.build.toplevel
