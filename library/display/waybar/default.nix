@@ -1,0 +1,44 @@
+# https://github.com/Alexays/Waybar
+# https://home-manager-options.extranix.com/?query=programs.waybar
+
+# config and style sourced from theme options (theme.waybar.*).
+# colors.css generated from stylix for @import in custom styles.
+
+{ config, pkgs, lib, vars, ... }:
+let
+  cfg = config.theme.waybar;
+in
+{
+  programs.waybar = {
+    enable = true;
+    systemd.enable = true;
+    settings = { };
+  };
+
+  xdg.configFile = {
+    "waybar/config.jsonc" = lib.mkIf (cfg.configFile != null) {
+      source = cfg.configFile;
+    };
+    "waybar/style.css" = lib.mkIf (cfg.styleFile != null) {
+      source = cfg.styleFile;
+    };
+    "waybar/colors.css".text = ''
+      @define-color base00 #${config.lib.stylix.colors.base00};
+      @define-color base01 #${config.lib.stylix.colors.base01};
+      @define-color base02 #${config.lib.stylix.colors.base02};
+      @define-color base03 #${config.lib.stylix.colors.base03};
+      @define-color base04 #${config.lib.stylix.colors.base04};
+      @define-color base05 #${config.lib.stylix.colors.base05};
+      @define-color base06 #${config.lib.stylix.colors.base06};
+      @define-color base07 #${config.lib.stylix.colors.base07};
+      @define-color base08 #${config.lib.stylix.colors.base08};
+      @define-color base09 #${config.lib.stylix.colors.base09};
+      @define-color base0A #${config.lib.stylix.colors.base0A};
+      @define-color base0B #${config.lib.stylix.colors.base0B};
+      @define-color base0C #${config.lib.stylix.colors.base0C};
+      @define-color base0D #${config.lib.stylix.colors.base0D};
+      @define-color base0E #${config.lib.stylix.colors.base0E};
+      @define-color base0F #${config.lib.stylix.colors.base0F};
+    '';
+  };
+}

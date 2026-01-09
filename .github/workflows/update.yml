@@ -1,0 +1,24 @@
+name: "Dependency Maintenance"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 0'
+
+jobs:
+  auto-update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+      - uses: cachix/install-nix-action@v31.9.0
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: DeterminateSystems/update-flake-lock@main
+        with:
+          pr-title: "update flake.lock"
+          pr-labels: |
+            dependencies
+            automated

@@ -1,0 +1,4 @@
+# Default theme
+{ ... }: {
+  # eof
+}

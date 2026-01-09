@@ -1,0 +1,17 @@
+repos:
+  - repo: local
+    hooks:
+      - id: nix-flake-check
+        name: Nix Flake Check
+        entry: bash -c 'timeout 300 nix flake check || exit 1'
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      - id: flake-checker
+        name: Flake Checker
+        entry: bash -c 'command -v flake-checker && flake-checker --no-telemetry || true'
+        language: system
+        pass_filenames: false
+        always_run: true
+

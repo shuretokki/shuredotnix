@@ -1,0 +1,104 @@
+{
+  "reload_style_on_change": true,
+  "layer": "top",
+  "position": "top",
+  "height": 26,
+  "margin-top": 4,
+  "margin-left": 0,
+  "margin-right": 0,
+  "spacing": 0,
+  "modules-left": [
+    "hyprland/workspaces"
+  ],
+  "modules-center": [
+    "mpris"
+  ],
+  "modules-right": [
+    "network",
+    "pulseaudio",
+    "clock"
+  ],
+  "hyprland/workspaces": {
+    "on-click": "activate",
+    "active-only": false,
+    "all-outputs": true,
+    "format": "{name}",
+    "persistent-workspaces": {
+      "*": 5
+    }
+  },
+  "group/hardware": {
+    "orientation": "horizontal",
+    "modules": [
+      "cpu",
+      "memory",
+      "battery"
+    ]
+  },
+  "cpu": {
+    "interval": 5,
+    "format": "󰍛",
+    "on-click": "warp-terminal -e btop"
+  },
+  "memory": {
+    "interval": 5,
+    "format": "󰘚",
+    "on-click": "warp-terminal -e btop"
+  },
+  "network": {
+    "format-wifi": "{essid} ({signalStrength}%)  ",
+    "format-ethernet": "5G  ",
+    "format-disconnected": "Disconnected ⚠"
+  },
+  "pulseaudio": {
+    "format": "{volume}% {icon} ",
+    "on-click": "xdg-terminal-exec --app-id=com.omarchy.Wiremix -e wiremix",
+    "on-click-right": "pamixer -t",
+    "tooltip-format": "Playing at {volume}%",
+    "scroll-step": 5,
+    "format-muted": "",
+    "format-icons": {
+      "default": [
+        "",
+        "",
+        ""
+      ]
+    }
+  },
+  "battery": {
+    "format": "{capacity}% {icon} ",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "clock": {
+    "format": "{:%H:%M}",
+    "format-alt": "{:%a, %d %b %H:%M}",
+    "tooltip": false
+  },
+  "mpris": {
+    "format": "{player_icon} {artist} / {title}",
+    "format-paused": "{player_icon} Paused",
+    "player-icons": {
+      "default": "▶",
+      "mpv": "🎵",
+      "spotify": "",
+      "firefox": ""
+    },
+    "status-icons": {
+      "paused": "■"
+    },
+    "ignored-players": [
+      "firefox"
+    ],
+    "max-length": 35,
+    "interval": 1,
+    "on-click": "playerctl play-pause",
+    "on-click-right": "playerctl next",
+    "on-click-middle": "playerctl previous"
+  }
+}
