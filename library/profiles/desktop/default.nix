@@ -37,8 +37,12 @@
     typora
   ];
 
+  # https://search.nixos.org/options?query=programs.localsend
   programs.localsend = {
     enable = true;
+
+    # opens port 53317 (tcp/udp) in firewall.
+    # required for device discovery and file transfer.
     openFirewall = true;
   };
 
