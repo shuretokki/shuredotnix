@@ -8,7 +8,7 @@
     canTouchEfiVariables = true;
   };
 
-  # disabled in favor of GRUB
+  # disabled in favor of limine
   boot.loader.systemd-boot = {
     enable = false;
 
@@ -23,34 +23,23 @@
     # consoleMode = "auto";
   };
 
-  boot.loader.grub = {
+
+  # https://search.nixos.org/options?query=boot.loader.limine
+  boot.loader.limine = {
     enable = true;
 
-    # "nodev" = EFI-only, skip MBR install
-    # "/dev/sda" = install to MBR for BIOS systems
-    device = "nodev";
+    # This requires you to already have generated the keys and enrolled them with sbctl.
+    # To create keys use 'sbctl create-keys'.
+    # To enroll them first reset secure boot to “Setup Mode”.
+    # This is device specific. Then enroll them using 'sbctl enroll-keys -m -f'.
+    secureBoot.enable = false;
 
-    efiSupport = true;
-
-    # detect other operating systems (Windows, other Linux distros)
-    useOSProber = config.library.display.hyprland.enable;
-
-    theme = lib.mkIf config.theme.grub.enable config.theme.grub.theme;
-
-    # maximum generations in boot menu
-    # configurationLimit = 10;
-
-    # serial console for headless servers
-    # extraConfig = ''
-    #   serial --unit=0 --speed=115200 --word=8 --parity=no --stop=1
-    #   terminal_input --append serial
-    #   terminal_output --append serial
-    # '';
-
-    # custom menu entries
-    # extraEntries = ''
-    #   menuentry "Reboot" { reboot }
-    #   menuentry "Poweroff" { halt }
-    # '';
+    # limine configuration (limine.conf)
+    # https://github.com/limine-bootloader/limine/blob/v8.x/CONFIG.md
+    extraEntries = ''
+      /Windows
+        protocol: efi_chainload
+        path: boot():/EFI/Microsoft/Boot/bootmgfw.efi
+    '';
   };
 }
