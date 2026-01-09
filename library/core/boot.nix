@@ -8,49 +8,31 @@
     canTouchEfiVariables = true;
   };
 
-  # disabled in favor of GRUB
-  boot.loader.systemd-boot = {
-    enable = false;
-
-    # disable boot menu editor (pressing 'e') for security
-    # editor allows bypassing root via init=/bin/sh
-    # editor = false;
-
-    # maximum generations to keep in boot menu
-    # configurationLimit = 10;
-
-    # console resolution: "0" (80x25), "1" (80x50), "auto", "max", "keep"
-    # consoleMode = "auto";
-  };
-
-  boot.loader.grub = {
+  # https://search.nixos.org/options?query=boot.loader.limine
+  boot.loader.limine = {
     enable = true;
 
-    # "nodev" = EFI-only, skip MBR install
-    # "/dev/sda" = install to MBR for BIOS systems
-    device = "nodev";
+    # this requires you to already have generated the keys and enrolled them with sbctl.
+    # to create keys use 'sbctl create-keys'.
+    # to enroll them first reset secure boot to “Setup Mode”.
+    # this is device specific. then enroll them using 'sbctl enroll-keys -m -f'.
+    secureBoot.enable = false;
 
-    efiSupport = true;
+    # maximum number of system generations to display in the boot menu.
+    # a limit prevents the boot partition from running out of space.
+    maxGenerations = lib.mkDefault 10;
 
-    # detect other operating systems (Windows, other Linux distros)
-    useOSProber = config.library.display.hyprland.enable;
+    # determines if the limine configuration editor is enabled at boot.
+    # disabling it prevents temporary modification of boot parameters (security).
+    enableEditor = false;
 
-    theme = lib.mkIf config.theme.grub.enable config.theme.grub.theme;
-
-    # maximum generations in boot menu
-    # configurationLimit = 10;
-
-    # serial console for headless servers
-    # extraConfig = ''
-    #   serial --unit=0 --speed=115200 --word=8 --parity=no --stop=1
-    #   terminal_input --append serial
-    #   terminal_output --append serial
-    # '';
-
-    # custom menu entries
-    # extraEntries = ''
-    #   menuentry "Reboot" { reboot }
-    #   menuentry "Poweroff" { halt }
-    # '';
+    # limine on NixOS does not have 'osProber' (unlike GRUB).
+    # you must manually add entries for other OSs (Dual Boot).
+    # default windows path: boot():/EFI/Microsoft/Boot/bootmgfw.efi
+    extraEntries = ''
+      /Windows
+        protocol: efi_chainload
+        path: boot():/EFI/Microsoft/Boot/bootmgfw.efi
+    '';
   };
 }
