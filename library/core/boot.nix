@@ -3,10 +3,14 @@
 
 { lib, config, identity, ... }:
 {
+
   boot.loader.efi = {
     # allow installer to modify EFI boot variables (required for UEFI systems)
     canTouchEfiVariables = true;
   };
+
+  boot.loader.systemd-boot.enable = false;
+  boot.loader.grub.enable = false;
 
   # https://search.nixos.org/options?query=boot.loader.limine
   boot.loader.limine = {
