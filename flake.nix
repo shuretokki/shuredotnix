@@ -66,6 +66,8 @@
   outputs =
     { self, nixpkgs, ... }@inputs:
     let
+      repo = "dotnix";
+      alias = "sdn";
       utils = import ./utils { inherit inputs; };
       identity = import ./identity.nix;
     in
@@ -86,14 +88,14 @@
             system = "x86_64-linux";
             config.allowUnfree = true;
           };
-          custompkgs = import ./pkgs { inherit pkgs; };
+          sdnpkgs = import ./pkgs { inherit pkgs repo alias; };
           syspkgs = nixpkgs.lib.mapAttrs (
             hostname: config: config.config.system.build.toplevel
           ) self.nixosConfigurations;
         in
-        custompkgs // syspkgs;
+        sdnpkgs // syspkgs;
 
-      overlays = import ./overlays { inherit inputs; };
+      overlays = import ./overlays { inherit inputs repo alias; };
 
       # auto-discovers hosts by reading directories in hosts/.
       # adding a new host only requires creating hosts/<name>/default.nix,
@@ -106,7 +108,7 @@
         lib.genAttrs (builtins.attrNames hostDirs) (
           hostname:
           utils.mkHost {
-            inherit hostname;
+            inherit hostname repo alias;
             username = identity.username;
             overlays = [
               self.overlays.additions

@@ -7,6 +7,8 @@ in
   mkHost =
     { hostname
     , username
+    , repo
+    , alias
     , system ? "x86_64-linux"
     , extraModules ? [ ]
     , overlays ? [ ]
@@ -15,6 +17,8 @@ in
 
       assert builtins.isString hostname || throw "hostname must be a string";
       assert builtins.isString username || throw "username must be a string";
+      assert builtins.isString repo || throw "repo must be a string";
+      assert builtins.isString alias || throw "alias must be a string";
       assert hostname != "" || throw "hostname cannot be empty";
       assert username != "" || throw "username cannot be empty";
 
@@ -23,7 +27,7 @@ in
       in
       lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit inputs; identity = identity'; };
+        specialArgs = { inherit inputs repo alias; identity = identity'; };
         modules = [
           ../hosts/${hostname}
           ../users/${username}/nixos.nix
@@ -68,7 +72,7 @@ in
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              extraSpecialArgs = { inherit inputs; identity = identity'; };
+              extraSpecialArgs = { inherit inputs repo alias; identity = identity'; };
               sharedModules = [
                 ../library/display/themes/default.nix
                 (../library/display/themes + "/${identity'.theme}/default.nix")
