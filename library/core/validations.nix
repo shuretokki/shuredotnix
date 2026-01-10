@@ -1,7 +1,7 @@
 # validation assertions for early misconfiguration detection
 # these run at nix evaluation time, before any build starts.
 
-{ lib, config, identity, ... }:
+{ lib, config, identity, repo, alias, ... }:
 let
   # usernames that should not be used as primary user
   reservedUsernames = [
@@ -53,6 +53,32 @@ in
     {
       assertion = config.library.core.sops.keyFile != "";
       message = "library.core.sops.keyFile must be configured";
+    }
+
+    {
+      assertion = alias == "sdn";
+      message = ''
+        [PROJECT IDENTITY MISMATCH]
+        The project alias is set to "${alias}", but "sdn" is required.
+        This protects structural aliases like sdn-update and cdsdn.
+
+        If you ARE sure about this change:
+        1. Update alias in flake.nix
+        2. Update this assertion in library/core/validations.nix
+      '';
+    }
+
+    {
+      assertion = repo == "dotnix";
+      message = ''
+        [PROJECT REPO MISMATCH]
+        The project repo is set to "${repo}", but "dotnix" is required.
+        This protects hardcoded paths in scripts and system configs.
+
+        If you ARE sure about this change:
+        1. Update repo in flake.nix
+        2. Update this assertion in library/core/validations.nix
+      '';
     }
   ];
 

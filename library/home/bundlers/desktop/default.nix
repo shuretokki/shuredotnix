@@ -1,6 +1,6 @@
 { ... }: {
   imports = [
-    ./browser.nix
+    ./browser
     ./terminal.nix
     ./editor.nix
     ./music
