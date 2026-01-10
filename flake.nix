@@ -2,7 +2,7 @@
 # https://nix.dev/manual/nix/stable/command-ref/new-cli/nix3-flake
 
 {
-  description = "system config";
+  description = "NixOS Configuration";
 
   # binary caches for faster builds.
   # extra-substituters appends to system substituters (doesn't override).
