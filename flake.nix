@@ -79,7 +79,7 @@
       };
 
       # merges custom packages (pkgs/) with system builds (hosts/).
-      # custom: `nix build .#sdnpkgs.<pkg>` or `nix run .#sdnpkgs.<pkg>`
+      # custom: `nix build .#<pkg>` (e.g. `nix build .#sdn-update`)
       # system: `nix build .#desktop` (used by ci to verify builds)
       # TODO: research nix-fast-build or devour-flake
       packages.x86_64-linux =
