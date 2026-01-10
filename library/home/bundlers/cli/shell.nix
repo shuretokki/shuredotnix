@@ -1,11 +1,12 @@
 # https://home-manager-options.extranix.com/?query=programs.bash
-# TODO: move ~/shuredotnix to a variable (identity.nix or prefs)
 # TODO: consider moving wayland auto-start (profileExtra) to display module
 
 {
   lib,
   pkgs,
   prefs,
+  repo,
+  alias,
   ...
 }:
 {
@@ -46,14 +47,14 @@
     };
 
     shellAliases = {
-      rebuild = "nh os switch ~/shuredotnix";
-      rebuild-test = "nh os test ~/shuredotnix";
-      rebuild-boot = "nh os boot ~/shuredotnix";
-      rebuild-vm = "nh os build-vm ~/shuredotnix";
+      rebuild = "nh os switch ~/${repo}";
+      rebuild-test = "nh os test ~/${repo}";
+      rebuild-boot = "nh os boot ~/${repo}";
+      rebuild-vm = "nh os build-vm ~/${repo}";
 
-      update = "cd ~/shuredotnix && nix flake update";
-      check = "cd ~/shuredotnix && nix flake check";
-      fmt = "cd ~/shuredotnix && nix fmt";
+      update = "cd ~/${repo} && nix flake update";
+      check = "cd ~/${repo} && nix flake check";
+      fmt = "cd ~/${repo} && nix fmt";
 
       nix-size = "nix path-info -Sh /run/current-system";
       nix-store-size = "du -sh /nix/store";
@@ -61,7 +62,7 @@
       generations = "sudo nix-env --list-generations -p /nix/var/nix/profiles/system";
       gen-diff = "nvd diff /run/current-system /nix/var/nix/profiles/system";
 
-      cdnix = "cd ~/shuredotnix";
+      "cd${alias}" = "cd ~/${repo}";
       dev = "nix develop";
 
       clean = "nh clean all --keep 5";
