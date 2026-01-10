@@ -165,39 +165,46 @@
         ];
       };
 
-      containersForce = true;
-      containers = {
-        Personal = {
-          color = "purple";
-          icon = "fingerprint";
-          id = 1;
-        };
-        Work = {
-          color = "blue";
-          icon = "briefcase";
-          id = 2;
-        };
-      };
+      # containers and spaces aren't configured because
+      # declarative config conflicts with existing browser profile state
+      # spacesForce/containersForce will overwrite manual customizations
+      # UUIDs must match existing spaces or browser creates duplicates
+      # to enable: first clear zen workspaces in about:config, then uncomment below
 
-      spacesForce = true;
-      spaces = let
-        containers = config.programs.zen-browser.profiles."default".containers;
-      in {
-        "General" = {
-          id = "3887c330-4e31-41d4-8f43-80f0c00681a9";
-          position = 1000;
-          icon = "chrome://browser/skin/zen-icons/selectable/home.svg";
-        };
-        "Code" = {
-          id = "cdd10fab-4fc5-494b-9041-325e5759195b";
-          icon = "chrome://browser/skin/zen-icons/selectable/code.svg";
-          container = containers."Work".id;
-          position = 2000;
-        };
-      };
+      # containersForce = true;
+      # containers = {
+      #   Personal = {
+      #     color = "purple";
+      #     icon = "fingerprint";
+      #     id = 1;
+      #   };
+      #   Work = {
+      #     color = "blue";
+      #     icon = "briefcase";
+      #     id = 2;
+      #   };
+      # };
 
-      # Smaller Compact Mode
-      # by n7itro
+      # spacesForce = true;
+      # spaces = let
+      #   containers = config.programs.zen-browser.profiles."default".containers;
+      # in {
+      #   "General" = {
+      #     id = "3887c330-4e31-41d4-8f43-80f0c00681a9";
+      #     position = 1000;
+      #     icon = "chrome://browser/skin/zen-icons/selectable/home.svg";
+      #   };
+      #   "Code" = {
+      #     id = "cdd10fab-4fc5-494b-9041-325e5759195b";
+      #     icon = "chrome://browser/skin/zen-icons/selectable/code.svg";
+      #     container = containers."Work".id;
+      #     position = 2000;
+      #   };
+      # };
+
+      # Zen mods configured in userChrome
+      # - Smaller Compact Mode by n7itro
+      # - Add more ...
       userChrome = ''
         @media (-moz-bool-pref: "zen.view.sidebar-expanded") {
           #navigator-toolbox {
