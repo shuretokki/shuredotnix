@@ -1,123 +1,113 @@
 ---
 seo:
-  title: Write beautiful docs with Markdown
-  description: Ship fast, flexible, and SEO-optimized documentation with beautiful
-    design out of the box. Docus brings together the best of the Nuxt ecosystem.
-    Powered by Nuxt UI.
+  title: dotnix - A Ready-to-Use NixOS Desktop
+  description: A comprehensive, modular, and declarative NixOS configuration with Hyprland and Stylix. Clone, customize, and make it yours.
 ---
 
 ::u-page-hero
 #title
-Write beautiful docs with Markdown
+A Ready-to-Use NixOS Desktop
 
 #description
-Ship fast, flexible, and SEO-optimized documentation with beautiful design out of the box.
-
-Docus brings the best of the Nuxt ecosystem into one CLI.
+dotnix is a fully integrated NixOS configuration built with Hyprland and Stylix. Clone the repository, edit your identity file, and rebuild. Your complete desktop environment is ready.
 
 #links
   :::u-button
   ---
   color: neutral
   size: xl
-  to: /en/getting-started/installation
+  to: /en/quick-start/installation
   trailing-icon: i-lucide-arrow-right
   ---
-  Get started
+  Get Started
   :::
 
   :::u-button
   ---
   color: neutral
-  icon: simple-icons-github
+  icon: i-simple-icons-github
   size: xl
-  to: https://github.com/nuxt-content/docus
+  to: https://github.com/shuretokki/dotnix
   variant: outline
   ---
-  Star on GitHub
+  View on GitHub
   :::
 ::
 
 ::u-page-section
 #title
-Shipped with many features
+What You Get
 
 #features
   :::u-page-feature
   ---
-  icon: i-simple-icons-nuxt
-  target: _blank
-  to: https://nuxt.com
+  icon: i-lucide-rocket
+  to: /en/quick-start/installation
   ---
   #title
-  Built with [Nuxt 4]{.text-primary}
-  
+  5-Minute Setup
+
   #description
-  Optimized by the most famous Vue framework. Docus gives you everything you need to build fast, performant, and SEO-friendly websites.
+  Clone, edit one file, rebuild. No hours of configuration needed.
   :::
 
   :::u-page-feature
   ---
-  icon: i-simple-icons-nuxt
-  target: _blank
-  to: https://ui.nuxt.com/
+  icon: i-lucide-palette
+  to: /en/configuration/theming
   ---
   #title
-  Powered by [Nuxt UI]{.text-primary}
-  
+  Unified Theming
+
   #description
-  Beautiful out of the box, minimal by design but highly customizable. Docus leverages Nuxt UI to give you the best docs writing experience with zero boilerplate, just focus on your content.
+  One color scheme applied everywhere. GTK, QT, terminals, and your window manager all match automatically via Stylix.
   :::
 
   :::u-page-feature
   ---
-  icon: i-simple-icons-nuxt
-  target: _blank
-  to: https://content.nuxt.com
+  icon: i-lucide-shield
+  to: /en/features/encrypted-dns
   ---
   #title
-  Enhanced Markdown syntax by [Nuxt Content]{.text-primary}
-  
+  Private by Default
+
   #description
-  The only thing you need to take care about is writing your content. Write your pages in Markdown and extend with MDC syntax to embed Nuxt UI or custom Vue components. Structure, routing, and rendering are handled for you.
+  Encrypted DNS out of the box. Your ISP cannot see which sites you visit.
   :::
 
   :::u-page-feature
   ---
-  icon: i-simple-icons-nuxt
-  target: _blank
-  to: https://nuxt.com/docs/guide/directory-structure/app-config
+  icon: i-lucide-git-fork
+  to: /en/quick-start/introduction
   ---
   #title
-  Customize with [Nuxt App Config]{.text-primary}
-  
+  Forkable Design
+
   #description
-  Update colors, social links, header logos and component styles globally using the `app.config.ts`, no direct code modifications required.
+  Built as a template. Change the identity file and the entire configuration adapts to your username, timezone, and preferences.
   :::
 
   :::u-page-feature
   ---
-  icon: i-simple-icons-nuxt
-  target: _blank
-  to: https://content.nuxt.com/studio
+  icon: i-lucide-monitor
+  to: /en/features/desktop
   ---
   #title
-  Edit in production with [Nuxt Studio]{.text-primary}
-  
+  Modern Desktop
+
   #description
-  Edit your content in production with zero Markdown knowledge required. Let your non technical colleagues collaborate on the documentation and integrate Vue components without code skills.
+  Hyprland window manager with smooth animations, blur effects, and window swallowing. Configured and ready to use.
   :::
 
   :::u-page-feature
   ---
-  icon: i-simple-icons-nuxt
-  target: _blank
-  to: https://ui.nuxt.com/components/content-search
+  icon: i-lucide-refresh-cw
+  to: /en/advanced/project-structure
   ---
   #title
-  Built-in navigation and [full-text search]{.text-primary}
-  
+  Reproducible
+
   #description
-  Only focus on ordering your content, Docus handles the search modal and auto-generates the side navigation for you.
+  Nix flakes ensure your system builds the same way every time. Share your config and others get the exact same result.
   :::
 ::
