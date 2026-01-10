@@ -2,7 +2,7 @@
 # https://nix.dev/manual/nix/stable/command-ref/new-cli/nix3-flake
 
 {
-  description = "system config";
+  description = "NixOS Configuration";
 
   # binary caches for faster builds.
   # extra-substituters appends to system substituters (doesn't override).
@@ -58,11 +58,16 @@
 
     antigravity.url = "github:jacopone/antigravity-nix";
     antigravity.inputs.nixpkgs.follows = "nixpkgs";
+
+    firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+    firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
     { self, nixpkgs, ... }@inputs:
     let
+      repo = "dotnix";
+      alias = "sdn";
       utils = import ./utils { inherit inputs; };
       identity = import ./identity.nix;
     in
@@ -74,20 +79,23 @@
       };
 
       # merges custom packages (pkgs/) with system builds (hosts/).
-      # custom: `nix build .#custom` or `nix run .#custom`
+      # custom: `nix build .#<pkg>` (e.g. `nix build .#sdn-update`)
       # system: `nix build .#desktop` (used by ci to verify builds)
       # TODO: research nix-fast-build or devour-flake
       packages.x86_64-linux =
         let
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          custompkgs = import ./pkgs { inherit pkgs; };
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+          };
+          sdnpkgs = import ./pkgs { inherit pkgs repo alias; };
           syspkgs = nixpkgs.lib.mapAttrs (
             hostname: config: config.config.system.build.toplevel
           ) self.nixosConfigurations;
         in
-        custompkgs // syspkgs;
+        sdnpkgs // syspkgs;
 
-      overlays = import ./overlays { inherit inputs; };
+      overlays = import ./overlays { inherit inputs repo alias; };
 
       # auto-discovers hosts by reading directories in hosts/.
       # adding a new host only requires creating hosts/<name>/default.nix,
@@ -100,7 +108,7 @@
         lib.genAttrs (builtins.attrNames hostDirs) (
           hostname:
           utils.mkHost {
-            inherit hostname;
+            inherit hostname repo alias;
             username = identity.username;
             overlays = [
               self.overlays.additions

@@ -9,6 +9,7 @@
     ./performance.nix
     ./system.nix
     ./sops.nix
+    ./security/dns.nix
     ./audio.nix
     ./bluetooth.nix
     ./fonts.nix

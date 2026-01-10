@@ -59,4 +59,20 @@
   # integrate gnome-keyring with login structure.
   # this unlocks the 'login' keyring automatically when you log in to the system.
   security.pam.services.login.enableGnomeKeyring = config.library.display.hyprland.enable;
+
+  # TODO: 1Password as an optional module
+  # https://wiki.nixos.org/wiki/1Password
+  # programs._1password.enable = true;
+  # programs._1password-gui = {
+  #   enable = true;
+  #   polkitPolicyOwners = [ identity.username ];
+  # };
+  # environment.etc."1password/custom_allowed_browsers" = {
+  #   text = ''
+  #     zen
+  #     zen-bin
+  #     .zen-wrapped
+  #   '';
+  #   mode = "0755";
+  # };
 }
