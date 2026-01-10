@@ -1,7 +1,11 @@
 # https://wiki.nixos.org/wiki/Encrypted_DNS
 # https://search.nixos.org/options?query=services.dnscrypt-proxy
 
-{ ... }: {
+{ pkgs, ... }:
+let
+  stateDir = "dnscrypt-proxy";
+in
+{
   services.dnscrypt-proxy = {
     enable = true;
 
@@ -10,39 +14,56 @@
       # servers to use for resolution.
       # see all the list here https://dnscrypt.info/public-servers
       # quad9 is prioritized for its strong privacy policy and threat intelligence.
-      # using doh (dns-over-https) variants for web-standard encryption and firewall traversal.
-      server_names = [ "quad9-doh-ip4" "cloudflare-doh" ];
+      server_names = [ "quad9-doh-ip4-nofilter-ecs-pri" "cloudflare" ];
 
       # listen for incoming dns queries on the local loopback interface.
-      # binds to standard port 53 to act as the primary system-wide resolver.
-      listen_addresses = [ "127.0.0.1:53" "[::1]:53" ];
+      listen_addresses = [ "127.0.0.1:53" ];
 
       # enable dns-over-https (doh) for modern encryption.
-      # doh is harder to block or intercept than standard dnscrypt.
       doh_servers = true;
 
+      # define the source of resolver lists.
+      # without this, dnscrypt-proxy cannot find any servers to use.
+      sources.public-resolvers = {
+        urls = [
+          "https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md"
+          "https://download.dnscrypt.info/resolvers-list/v3/public-resolvers.md"
+        ];
+        minisign_key = "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
+        cache_file = "/var/lib/${stateDir}/public-resolvers.md";
+      };
+
       # enforces dnssec validation.
-      # ensures records haven't been tampered with by checking cryptographic signatures.
       require_dnssec = true;
 
-      # ensures resolvers don't filter results (e.g. for ads or malware).
-      # we prefer unfiltered upstream results to handle filtering ourselves if needed.
+      # ensures resolvers don't log queries.
+      require_nolog = true;
+
+      # ensures resolvers don't filter results.
       require_nofilter = true;
 
-      # ensures timestamps are checked to prevent replay attacks.
-      # requires an accurate system clock (check ntp status if resolution fails).
-      ignore_timestamps = false;
+      # disable ipv6 since it caused binding issues earlier.
+      ipv6_servers = false;
+      block_ipv6 = true;
     };
   };
 
+  # give dnscrypt-proxy a persistent state directory for caching resolver lists.
+  systemd.services.dnscrypt-proxy.serviceConfig.StateDirectory = stateDir;
+
   # force the system to use the local dnscrypt-proxy instance for all queries.
-  networking.nameservers = [ "127.0.0.1" "::1" ];
+  networking.nameservers = [ "127.0.0.1" ];
 
   # prevent networkmanager from overwriting /etc/resolv.conf with dhcp-provided dns.
-  # ensures privacy by ignoring isp-provided resolvers.
   networking.networkmanager.dns = "none";
 
-  # explicitly disable systemd-resolved to avoid port 53 conflicts.
-  # systemd-resolved often binds to port 53 by default, which blocks dnscrypt-proxy.
+  # disable systemd-resolved to avoid port 53 conflicts.
   services.resolved.enable = false;
+
+  environment.systemPackages = with pkgs; [
+    dnsutils # dig, nslookup, host
+    whois # domain registration lookup
+    traceroute # network path tracing
+    mtr # combines ping + traceroute
+  ];
 }
