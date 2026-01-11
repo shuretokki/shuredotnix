@@ -140,6 +140,12 @@
         # Alternative: Quad9 (non-profit, Swiss-based, malware blocking)
         # "network.trr.uri" = "https://dns.quad9.net/dns-query";
 
+        "ui.systemUsesDarkTheme" = 1;
+        "browser.theme.content-theme" = 0;
+        "browser.theme.toolbar-theme" = 0;
+        "browser.in-content.dark-mode" = true;
+        "layout.css.prefers-color-scheme.content-override" = 0;
+
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
       };
 
