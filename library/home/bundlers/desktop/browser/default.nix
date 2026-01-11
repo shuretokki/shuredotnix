@@ -107,7 +107,7 @@
         "privacy.donottrackheader.enabled" = true;
         "privacy.trackingprotection.enabled" = true;
         "privacy.trackingprotection.socialtracking.enabled" = true;
-        "privacy.resistFingerprinting" = true;
+        "privacy.resistFingerprinting" = false;
         "media.peerconnection.enabled" = false; # disable WebRTC
         "webgl.disabled" = true;
         "geo.enabled" = false;
@@ -145,6 +145,8 @@
         "browser.theme.toolbar-theme" = 0;
         "browser.in-content.dark-mode" = true;
         "layout.css.prefers-color-scheme.content-override" = 0;
+
+        "extensions.autoDisableScopes" = 0;
 
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
       };
