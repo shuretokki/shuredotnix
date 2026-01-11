@@ -7,7 +7,7 @@
   programs.opencode.enable = true;
   programs.opencode.settings = {
     theme = "stylix";
-    plugin = [  "opencode-antigravity-auth@beta"
+    plugin = [  "opencode-antigravity-auth"
     "opencode-google-antigravity-auth"
     "oh-my-opencode" ];
   };
