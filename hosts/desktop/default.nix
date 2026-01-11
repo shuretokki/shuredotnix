@@ -5,12 +5,12 @@
 { config, pkgs, identity, ... }: {
   imports = [
     ./hardware-configuration.nix
+    ./gpu.nix
     ../../library/core
     ../../library/profiles/desktop
   ];
 
-  library.core.gpu.nvidia.enable = true;
-  library.core.gpu.nvidia.open = false;
+  # library.core.gpu.nvidia.open = false; # Example override
   library.core.virtualisation.docker.enable = true;
 
   system.stateVersion = "25.11";
