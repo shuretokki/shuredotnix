@@ -10,6 +10,12 @@
   ...
 }:
 {
+  home.sessionVariables = {
+    PAGER = "cat";
+    GIT_PAGER = "cat";
+    SYSTEMD_PAGER = "cat";
+  };
+
   programs.bash = {
     enable = lib.mkDefault true;
     enableCompletion = true;
