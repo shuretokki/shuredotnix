@@ -8,7 +8,6 @@
   programs.opencode.settings = {
     theme = "stylix";
     plugin = [  "opencode-antigravity-auth"
-    "opencode-google-antigravity-auth"
-    "oh-my-opencode" ];
+                "oh-my-opencode" ];
   };
 }

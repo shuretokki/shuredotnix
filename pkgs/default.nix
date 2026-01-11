@@ -2,5 +2,6 @@
   # add your custom packages here...
   "${alias}-update" = pkgs.callPackage ./sys-update { inherit repo alias; };
 
-  # example-tool = pkgs.callPackage ./example-tool { };
+  "captive-portal" = pkgs.callPackage ./captive-portal { };
+  "detect-boot-uuids" = pkgs.callPackage ./detect-boot-uuids { };
 }

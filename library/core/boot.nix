@@ -1,44 +1,103 @@
 # https://wiki.nixos.org/wiki/Bootloader
 # https://search.nixos.org/options?query=boot.loader
 
-{ lib, config, identity, ... }:
+{ lib, config, pkgs, ... }:
+let
+  cfg = config.boot.dualBoot;
+in
 {
+  options.boot.dualBoot = {
+    windows = {
+      enable = lib.mkEnableOption "Windows Dual Boot";
+      uuid = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+        description = "uuid of the windows efi partition. set this if windows is on a different drive.";
+      };
+      label = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+        description = "filesystem label of the windows efi partition.";
+      };
+    };
 
-  boot.loader.efi = {
-    # allow installer to modify EFI boot variables (required for UEFI systems)
-    canTouchEfiVariables = true;
+    macos = {
+      enable = lib.mkEnableOption "MacOS (OpenCore) Dual Boot";
+      uuid = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+        description = "uuid of the macos efi partition. set this if opencore is on a different drive.";
+      };
+      label = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+        description = "filesystem label of the macos efi partition.";
+      };
+    };
+
+    extraEntries = lib.mkOption {
+      type = lib.types.lines;
+      default = "";
+      description = "extra limine configuration entries.";
+    };
   };
 
-  boot.loader.systemd-boot.enable = false;
-  boot.loader.grub.enable = false;
+  config = {
+    boot.loader.efi = {
+      # allow installer to modify efi boot variables (required for uefi systems)
+      canTouchEfiVariables = true;
+    };
 
-  # https://search.nixos.org/options?query=boot.loader.limine
-  boot.loader.limine = {
-    enable = true;
+    boot.loader.systemd-boot.enable = false;
+    boot.loader.grub.enable = false;
 
-    # this requires you to already have generated the keys and enrolled them with sbctl.
-    # to create keys use 'sbctl create-keys'.
-    # to enroll them first reset secure boot to “Setup Mode”. this is device specific.
-    # then enroll them using 'sbctl enroll-keys -m -f'.
-    secureBoot.enable = false;
+    # https://search.nixos.org/options?query=boot.loader.limine
+    boot.loader.limine = {
+      enable = true;
 
-    # maximum number of system generations to display in the boot menu.
-    # a limit prevents the boot partition from running out of space.
-    maxGenerations = lib.mkDefault 10;
+      # this requires you to already have generated the keys and enrolled them with sbctl.
+      # to create keys use 'sbctl create-keys'.
+      # to enroll them first reset secure boot to “Setup Mode”. this is device specific.
+      # then enroll them using 'sbctl enroll-keys -m -f'.
+      secureBoot.enable = false;
 
-    # determines if the limine configuration editor is enabled at boot.
-    # disabling it prevents temporary modification of boot parameters (security).
-    enableEditor = false;
+      # maximum number of system generations to display in the boot menu.
+      # a limit prevents the boot partition from running out of space.
+      maxGenerations = lib.mkDefault 10;
 
-    # limine on NixOS does not have 'osProber' (unlike GRUB).
-    # you must manually add entries for other OSs (Dual Boot).
-    # default windows path: boot():/EFI/Microsoft/Boot/bootmgfw.efi
-    # for macos might be boot():/EFI/BOOT/bootx64.efi or /System/Library/CoreServices/boot.efi
-    # since i can't verify it yet, i willn't add it in
-    extraEntries = ''
-      /Windows
-        protocol: efi_chainload
-        path: boot():/EFI/Microsoft/Boot/bootmgfw.efi
-    '';
+      # determines if the limine configuration editor is enabled at boot.
+      # disabling it prevents temporary modification of boot parameters (security).
+      enableEditor = false;
+
+      # limine on nixos does not have 'osProber' (unlike grub).
+      # we manually generate entries based on dualBoot config.
+      #
+      # windows warning: bitlocker will detect the boot change on first run and ask for recovery key.
+      # macos warning: ensure launcheroption is disabled in opencore config.plist to prevent boot loops.
+      extraEntries = let
+        # helper to construct the protocol line (uuid > label > boot partition)
+        makePrefix = uuid: label:
+          if uuid != null then "uuid(${uuid}):"
+          else if label != null then "label(${label}):"
+          else "boot():";
+
+        winPrefix = makePrefix cfg.windows.uuid cfg.windows.label;
+        macPrefix = makePrefix cfg.macos.uuid cfg.macos.label;
+      in ''
+        ${lib.optionalString cfg.windows.enable ''
+          /Windows
+            protocol: efi_chainload
+            path: ${winPrefix}/EFI/Microsoft/Boot/bootmgfw.efi
+        ''}
+        ${lib.optionalString cfg.macos.enable ''
+          /MacOS
+            protocol: efi_chainload
+            path: ${macPrefix}/EFI/OC/OpenCore.efi
+        ''}
+        ${cfg.extraEntries}
+      '';
+    };
+
+    environment.systemPackages = [ pkgs.detect-boot-uuids ];
   };
 }
