@@ -2,9 +2,6 @@ result
 .direnv
 .envrc
 
-**/hardware-configuration.nix
-!hosts/desktop/hardware-configuration.nix
-
 secrets.nix
 
 .vscode

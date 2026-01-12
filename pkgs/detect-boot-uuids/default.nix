@@ -24,6 +24,10 @@ pkgs.writeShellScriptBin "detect-boot-uuids" ''
   require umount
   require mktemp
 
+  if [ "$EUID" -ne 0 ]; then
+    error "must be run as root (sudo) to mount partitions"
+  fi
+
   dry_run=0
   force=0
   target_host=""
