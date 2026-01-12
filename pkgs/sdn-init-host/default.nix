@@ -83,7 +83,6 @@ pkgs.writeShellScriptBin "${alias}-init-host" ''
 
     set_hostname_line=""
     if [ $dry_run -eq 0 ] && [ -n "$profile" ] && [ -t 0 ]; then
-       # Only interact if we aren't in dry-run/headless mode and have a TTY
        echo ""
        read -p "Set this host as the system default (sets networking.hostName)? [y/N]: " set_host_choice
        case "$set_host_choice" in
@@ -92,7 +91,6 @@ pkgs.writeShellScriptBin "${alias}-init-host" ''
              ;;
        esac
     fi
-    # Also support explicit flag if we add one later, but for now interactive is fine.
 
     content="{ config, pkgs, ... }: {
     imports = [
@@ -124,7 +122,11 @@ pkgs.writeShellScriptBin "${alias}-init-host" ''
        echo "[WARN] skipping ALL hardware scans (config, gpu, boot) to prevent pollution"
 
        echo "{ ... }: { }" > "$target_dir/hardware-configuration.nix"
-       echo "{ ... }: { library.core.gpu.none = true; }" > "$target_dir/gpu.nix"
+       echo "{ ... }: {
+  # library.core.gpu.nvidia.enable = true; # Select your driver
+  # library.core.gpu.amd.enable = true;
+  library.core.gpu.none = true; # Default fallback
+}" > "$target_dir/gpu.nix"
        echo "{ ... }: { }" > "$target_dir/boot.nix"
 
        echo "[ACTION] please populate hardware files in $target_dir manually."
@@ -134,9 +136,11 @@ pkgs.writeShellScriptBin "${alias}-init-host" ''
           echo "[DRY-RUN] run detect-gpu and detect-boot-uuids"
        else
           echo "[INIT] generating hardware-configuration.nix from live system..."
-          if nixos-generate-config --show-hardware-config > "$target_dir/hardware-configuration.nix" 2>/dev/null; then
+          if nixos-generate-config --show-hardware-config > "$target_dir/hardware-configuration.nix.tmp" 2>/dev/null; then
+             mv "$target_dir/hardware-configuration.nix.tmp" "$target_dir/hardware-configuration.nix"
              echo "[OK] generated hardware-configuration.nix"
           else
+             rm -f "$target_dir/hardware-configuration.nix.tmp"
              echo "{ ... }: { }" > "$target_dir/hardware-configuration.nix"
              echo "[WARN] nixos-generate-config failed, created dummy."
           fi
@@ -152,6 +156,12 @@ pkgs.writeShellScriptBin "${alias}-init-host" ''
           $detect_bin $args "$hostname" || echo "[WARN] GPU detection failed"
           $detect_boot $args "$hostname" || echo "[WARN] Boot detection failed"
        fi
+    fi
+
+    if [ $dry_run -eq 0 ] && [ -n "''${SUDO_USER:-}" ]; then
+       user_group=$(id -gn "$SUDO_USER")
+       chown -R "$SUDO_USER:$user_group" "$target_dir"
+       echo "[INFO] restored ownership to $SUDO_USER"
     fi
 
     if [ $dry_run -eq 0 ]; then
