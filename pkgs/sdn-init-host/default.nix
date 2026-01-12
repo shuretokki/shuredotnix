@@ -82,8 +82,8 @@ pkgs.writeShellScriptBin "${alias}-init-host" ''
     fi
 
     set_hostname_line=""
-    if [ $dry_run -eq 0 ] && [ -n "$profile" ]; then
-       # Only interact if we aren't in dry-run/headless mode
+    if [ $dry_run -eq 0 ] && [ -n "$profile" ] && [ -t 0 ]; then
+       # Only interact if we aren't in dry-run/headless mode and have a TTY
        echo ""
        read -p "Set this host as the system default (sets networking.hostName)? [y/N]: " set_host_choice
        case "$set_host_choice" in
@@ -143,6 +143,10 @@ pkgs.writeShellScriptBin "${alias}-init-host" ''
 
           detect_bin="${detect-gpu}/bin/detect-gpu"
           detect_boot="${detect-boot-uuids}/bin/detect-boot-uuids"
+
+          args=""
+          [ $dry_run -eq 1 ] && args="--dry-run"
+          [ $force -eq 1 ] && args="$args --force"
 
           echo "[INIT] detecting hardware..."
           $detect_bin $args "$hostname" || echo "[WARN] GPU detection failed"
