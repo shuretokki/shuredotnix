@@ -22,10 +22,7 @@ pkgs.writeShellScriptBin "detect-boot-uuids" ''
   require grep
   require mount
   require umount
-
-  if [ "$EUID" -ne 0 ]; then
-    echo "[WARNING] not running as root, detection may miss partitions"
-  fi
+  require mktemp
 
   dry_run=0
   force=0
@@ -44,58 +41,51 @@ pkgs.writeShellScriptBin "detect-boot-uuids" ''
   repo_root=$(git rev-parse --show-toplevel 2>/dev/null) || error "must be run inside dotnix repository"
   [ -n "$target_host" ] || target_host=$(hostname)
   target_dir="$repo_root/hosts/$target_host"
-  [ -d "$target_dir" ] || target_dir="$repo_root/hosts/desktop"
+
+  if [ $dry_run -eq 0 ] && [ ! -d "$target_dir" ]; then
+    error "target directory $target_dir does not exist. Initialize host first."
+  fi
+
   target_file="$target_dir/boot.nix"
 
   if [ -f "$target_file" ] && [ $force -eq 0 ] && [ $dry_run -eq 0 ]; then
     error "$target_file exists (use --force to overwrite)"
   fi
 
-  echo "[BOOT] scanning EFI partitions"
+  echo "[BOOT] scanning partitions"
 
   windows_uuid=""
   macos_uuid=""
 
+  WORK_DIR=$(mktemp -d)
+  trap 'rmdir "$WORK_DIR" 2>/dev/null || true' EXIT
+
+  EFI_GUID="c12a7328-f81f-11d2-ba4b-00a0c93ec93b"
+
   while read -r line; do
     eval "$line"
-    # lsblk -P outputs: NAME="value" UUID="value" ... which eval sets as shell vars
-    # must reset vars first to be safe, or just rely on overwrite.
-    # the read loop variable 'line' contains the whole assignment string.
-    # eval "$line" sets key="value" variables in current scope.
 
-    # filter candidates:
-    # 1. FSTYPE is vfat (case insensitive check often needed, but lsblk usually lowercase)
-    # 2. MOUNTPOINT is /boot or /boot/efi
-    is_candidate=0
-    case "$FSTYPE" in
-      *vfat*|*VFAT*) is_candidate=1 ;;
-    esac
-    case "$MOUNTPOINT" in
-      /boot|/boot/efi) is_candidate=1 ;;
-    esac
+    is_efi=0
+    [[ "''${PARTTYPE,,}" == "$EFI_GUID" ]] && is_efi=1
+    [[ "$MOUNTPOINT" == "/boot" || "$MOUNTPOINT" == "/boot/efi" ]] && is_efi=1
 
-    # skip if not candidate or if UUID missing
-    [ $is_candidate -eq 1 ] || continue
+    [ $is_efi -eq 1 ] || continue
     [ -n "$UUID" ] || continue
 
     PART="/dev/$NAME"
     SEARCH_DIR=""
     MOUNTED_TMP=0
 
-    # check if we can search existing mount
     if [ -n "$MOUNTPOINT" ] && [ -d "$MOUNTPOINT" ]; then
        SEARCH_DIR="$MOUNTPOINT"
-    else
-       # try to mount
-       mkdir -p /tmp/efi_check
-       if mount "$PART" /tmp/efi_check 2>/dev/null; then
-          SEARCH_DIR="/tmp/efi_check"
+    elif [ "$EUID" -eq 0 ]; then
+       if mount "$PART" "$WORK_DIR" 2>/dev/null; then
+          SEARCH_DIR="$WORK_DIR"
           MOUNTED_TMP=1
        fi
     fi
 
     if [ -n "$SEARCH_DIR" ]; then
-       # check for bootloaders
        [ -f "$SEARCH_DIR/EFI/Microsoft/Boot/bootmgfw.efi" ] && {
           echo "[BOOT] found Windows: $UUID ($PART)"
           windows_uuid="$UUID"
@@ -105,16 +95,12 @@ pkgs.writeShellScriptBin "detect-boot-uuids" ''
           macos_uuid="$UUID"
        }
 
-       # cleanup
-       [ $MOUNTED_TMP -eq 1 ] && umount /tmp/efi_check
+       [ $MOUNTED_TMP -eq 1 ] && umount "$WORK_DIR"
     fi
 
-    # clear vars for next iter
-    NAME="" UUID="" FSTYPE="" MOUNTPOINT=""
+    NAME="" UUID="" FSTYPE="" MOUNTPOINT="" PARTTYPE=""
 
-  done < <(lsblk -P -o NAME,UUID,FSTYPE,MOUNTPOINT)
-
-  rmdir /tmp/efi_check 2>/dev/null || true
+  done < <(lsblk -P -o NAME,UUID,FSTYPE,MOUNTPOINT,PARTTYPE)
 
   config_body=""
   [ -n "$windows_uuid" ] && config_body="$config_body
@@ -133,7 +119,5 @@ $config_body
   else
     echo "$content" > "$target_file"
     echo "[OK] wrote $target_file"
-    # shellcheck disable=SC2015
-    grep -q "./boot.nix" "$target_dir/default.nix" 2>/dev/null || echo "[NOTE] add ./boot.nix to imports"
   fi
 ''

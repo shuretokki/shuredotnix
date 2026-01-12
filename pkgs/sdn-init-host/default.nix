@@ -20,7 +20,7 @@ pkgs.writeShellScriptBin "${alias}-init-host" ''
   require git
 
   REPO_ROOT=$(git rev-parse --show-toplevel 2>/dev/null) || error "must be run inside dotnix repository"
-  STATE_VERSION="25.11"
+  CURRENT_VERSION=$(nixos-version | cut -d. -f1-2 2>/dev/null || echo "25.11")
 
   hostname=""
   profile=""
@@ -61,38 +61,14 @@ pkgs.writeShellScriptBin "${alias}-init-host" ''
 
   if [ $dry_run -eq 0 ]; then
     mkdir -p "$target_dir"
-    [ -d "$target_dir" ] && [ $force -eq 0 ] && [ "$(ls -A $target_dir)" ] && error "$target_dir exists and not empty"
+    if [ -d "$target_dir" ] && [ $force -eq 0 ] && [ "$(ls -A "$target_dir" 2>/dev/null)" ]; then
+       error "$target_dir exists and not empty (use --force)"
+    fi
   else
     echo "[DRY-RUN] mkdir $target_dir"
   fi
 
-  # hardware-configuration
-  if [ $dry_run -eq 1 ]; then
-    echo "[DRY-RUN] generate hardware-configuration.nix"
-  elif [ -f "/etc/nixos/hardware-configuration.nix" ]; then
-    cp /etc/nixos/hardware-configuration.nix "$target_dir/"
-    echo "[OK] copied hardware-configuration.nix"
-  else
-    echo "{ ... }: { }" > "$target_dir/hardware-configuration.nix"
-    echo "[WARNING] created dummy hardware-configuration.nix"
-  fi
-
-  # detection
-  detect_bin="${detect-gpu}/bin/detect-gpu"
-  detect_boot="${detect-boot-uuids}/bin/detect-boot-uuids"
-  args=""
-  [ $dry_run -eq 1 ] && args="--dry-run"
-  [ $force -eq 1 ] && args="$args --force"
-
-  [ $dry_run -eq 0 ] && touch "$target_dir/default.nix" # anchor for detection
-
-  echo "[INIT] detecting hardware"
-  $detect_bin $args "$hostname" || true
-  $detect_boot $args "$hostname" || true
-
-  # default.nix
-  content="
-{ config, pkgs, ... }: {
+  content="{ config, pkgs, ... }: {
   imports = [
     ./hardware-configuration.nix
     ./gpu.nix
@@ -101,7 +77,7 @@ pkgs.writeShellScriptBin "${alias}-init-host" ''
     ../../library/profiles/''${profile}
   ];
 
-  system.stateVersion = \"''${STATE_VERSION}\";
+  system.stateVersion = \"$CURRENT_VERSION\";
 }
 "
   if [ $dry_run -eq 1 ]; then
@@ -109,6 +85,35 @@ pkgs.writeShellScriptBin "${alias}-init-host" ''
     echo "$content"
   else
     echo "$content" > "$target_dir/default.nix"
+    echo "[OK] generated default.nix"
+  fi
+
+  if [ $dry_run -eq 1 ]; then
+    echo "[DRY-RUN] copy/generate hardware-configuration.nix"
+  else
+    current_host=$(hostname)
+    if [ "$current_host" = "$hostname" ] && [ -f "/etc/nixos/hardware-configuration.nix" ]; then
+      cp /etc/nixos/hardware-configuration.nix "$target_dir/"
+      echo "[OK] copied local hardware-configuration.nix"
+    else
+      echo "{ ... }: { }" > "$target_dir/hardware-configuration.nix"
+      echo "[WARNING] generated dummy hardware-configuration.nix"
+      [ "$current_host" != "$hostname" ] && echo "[ACTION] running on $current_host, target is $hostname. Generate real config manually."
+    fi
+  fi
+
+  detect_bin="${detect-gpu}/bin/detect-gpu"
+  detect_boot="${detect-boot-uuids}/bin/detect-boot-uuids"
+
+  args=""
+  [ $dry_run -eq 1 ] && args="--dry-run"
+  [ $force -eq 1 ] && args="$args --force"
+
+  echo "[INIT] detecting hardware"
+  $detect_bin $args "$hostname" || echo "[WARN] GPU detection failed or skipped"
+  $detect_boot $args "$hostname" || echo "[WARN] Boot detection failed or skipped"
+
+  if [ $dry_run -eq 0 ]; then
     echo "[OK] host initialized"
     echo "Run 'nh os switch -H $hostname' to apply"
   fi
