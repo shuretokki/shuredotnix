@@ -6,6 +6,7 @@
   imports = [
     ./hardware-configuration.nix
     ./gpu.nix
+    ./boot.nix
     ../../library/core
     ../../library/profiles/desktop
   ];

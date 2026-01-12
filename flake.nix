@@ -75,6 +75,7 @@
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
 
       devShells.x86_64-linux = import ./shells.nix {
+        inherit repo alias;
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
       };
 

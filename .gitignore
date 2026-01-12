@@ -1,6 +1,5 @@
 result
 .direnv
-.envrc
 
 secrets.nix
 

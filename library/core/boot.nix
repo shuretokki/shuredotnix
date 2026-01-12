@@ -75,9 +75,8 @@ in
       # windows warning: bitlocker will detect the boot change on first run and ask for recovery key.
       # macos warning: ensure launcheroption is disabled in opencore config.plist to prevent boot loops.
       extraEntries = let
-        # helper to construct the protocol line (uuid > label > boot partition)
         makePrefix = uuid: label:
-          if uuid != null then "uuid(${uuid}):"
+          if uuid != null then "uuid(${lib.toUpper uuid}):"
           else if label != null then "label(${label}):"
           else "boot():";
 
