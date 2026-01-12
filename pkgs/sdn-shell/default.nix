@@ -8,5 +8,11 @@ pkgs.writeShellScriptBin "sdn-shell" ''
     exit 1
   fi
 
-  exec nix develop "$FLAKE_PATH" "$@"
+  SHELL_NAME="${1:-default}"
+
+  CLEAN_NAME="${SHELL_NAME#.}"
+  CLEAN_NAME="${CLEAN_NAME#*#}"
+
+  echo "[SDN] Enter context: $CLEAN_NAME"
+  exec nix develop "$FLAKE_PATH#$CLEAN_NAME" "${@:2}"
 ''
