@@ -9,7 +9,7 @@
 # to customize which features are enabled, override in host config:
 # library.core.bluetooth.enable = false;
 
-{ config, lib, pkgs, identity, ... }: {
+{ config, lib, pkgs, identity, alias, ... }: {
   imports = [
     ../../display
   ];
