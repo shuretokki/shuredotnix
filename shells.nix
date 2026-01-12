@@ -36,7 +36,6 @@ in
       nil
       statix
       deadnix
-      menu
     ]) ++ (builtins.attrValues sdnpkgs);
 
     shellHook = ''

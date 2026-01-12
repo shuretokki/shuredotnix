@@ -27,7 +27,7 @@
 
   # system-wide packages available in $PATH.
   # prefer home-manager for user apps; these are for system-level tools.
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = (with pkgs; [
     wget2 curl git unzip zip sd
     nil nixfmt-rfc-style direnv
 
@@ -35,6 +35,14 @@
     pavucontrol networkmanagerapplet
     qt6Packages.fcitx5-configtool
     typora
+  ]) ++ [
+    config.boot.loader.limine.package # ensure limine-deploy is avail
+    pkgs."${alias}-update"
+    pkgs."${alias}-init-host"
+    pkgs.detect-gpu
+    pkgs.detect-boot-uuids
+    pkgs.menu
+    pkgs.sdn-shell
   ];
 
   # https://search.nixos.org/options?query=programs.localsend

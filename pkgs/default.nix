@@ -11,6 +11,9 @@ in {
   "detect-gpu" = detect-gpu;
   "detect-boot-uuids" = detect-boot-uuids;
 
+  "menu" = pkgs.callPackage ./menu { inherit alias; };
+  "sdn-shell" = pkgs.callPackage ./sdn-shell { inherit repo; identity = import ../identity.nix; };
+
   "${alias}-init-host" = pkgs.callPackage ./sdn-init-host {
     inherit repo alias detect-gpu detect-boot-uuids;
   };
