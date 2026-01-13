@@ -14,6 +14,7 @@
     PAGER = "cat";
     GIT_PAGER = "cat";
     SYSTEMD_PAGER = "cat";
+    DIRENV_LOG_FORMAT = "";
   };
 
   programs.bash = {

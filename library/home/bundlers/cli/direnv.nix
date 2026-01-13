@@ -12,7 +12,7 @@
     # without it, `use nix` runs full evaluation every time
     nix-direnv.enable = true;
 
-    silent = false;
+    silent = true;
 
     config = {
       global = {
