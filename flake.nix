@@ -2,11 +2,6 @@
 # https://nix.dev/manual/nix/stable/command-ref/new-cli/nix3-flake
 
 {
-  description = "NixOS Configuration";
-
-  # binary caches for faster builds.
-  # extra-substituters appends to system substituters (doesn't override).
-  # without matching public keys, nix silently ignores the cache.
   nixConfig = {
     extra-substituters = [
       "https://shuredotnix.cachix.org"
@@ -21,6 +16,8 @@
   };
 
   inputs = {
+    fp.url = "github:hercules-ci/flake-parts";
+
     nixpkgs.url = "nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
@@ -64,58 +61,63 @@
   };
 
   outputs =
-    { self, nixpkgs, ... }@inputs:
+    { fp, nixpkgs, ... }@inputs:
     let
-      repo = "dotnix";
       alias = "sdn";
-      utils = import ./utils { inherit inputs; };
+      repo = "dotnix";
       identity = import ./identity.nix;
-    in
-    {
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
+      utils = import ./utils { inherit inputs; };
+      overlays = import ./overlays { inherit inputs repo alias; };
+    in fp.lib.mkFlake { inherit inputs; } {
+      systems = [
+        "x86_64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
 
-      devShells.x86_64-linux = import ./shells.nix {
-        inherit repo alias;
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      perSystem = { system, pkgs, ... }: {
+        formatter = pkgs.nixfmt-rfc-style;
+        devShells = import ./shells.nix {
+          inherit repo alias pkgs;
+        };
+
+        # merges custom packages (pkgs/) with system builds (hosts/).
+        # custom: `nix build .#<pkg>` (e.g. `nix build .#sdn-update`)
+        # system: `nix build .#desktop` (used by ci to verify builds)
+        # TODO: research nix-fast-build or devour-flake
+        packages =
+          let
+            pkgs' = import inputs.nixpkgs {
+              inherit system;
+              config.allowUnfree = true;
+            };
+            sdnpkgs = import ./pkgs { pkgs = pkgs'; inherit repo alias; };
+            syspkgs = inputs.nixpkgs.lib.mapAttrs (
+              hostname: config: config.config.system.build.toplevel) (
+                inputs.nixpkgs.lib.filterAttrs (n: v: v.pkgs.system == system) (
+                  inputs.self.nixosConfigurations or {}
+                )
+              );
+          in
+          sdnpkgs // syspkgs;
       };
 
-      # merges custom packages (pkgs/) with system builds (hosts/).
-      # custom: `nix build .#<pkg>` (e.g. `nix build .#sdn-update`)
-      # system: `nix build .#desktop` (used by ci to verify builds)
-      # TODO: research nix-fast-build or devour-flake
-      packages.x86_64-linux =
-        let
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            config.allowUnfree = true;
-          };
-          sdnpkgs = import ./pkgs { inherit pkgs repo alias; };
-          syspkgs = nixpkgs.lib.mapAttrs (
-            hostname: config: config.config.system.build.toplevel
-          ) self.nixosConfigurations;
-        in
-        sdnpkgs // syspkgs;
+      flake = {
+        inherit overlays;
 
-      overlays = import ./overlays { inherit inputs repo alias; };
-
-      # auto-discovers hosts by reading directories in hosts/.
-      # adding a new host only requires creating hosts/<name>/default.nix,
-      # no need to manually register it here.
-      nixosConfigurations =
-        let
-          lib = nixpkgs.lib;
-          hostDirs = lib.filterAttrs (n: v: v == "directory") (builtins.readDir ./hosts);
-        in
-        lib.genAttrs (builtins.attrNames hostDirs) (
-          hostname:
-          utils.mkHost {
-            inherit hostname repo alias;
-            username = identity.username;
-            overlays = [
-              self.overlays.additions
-              self.overlays.modifications
-            ];
-          }
-        );
-    };
-}
+        # auto-discovers hosts by reading directories in hosts/.
+        # adding a new host only requires creating hosts/<name>/default.nix,
+        # no need to manually register it here.
+        nixosConfigurations =
+          let hosts = nixpkgs.lib.filterAttrs (n: v: v == "directory") (builtins.readDir ./hosts);
+          in nixpkgs.lib.genAttrs (builtins.attrNames hosts) (hostname: utils.mkHost {
+              inherit hostname repo alias;
+              username = identity.username;
+              overlays = [
+                overlays.additions
+                overlays.modifications
+              ];
+            });
+        };
+      };
+    }
