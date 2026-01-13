@@ -58,14 +58,15 @@ pkgs.writeShellScriptBin "detect-boot-uuids" ''
 
   echo "[BOOT] scanning partitions"
 
-  windows_uuid=""
-  macos_uuid=""
+  windows_partuuid=""
+  macos_partuuid=""
 
   WORK_DIR=$(mktemp -d)
   trap 'rmdir "$WORK_DIR" 2>/dev/null || true' EXIT
 
   EFI_GUID="c12a7328-f81f-11d2-ba4b-00a0c93ec93b"
 
+  # note: limine's uuid() macro requires partuuid (gpt partition guid)
   while read -r line; do
     eval "$line"
 
@@ -74,7 +75,7 @@ pkgs.writeShellScriptBin "detect-boot-uuids" ''
     [[ "$MOUNTPOINT" == "/boot" || "$MOUNTPOINT" == "/boot/efi" ]] && is_efi=1
 
     [ $is_efi -eq 1 ] || continue
-    [ -n "$UUID" ] || continue
+    [ -n "$PARTUUID" ] || continue
 
     PART="/dev/$NAME"
     SEARCH_DIR=""
@@ -91,26 +92,26 @@ pkgs.writeShellScriptBin "detect-boot-uuids" ''
 
     if [ -n "$SEARCH_DIR" ]; then
        [ -f "$SEARCH_DIR/EFI/Microsoft/Boot/bootmgfw.efi" ] && {
-          echo "[BOOT] found Windows: $UUID ($PART)"
-          windows_uuid="$UUID"
+          echo "[BOOT] found Windows: $PARTUUID ($PART)"
+          windows_partuuid="$PARTUUID"
        }
        [ -f "$SEARCH_DIR/EFI/OC/OpenCore.efi" ] && {
-          echo "[BOOT] found macOS: $UUID ($PART)"
-          macos_uuid="$UUID"
+          echo "[BOOT] found macOS: $PARTUUID ($PART)"
+          macos_partuuid="$PARTUUID"
        }
 
        [ $MOUNTED_TMP -eq 1 ] && umount "$WORK_DIR"
     fi
 
-    NAME="" UUID="" FSTYPE="" MOUNTPOINT="" PARTTYPE=""
+    NAME="" UUID="" PARTUUID="" FSTYPE="" MOUNTPOINT="" PARTTYPE=""
 
-  done < <(lsblk -P -o NAME,UUID,FSTYPE,MOUNTPOINT,PARTTYPE)
+  done < <(lsblk -P -o NAME,UUID,PARTUUID,FSTYPE,MOUNTPOINT,PARTTYPE)
 
   config_body=""
-  [ -n "$windows_uuid" ] && config_body="$config_body
-  boot.dualBoot.windows = { enable = true; uuid = \"$windows_uuid\"; };"
-  [ -n "$macos_uuid" ] && config_body="$config_body
-  boot.dualBoot.macos = { enable = true; uuid = \"$macos_uuid\"; };"
+  [ -n "$windows_partuuid" ] && config_body="$config_body
+  boot.dualBoot.windows = { enable = true; uuid = \"$windows_partuuid\"; };"
+  [ -n "$macos_partuuid" ] && config_body="$config_body
+  boot.dualBoot.macos = { enable = true; uuid = \"$macos_partuuid\"; };"
 
   content="{ ... }: {
 $config_body
